@@ -221,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 1994343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5093384, y: 0.5, z: -0.37}
+  m_LocalPosition: {x: -10.69, y: 0.5, z: -0.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 837272637}
   - component: {fileID: 837272636}
   - component: {fileID: 837272635}
+  - component: {fileID: 837272640}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -324,7 +325,6 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 5424113469802938818
   - rid: 5424113469802938846
-  - rid: 5424113469802938847
   - rid: 5424113469802938992
   m_OriginalGraph: {fileID: -2293526602161313452, guid: 6e3573cdb9960d3488d588885ab48d8d, type: 2}
   m_IsInitialised: 0
@@ -348,14 +348,6 @@ MonoBehaviour:
           m_Value1: 12584394538724144074
         Name: Target
         m_Value: {fileID: 1994343}
-    - rid: 5424113469802938847
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 4294855461894790807
-          m_Value1: 2955490843133056000
-        Name: Speed
-        m_Value: 5
     - rid: 5424113469802938992
       type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -455,6 +447,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &837272640
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837272634}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e4a106250d4b4243813629ac2b3f5e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &850713666
 GameObject:
   m_ObjectHideFlags: 0

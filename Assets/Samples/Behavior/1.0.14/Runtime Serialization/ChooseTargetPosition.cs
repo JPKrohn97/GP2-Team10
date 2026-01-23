@@ -11,7 +11,6 @@ namespace Unity.Behavior.SerializationExample
         [SerializeReference] public BlackboardVariable<Vector3> TargetPosition;
         [SerializeReference] public BlackboardVariable<Vector3> Min;
         [SerializeReference] public BlackboardVariable<Vector3> Max;
-        
 
         protected override Status OnStart()
         {
