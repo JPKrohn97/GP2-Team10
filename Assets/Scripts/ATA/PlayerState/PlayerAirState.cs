@@ -2,53 +2,64 @@
 
 public class PlayerAirState : PlayerState
 {
+    private const float MaxFallSpeed = 30f; 
+
     public PlayerAirState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
+
+    public override void Enter()
+    {
+        base.Enter();
+        player.Animator.SetBool("Jump", true);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        player.Animator.SetBool("Jump", false);
+    }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
-        if (player.IsGrounded && player.RB.linearVelocity.y <= 0.01f)
+
+
+        if (player.IsGrounded && player.RB.linearVelocity.y <= 0f)
         {
+
             stateMachine.ChangeState(player.IdleState);
-            return;
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        
-        Vector3 currentVel = player.RB.linearVelocity;
+
+        Vector3 velocity = player.RB.linearVelocity;
+
+        if (velocity.y < 0f)
+        {
+            velocity += Vector3.up * Physics.gravity.y * (player.fallMultiplier - 1f) * Time.fixedDeltaTime;
+        }
+        else if (velocity.y > 0f && !player.JumpAction.IsPressed())
+        {
+            velocity += Vector3.up * Physics.gravity.y * (player.lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
+        }
 
 
-        if (currentVel.y < 0f) 
-        {
-            currentVel += Vector3.up * Physics.gravity.y * (player.fallMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-        else if (currentVel.y > 0f && !player.JumpAction.IsPressed()) // Tuşu bıraktıysa küt diye dur
-        {
-            currentVel += Vector3.up * Physics.gravity.y * (player.lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-        
+        if (velocity.y < -MaxFallSpeed)
+            velocity.y = -MaxFallSpeed;
+
+
         float inputX = player.CurrentMovementInput.x;
+        velocity.z = inputX * player.moveSpeed;
+        velocity.x = 0f;
 
-        currentVel.z = inputX * player.moveSpeed; 
-        currentVel.x = 0; 
+        player.RB.linearVelocity = velocity;
         
-        player.RB.linearVelocity = currentVel;
-
-        if (inputX != 0)
+        if (inputX != 0f)
         {
-            Vector3 direction = new Vector3(0, 0, inputX);
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            float rotationSpeed = 1440f; 
-        
-            player.transform.rotation = Quaternion.RotateTowards(
-                player.transform.rotation, 
-                targetRotation, 
-                rotationSpeed * Time.fixedDeltaTime
-            );
+            float targetY = (inputX > 0f) ? 0f : 180f;
+            player.transform.rotation = Quaternion.Euler(0f, targetY, 0f);
         }
     }
 }
