@@ -22,7 +22,7 @@ public class ChargingEnemyBT : BehaviorTreeBase
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected override Node SetupTree()

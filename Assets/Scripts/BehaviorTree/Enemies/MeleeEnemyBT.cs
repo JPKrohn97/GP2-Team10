@@ -12,6 +12,7 @@ public class MeleeEnemyBT : BehaviorTreeBase
     public int attackDamage = 10;
     public LayerMask playerLayer;
 
+
     [Header("Patrol")]
     public Transform[] waypoints;
 
@@ -22,7 +23,7 @@ public class MeleeEnemyBT : BehaviorTreeBase
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected override Node SetupTree()
@@ -41,5 +42,9 @@ public class MeleeEnemyBT : BehaviorTreeBase
         });
 
         return root;
+    }
+    public void EnableCollider() 
+    {
+    
     }
 }
