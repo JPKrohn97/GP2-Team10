@@ -2,9 +2,9 @@
 
 public class ProjectileController : MonoBehaviour
 {
-    public float speed = 20f;
-    public float lifeTime = 3f; // 3 saniye sonra yok olsun
-    public int damage = 10;
+    public float speed = 10f;
+    public float lifeTime = 3f;
+    public int damage = 20; 
 
     private Rigidbody rb;
 
@@ -12,20 +12,33 @@ public class ProjectileController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         
-        // Mermiyi oluşturulduğu an ileriye (karakterin baktığı yöne) fırlat
-        // Unity 6 kullanıyorsan linearVelocity, eskiyse velocity kullan
-        rb.linearVelocity = transform.forward * speed;
+        rb.linearVelocity = transform.forward * speed; 
 
-        // Sonsuza kadar gitmesin, süre dolunca yok et
         Destroy(gameObject, lifeTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Burada ileride düşmana hasar verme kodunu yazacağız.
-        // Şimdilik sadece duvara (Layer: Ground) çarpınca yok olsun.
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+
+        if (other.CompareTag("Enemy")) 
         {
+
+            /*
+            EnemyBehaviour enemyScript = other.GetComponent<EnemyBehaviour>();
+            
+            if (enemyScript != null)
+            {
+ 
+                enemyScript.TakeDamage(damage, transform.position);
+            }
+            */
+
+   
+            Destroy(gameObject); 
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            
             Destroy(gameObject);
         }
     }

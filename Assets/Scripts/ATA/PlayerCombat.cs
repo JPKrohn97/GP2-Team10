@@ -14,7 +14,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<PlayerController>(); // Değişti
+        player = GetComponent<PlayerController>(); 
         if (leftAttackCollider != null) leftAttackCollider.enabled = false;
         if (rightAttackCollider != null) rightAttackCollider.enabled = false;
     }

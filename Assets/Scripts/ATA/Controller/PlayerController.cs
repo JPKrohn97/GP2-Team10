@@ -1,42 +1,66 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using DG.Tweening; // Tween kullanıyorsunuz
+using DG.Tweening; 
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Referanslar")]
+    #region References
     public Rigidbody RB;
     public Animator Animator;
-    public PlayerCombat Combat;     // Arkadaşının yazdığı Combat scripti
-    public PlayerAnimations AnimationEvents; // Animasyon eventleri için
+    public PlayerCombat Combat;    
+    public PlayerAnimations AnimationEvents; 
     
-    [Header("Ayarlar")]
+    #endregion
+    
+    [Header("Settings")]
     public float moveSpeed = 8f;
-    public float jumpForce = 12f;
+    public float jumpHeight = 3f;
+    public float fallMultiplier = 2.5f;     
+    public float lowJumpMultiplier = 2f;
     
     [Header("Ground Check (Raycast)")]
     public float groundCheckDistance = 0.1f;
     public LayerMask groundLayer;
     private Collider col;
+    
+    public bool IsGrounded => CheckIfGrounded();
 
     [Header("Mutation Interaction")]
     public LayerMask enemyPartLayer;
+    
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    
     public bool IsOnDeadEnemy { get; private set; }
-    public Enemy TargetEnemy { get; private set; } // Mutation için hedef
+    //public EnemyBehaviour TargetEnemy { get; private set; } 
 
     // Input System Class
     public PlayerControls InputHandler; 
     public Vector2 CurrentMovementInput { get; private set; }
 
-    // --- STATE MACHINE ---
+
+    #region InputActions
+    public InputAction JumpAction { get; private set; }
+    public InputAction RangeAction { get; private set; }
+    public InputAction AttackAction { get; private set; }
+    public InputAction InteractAction { get; private set; }
+    
+    #endregion 
+
+    
+    #region States
+
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerIdleState IdleState { get; private set; }
     public PlayerRunState RunState { get; private set; }
     public PlayerJumpState JumpState { get; private set; }
     public PlayerAirState AirState { get; private set; }
     public PlayerSwordAttackState SwordAttackState { get; private set; }
-    public PlayerMutationState MutationState { get; private set; } // YENİ: F tuşu için
+    public PlayerMutationState MutationState { get; private set; }
+    public PlayerRangeAttackState RangeAttackState { get; private set; }
+    
+    #endregion
 
     private void Awake()
     {
@@ -45,24 +69,31 @@ public class PlayerController : MonoBehaviour
         
         RB = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        // Combat ve Animation referanslarını otomatik alalım veya editörden sürükle
+
         if(Combat == null) Combat = GetComponent<PlayerCombat>();
         if(AnimationEvents == null) AnimationEvents = GetComponent<PlayerAnimations>();
         if(Animator == null) Animator = GetComponent<Animator>();
 
-        // State Oluşturma
         IdleState = new PlayerIdleState(this, StateMachine);
         RunState = new PlayerRunState(this, StateMachine);
         JumpState = new PlayerJumpState(this, StateMachine);
         AirState = new PlayerAirState(this, StateMachine);
         SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
         MutationState = new PlayerMutationState(this, StateMachine);
+        RangeAttackState = new PlayerRangeAttackState(this, StateMachine);
     }
 
     private void Start()
     {
+
         InputHandler.Player.Move.performed += ctx => CurrentMovementInput = ctx.ReadValue<Vector2>();
         InputHandler.Player.Move.canceled += ctx => CurrentMovementInput = Vector2.zero;
+
+
+        JumpAction = InputHandler.Player.Jump;
+        RangeAction = InputHandler.Player.Range;
+        AttackAction = InputHandler.Player.Attack;
+        InteractAction = InputHandler.Player.Interact;
 
         StateMachine.Initialize(IdleState);
     }
@@ -79,23 +110,38 @@ public class PlayerController : MonoBehaviour
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
+    
 
-    // --- YARDIMCI METODLAR ---
+    
+    /*
+    public void TriggerMutationByUI(EnemyBehaviour target)
+    {
+        if (target == null) return;
+        TargetEnemy = target;
+        IsOnDeadEnemy = true;
+        StateMachine.ChangeState(MutationState);
+    }
+    */
 
-    // Arkadaşının yazdığı Raycast mantığının aynısı
     public bool CheckIfGrounded()
     {
         return Physics.Raycast(transform.position + 0.1f * Vector3.up, Vector3.down, (col.bounds.extents.y + groundCheckDistance), groundLayer);
     }
 
-    // Enemy Part ile etkileşim (Eski PlayerInput'tan taşındı)
     private void OnTriggerStay(Collider other)
     {
-        // Bitwise kontrol
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) != 0)
         {
-            IsOnDeadEnemy = true;
-            TargetEnemy = other.GetComponentInParent<Enemy>();
+         
+            //EnemyBehaviour foundEnemy = other.GetComponentInParent<EnemyBehaviour>();
+            
+            /*
+            if (foundEnemy != null)
+            {
+                IsOnDeadEnemy = true;
+                TargetEnemy = foundEnemy;
+            }
+            */
         }
     }
 
@@ -104,7 +150,7 @@ public class PlayerController : MonoBehaviour
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             IsOnDeadEnemy = false;
-            TargetEnemy = null;
+            //TargetEnemy = null;
         }
     }
 }

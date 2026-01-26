@@ -19,19 +19,26 @@ public class PlayerGroundedState : PlayerState
         if (player.InputHandler.Player.Attack.triggered) 
         {
             stateMachine.ChangeState(player.SwordAttackState);
-            Debug.Log("saldiri");
+            Debug.Log("saldiri test");
+            return;
+        }
+        
+        //3. Range Attack
+        if (player.RangeAction.triggered) 
+        {
+            stateMachine.ChangeState(player.RangeAttackState);
             return;
         }
 
-        // 3. Jump
+        // 4. Jump
         if (player.InputHandler.Player.Jump.triggered) 
         {
             stateMachine.ChangeState(player.JumpState);
-            Debug.Log("ziplama");
+            Debug.Log("ziplama test");
             return;
         }
 
-        // 4. Fall
+        // 5. Fall
         if (!player.CheckIfGrounded())
         {
             stateMachine.ChangeState(player.AirState);

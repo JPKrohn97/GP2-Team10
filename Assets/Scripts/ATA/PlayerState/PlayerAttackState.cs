@@ -23,6 +23,7 @@ public abstract class PlayerAttackState : PlayerState
         foreach (Collider hitCollider in hitEnemies)
         {
    
+            /*
             EnemyBehaviour targetEnemy = hitCollider.GetComponent<EnemyBehaviour>();
 
        
@@ -35,6 +36,7 @@ public abstract class PlayerAttackState : PlayerState
 
                 Debug.Log("Düşmana Vuruldu!");
             }
+            */
         }
     }
 
@@ -42,7 +44,7 @@ public abstract class PlayerAttackState : PlayerState
     {
         base.LogicUpdate();
 
-        // Süre doldu mu kontrolü
+ 
         if (Time.time >= startTime + attackDuration)
         {
             FinishAttack();
