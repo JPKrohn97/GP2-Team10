@@ -30,18 +30,18 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
+    - MK.Toon.Editor
     - PPv2URPConverters
     - Assembly-CSharp
-    - MK.Toon.Examples
-    - MK.Toon.Editor
     - PsdPlugin
     - MK.Toon
-    - MK.RampCreator
+    - MK.Toon.Examples
+    - MK.MKTextureChannelPacker
     - MK.MeshUtility
     - ScriptablePacker
-    - MK.Toon.URP
+    - MK.RampCreator
     - MK.Toon.URP.Editor
-    - MK.MKTextureChannelPacker
+    - MK.Toon.URP
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
