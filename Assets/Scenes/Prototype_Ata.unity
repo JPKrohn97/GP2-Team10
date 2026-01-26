@@ -718,11 +718,11 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 1390288478}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 40
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -755,11 +755,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0.5, y: 0.5, z: 0.5}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -10}
+  FollowOffset: {x: 5.74, y: 1, z: 0}
 --- !u!4 &574831493
 Transform:
   m_ObjectHideFlags: 0
@@ -1020,7 +1020,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2221,6 +2221,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8607637967851801787, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
   m_PrefabInstance: {fileID: 1513909868}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1390288478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2419653410048775873, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+  m_PrefabInstance: {fileID: 1513909868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1476463505
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,10 +3302,22 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
-  AnimatedTarget: {fileID: 0}
+  AnimatedTarget: {fileID: 2094882836}
   LayerIndex: 0
-  Instructions: []
-  HashOfParent: []
+  Instructions:
+  - FullHash: 1543867322
+    Camera: {fileID: 49789334}
+    ActivateAfter: 0
+    MinDuration: 0
+  - FullHash: 622510993
+    Camera: {fileID: 574831491}
+    ActivateAfter: 0
+    MinDuration: 0
+  HashOfParent:
+  - Hash: 1543867322
+    HashOfParent: 756556552
+  - Hash: 622510993
+    HashOfParent: 756556552
   m_LegacyLookAt: {fileID: 0}
   m_LegacyFollow: {fileID: 0}
 --- !u!4 &2094882839
