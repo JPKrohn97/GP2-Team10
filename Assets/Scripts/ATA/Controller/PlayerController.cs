@@ -166,4 +166,20 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public void SpawnProjectile()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, transform.rotation);
+
+        Rigidbody prb = projectile.GetComponent<Rigidbody>();
+        if (prb == null) return;
+
+        float bulletSpeed = 40f;
+        
+        Vector3 shootDir = transform.forward;
+        shootDir.y = 0f;
+        shootDir.Normalize();
+
+        prb.linearVelocity = shootDir * bulletSpeed;
+    }
+    
 }

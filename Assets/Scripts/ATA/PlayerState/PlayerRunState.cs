@@ -28,7 +28,7 @@ public class PlayerRunState : PlayerGroundedState
 
         if (stateMachine.CurrentState != this) return;
 
-        // Hareket yoksa Idle'a geç
+
         if (player.CurrentMovementInput == Vector2.zero)
         {
             stateMachine.ChangeState(player.IdleState);
