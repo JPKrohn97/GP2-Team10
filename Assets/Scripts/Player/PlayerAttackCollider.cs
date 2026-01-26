@@ -8,7 +8,7 @@ public class PlayerAttackCollider : MonoBehaviour
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
-            enemy.enemyBehaviour.TakeDamage(35, new Vector3(1, transform.position.y, other.transform.position.z));
+            enemy.enemyBehaviour.TakeDamage(35, transform.position);
 
         }
     }
