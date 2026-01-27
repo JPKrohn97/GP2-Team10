@@ -7,10 +7,10 @@ namespace BehaviorTree
         private Transform transform;
         private float attackRange;
 
-        public CheckInAttackRange(Transform transform, float range)
+        public CheckInAttackRange(Transform transform, float attackRange)
         {
             this.transform = transform;
-            this.attackRange = range;
+            this.attackRange = attackRange;
         }
 
         public override NodeState Evaluate()
@@ -19,8 +19,13 @@ namespace BehaviorTree
             if (target == null)
                 return state = NodeState.Failure;
 
-            float distance = Vector3.Distance(transform.position, target.position);
-            return state = distance <= attackRange ? NodeState.Success : NodeState.Failure;
+            // Check distance only on Z-axis
+            float distance = Mathf.Abs(target.position.z - transform.position.z);
+            
+            if (distance <= attackRange)
+                return state = NodeState.Success;
+                
+            return state = NodeState.Failure;
         }
     }
 }
