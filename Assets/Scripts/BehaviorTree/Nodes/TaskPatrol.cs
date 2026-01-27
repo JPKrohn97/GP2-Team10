@@ -12,12 +12,14 @@ namespace BehaviorTree
         private float waitTime = 1f;
         private float waitCounter = 0f;
         private bool isWaiting = false;
+        private Animator animator;  
 
-        public TaskPatrol(Transform transform, NavMeshAgent agent, Transform[] waypoints)
+        public TaskPatrol(Transform transform, NavMeshAgent agent, Transform[] waypoints, Animator animator)
         {
             this.transform = transform;
             this.agent = agent;
             this.waypoints = waypoints;
+            this.animator = animator;   
         }
 
         public override NodeState Evaluate()
@@ -54,13 +56,16 @@ namespace BehaviorTree
                 isWaiting = true;
                 waitCounter = 0f;
                 agent.velocity = Vector3.zero;
+                animator.SetBool("isWalking", false);
             }
             else
             {
                 Vector3 destination = EnemyFacing.GetConstrainedPosition(transform.position, wp.position);
                 agent.SetDestination(destination);
+                animator.SetBool("isWalking", true);
+
             }
-            
+
             return state = NodeState.Running;
         }
     }

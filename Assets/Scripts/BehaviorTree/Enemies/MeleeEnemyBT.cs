@@ -34,11 +34,11 @@ public class MeleeEnemyBT : BehaviorTreeBase
             new Sequence(new List<Node>
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
-                new TaskGoToTarget(transform, agent, attackRange),
+                new TaskGoToTarget(transform, agent, attackRange,animator),
                 new TaskAttack(transform, animator, attackCooldown, attackDamage)
             }),
             // Patrol (when player is not in range)
-            new TaskPatrol(transform, agent, waypoints)
+            new TaskPatrol(transform, agent, waypoints, animator)
         });
 
         return root;

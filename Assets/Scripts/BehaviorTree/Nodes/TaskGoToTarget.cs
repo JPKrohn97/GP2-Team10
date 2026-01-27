@@ -8,13 +8,13 @@ namespace BehaviorTree
         private Transform transform;
         private NavMeshAgent agent;
         private float attackRange;
-
-        public TaskGoToTarget(Transform transform, NavMeshAgent agent, float attackRange)
+        private Animator animator;
+        public TaskGoToTarget(Transform transform, NavMeshAgent agent, float attackRange,Animator animator )
         {
             this.transform = transform;
             this.agent = agent;
             this.attackRange = attackRange;
-            
+            this.animator = animator;
             // Disable automatic NavMeshAgent rotation
             agent.updateRotation = false;
         }
@@ -37,11 +37,13 @@ namespace BehaviorTree
                 // Movement only on Z-axis (keep enemy's X and Y)
                 Vector3 destination = EnemyFacing.GetConstrainedPosition(transform.position, target.position);
                 agent.SetDestination(destination);
-                
+                animator.SetBool("isWalking", true);
+
                 return state = NodeState.Running;
             }
             
             agent.isStopped = true;
+            animator.SetBool("isWalking", false);
             return state = NodeState.Success;
         }
     }

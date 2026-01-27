@@ -24,6 +24,7 @@ public class BossEnemyBT : BehaviorTreeBase
 
     private NavMeshAgent agent;
     private Animator animator;
+    
 
     private void Awake()
     {
@@ -39,14 +40,14 @@ public class BossEnemyBT : BehaviorTreeBase
             new Sequence(new List<Node>
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
-                new TaskGoToTarget(transform, agent, attackRange),
+                new TaskGoToTarget(transform, agent, attackRange, animator),
                 new TaskBossAttack(transform, animator, 
                     lightAttackCooldown, lightAttackDamage,
                     heavyAttackCooldown, heavyAttackDamage, 
                     heavyAttackChance)
             }),
             // Patrol
-            new TaskPatrol(transform, agent, waypoints)
+            new TaskPatrol(transform, agent, waypoints, animator)
         });
 
         return root;

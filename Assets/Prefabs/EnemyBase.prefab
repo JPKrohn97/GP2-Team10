@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 30
-  attackRange: 2
+  attackRange: 1.5
   attackCooldown: 1.5
   attackDamage: 10
   playerLayer:
