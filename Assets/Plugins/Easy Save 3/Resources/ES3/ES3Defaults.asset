@@ -33,10 +33,12 @@ MonoBehaviour:
     - MK.Toon.Editor
     - PPv2URPConverters
     - Assembly-CSharp
+    - PsdPlugin
     - MK.Toon
     - MK.Toon.Examples
     - MK.MKTextureChannelPacker
     - MK.MeshUtility
+    - ScriptablePacker
     - MK.RampCreator
     - MK.Toon.URP.Editor
     - MK.Toon.URP
