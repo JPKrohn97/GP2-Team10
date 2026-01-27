@@ -30,6 +30,9 @@ namespace BehaviorTree
             this.chargeDuration = chargeDuration;
             this.chargeCooldown = cooldown;
             this.chargeDamage = damage;
+            
+            // Disable automatic NavMeshAgent rotation
+            agent.updateRotation = false;
         }
 
         public override NodeState Evaluate()
@@ -46,10 +49,17 @@ namespace BehaviorTree
 
             if (!isCharging)
             {
-                // Start charging
+                // Instant direction change before charge
+                EnemyFacing.FaceTarget(transform, target);
+                
+                // Start charging - Z-axis only
                 isCharging = true;
                 chargeTimer = chargeDuration;
-                chargeDirection = (target.position - transform.position).normalized;
+                
+                // Charge direction only on Z-axis
+                float zDirection = target.position.z > transform.position.z ? 1f : -1f;
+                chargeDirection = new Vector3(0, 0, zDirection);
+                
                 agent.speed = chargeSpeed;
                 animator?.SetTrigger("Charge");
             }
@@ -58,12 +68,13 @@ namespace BehaviorTree
             {
                 chargeTimer -= Time.deltaTime;
                 
-                // Continue charge in the chosen direction
-                agent.SetDestination(new Vector3(0, transform.position.y + chargeDirection.y, transform.position.z + chargeDirection.z*10f));
+                // Continue charge in chosen direction (Z-axis only)
+                Vector3 chargeTarget = transform.position + chargeDirection * 10f;
+                chargeTarget.x = transform.position.x; // Lock X-axis
+                agent.SetDestination(chargeTarget);
 
                 if (chargeTimer <= 0)
                 {
-                    // End charge
                     isCharging = false;
                     agent.speed = normalSpeed;
                     cooldownTimer = chargeCooldown;

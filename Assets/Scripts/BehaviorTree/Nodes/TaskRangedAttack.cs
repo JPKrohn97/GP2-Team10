@@ -29,24 +29,24 @@ namespace BehaviorTree
             if (target == null)
                 return state = NodeState.Failure;
 
-            // Rotate towards the player
-            Vector3 direction = (target.position - transform.position).normalized;
-            direction.y = 0;
-            if (direction != Vector3.zero)
-                transform.rotation = Quaternion.LookRotation(direction);
+            // Instant direction change - left/right only
+            EnemyFacing.FaceTarget(transform, target);
 
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 lastAttackTime = Time.time;
                 animator?.SetTrigger("Attack");
                 
-                // Shoot projectile
+                // Shoot projectile - only on Z-axis
                 if (projectilePrefab != null && firePoint != null)
                 {
                     GameObject projectile = Object.Instantiate(projectilePrefab, 
                         firePoint.position, firePoint.rotation);
                     
-                    Vector3 shootDir = (target.position - firePoint.position).normalized;
+                    // Projectile direction only on Z-axis
+                    float zDir = target.position.z > transform.position.z ? 1f : -1f;
+                    Vector3 shootDir = new Vector3(0, 0, zDir);
+                    
                     if (projectile.TryGetComponent<Rigidbody>(out var rb))
                         rb.linearVelocity = shootDir * projectileSpeed;
                 }

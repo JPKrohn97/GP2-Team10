@@ -35,11 +35,8 @@ namespace BehaviorTree
             if (target == null)
                 return state = NodeState.Failure;
 
-            // Rotate towards the player
-            Vector3 direction = (target.position - transform.position).normalized;
-            direction.y = 0;
-            if (direction != Vector3.zero)
-                transform.rotation = Quaternion.LookRotation(direction);
+            // Instant direction change - left/right only
+            EnemyFacing.FaceTarget(transform, target);
 
             lightTimer -= Time.deltaTime;
             heavyTimer -= Time.deltaTime;

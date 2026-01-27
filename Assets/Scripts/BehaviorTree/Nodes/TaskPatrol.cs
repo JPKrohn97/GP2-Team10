@@ -19,6 +19,9 @@ namespace BehaviorTree
             this.transform = transform;
             this.agent = agent;
             this.waypoints = waypoints;
+            
+            // Disable automatic NavMeshAgent rotation
+            agent.updateRotation = false;
         }
 
         public override NodeState Evaluate()
@@ -38,6 +41,10 @@ namespace BehaviorTree
             else
             {
                 Transform wp = waypoints[currentWaypointIndex];
+                
+                // Instant direction change towards waypoint
+                EnemyFacing.FaceDirection(transform, wp.position);
+                
                 if (Vector3.Distance(transform.position, wp.position) < 0.5f)
                 {
                     isWaiting = true;
@@ -45,7 +52,9 @@ namespace BehaviorTree
                 }
                 else
                 {
-                    agent.SetDestination(wp.position);
+                    // Movement only on Z-axis
+                    Vector3 destination = EnemyFacing.GetConstrainedPosition(transform.position, wp.position);
+                    agent.SetDestination(destination);
                 }
             }
             return state = NodeState.Running;
