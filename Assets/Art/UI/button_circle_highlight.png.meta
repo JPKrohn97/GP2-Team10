@@ -1,12 +1,20 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ithappy/Adventure_Land/Shaders/Shader_Textures/Foam.png.meta
+guid: 2f294601278f14b42a201ef72afe8e9c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+========
 guid: d47cb0ca01925af44b782b2b8c3864ab
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
+>>>>>>>> b1ea9ed (Revert "Merge branch 'AnilPrototype' into Ata"):Assets/Art/UI/button_circle_highlight.png.meta
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,10 +45,10 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
+    wrapU: 0
+    wrapV: 0
     wrapW: 0
-  nPOTScale: 0
+  nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
@@ -52,9 +60,13 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
+<<<<<<<< HEAD:Assets/ithappy/Adventure_Land/Shaders/Shader_Textures/Foam.png.meta
+  textureType: 0
+========
   textureType: 8
+>>>>>>>> b1ea9ed (Revert "Merge branch 'AnilPrototype' into Ata"):Assets/Art/UI/button_circle_highlight.png.meta
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -64,7 +76,10 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+<<<<<<<< HEAD:Assets/ithappy/Adventure_Land/Shaders/Shader_Textures/Foam.png.meta
+========
   swizzle: 50462976
+>>>>>>>> b1ea9ed (Revert "Merge branch 'AnilPrototype' into Ata"):Assets/Art/UI/button_circle_highlight.png.meta
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
@@ -103,7 +118,22 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+<<<<<<<< HEAD:Assets/ithappy/Adventure_Land/Shaders/Shader_Textures/Foam.png.meta
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+========
     ignorePlatformSupport: 0
+>>>>>>>> b1ea9ed (Revert "Merge branch 'AnilPrototype' into Ata"):Assets/Art/UI/button_circle_highlight.png.meta
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
