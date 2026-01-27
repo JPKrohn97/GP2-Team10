@@ -59,7 +59,7 @@ namespace BehaviorTree
                 chargeTimer -= Time.deltaTime;
                 
                 // Continue charge in the chosen direction
-                agent.SetDestination(transform.position + chargeDirection * 10f);
+                agent.SetDestination(new Vector3(0, transform.position.y + chargeDirection.y, transform.position.z + chargeDirection.z*10f));
 
                 if (chargeTimer <= 0)
                 {

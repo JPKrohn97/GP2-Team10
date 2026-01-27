@@ -66,7 +66,7 @@ MonoBehaviour:
   attackDamage: 10
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 256
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   projectileSpeed: 20
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 256
   firePoint: {fileID: 0}
   projectilePrefab: {fileID: 768197096772467666, guid: 523a6e8cbe9d57c44add0227cabad92c, type: 3}
   waypoints: []
@@ -111,7 +111,7 @@ MonoBehaviour:
   chargeDamage: 25
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 256
   waypoints: []
 --- !u!114 &5441305060347419378
 MonoBehaviour:
@@ -129,7 +129,7 @@ MonoBehaviour:
   attackRange: 3
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 256
   lightAttackCooldown: 1
   lightAttackDamage: 15
   heavyAttackCooldown: 4
@@ -163,7 +163,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 999999
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
