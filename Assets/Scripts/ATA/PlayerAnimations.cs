@@ -118,14 +118,6 @@ public class PlayerAnimations : MonoBehaviour
         if(player != null && player.Combat != null) 
             player.Combat.EnableLeftAttackCollider();
     }
-    
-    public void RangeAttackEvent()
-    {
-        if (player != null)
-        {
-            player.SpawnProjectile();
-        }
-    }
 
     public void DisableLeftAttackColliderEvent()
     {
