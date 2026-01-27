@@ -1,19 +1,19 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StoneGravityWell : MonoBehaviour
 {
     public float forceStrength = 12f;
     public float destroyDelay = 0.3f;
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)   //  3D trigger
     {
         if (other.CompareTag("Player"))
         {
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+            Rigidbody rb = other.GetComponent<Rigidbody>(); //  3D rigidbody
             if (rb != null)
             {
-                Vector2 dir = (other.transform.position - transform.position).normalized;
-                rb.AddForce(dir * forceStrength, ForceMode2D.Impulse);
+                Vector3 dir = (other.transform.position - transform.position).normalized;
+                rb.AddForce(dir * forceStrength, ForceMode.Impulse); //  3D force
             }
 
             Destroy(gameObject, destroyDelay);

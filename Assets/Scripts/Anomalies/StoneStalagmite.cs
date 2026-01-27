@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StoneStalagmite : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class StoneStalagmite : MonoBehaviour
         visiblePosition = hiddenPosition + Vector3.up * 1.2f;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)   // 
     {
         if (activated) return;
 
