@@ -25,6 +25,15 @@ namespace BehaviorTree
         }
 
         public abstract NodeState Evaluate();
+        
+        // Get root node of the tree
+        public Node GetRoot()
+        {
+            Node node = this;
+            while (node.parent != null)
+                node = node.parent;
+            return node;
+        }
 
         public void SetData(string key, object value) => dataContext[key] = value;
 

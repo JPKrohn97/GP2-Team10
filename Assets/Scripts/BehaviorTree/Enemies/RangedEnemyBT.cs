@@ -37,7 +37,7 @@ public class RangedEnemyBT : BehaviorTreeBase
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
                 new CheckInAttackRange(transform, attackRange),
-                new TaskRangedAttack(transform, firePoint, projectilePrefab, 
+                new TaskRangedAttack(transform, agent, firePoint, projectilePrefab, 
                     animator, attackCooldown, projectileSpeed)
             }),
             // Patrol

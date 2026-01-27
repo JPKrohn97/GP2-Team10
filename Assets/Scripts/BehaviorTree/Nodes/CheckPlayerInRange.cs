@@ -17,28 +17,34 @@ namespace BehaviorTree
 
         public override NodeState Evaluate()
         {
-            object target = GetData("target");
-            if (target == null)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
+            
+            if (colliders.Length > 0)
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
-                if (colliders.Length > 0)
+                Transform closestTarget = null;
+                float closestDistance = float.MaxValue;
+                
+                foreach (var col in colliders)
                 {
-                    parent.parent.SetData("target", colliders[0].transform);
+                    float distanceZ = Mathf.Abs(col.transform.position.z - transform.position.z);
+                    if (distanceZ < closestDistance)
+                    {
+                        closestDistance = distanceZ;
+                        closestTarget = col.transform;
+                    }
+                }
+                
+                if (closestTarget != null && closestDistance <= detectionRange)
+                {
+                    // Store in ROOT node so all siblings can access it
+                    GetRoot().SetData("target", closestTarget);
                     return state = NodeState.Success;
                 }
-                return state = NodeState.Failure;
             }
-
-            Transform targetTransform = (Transform)target;
-            float distance = Vector3.Distance(transform.position, targetTransform.position);
             
-            // Hysteresis to prevent flickering
-            if (distance > detectionRange * 1.2f)
-            {
-                ClearData("target");
-                return state = NodeState.Failure;
-            }
-            return state = NodeState.Success;
+            // Clear from root
+            GetRoot().ClearData("target");
+            return state = NodeState.Failure;
         }
     }
 }
