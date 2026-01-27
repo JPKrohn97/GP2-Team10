@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    // Returns Success if any child returns Success (OR logic)
     public class Selector : Node
     {
         public Selector() : base() { }
@@ -10,15 +9,20 @@ namespace BehaviorTree
 
         public override NodeState Evaluate()
         {
-            foreach (Node node in children)
+            // Always check from the beginning (priority order)
+            foreach (Node child in children)
             {
-                switch (node.Evaluate())
+                switch (child.Evaluate())
                 {
-                    case NodeState.Failure: continue;
-                    case NodeState.Success: return state = NodeState.Success;
-                    case NodeState.Running: return state = NodeState.Running;
+                    case NodeState.Running:
+                        return state = NodeState.Running;
+                    case NodeState.Success:
+                        return state = NodeState.Success;
+                    case NodeState.Failure:
+                        continue;
                 }
             }
+            
             return state = NodeState.Failure;
         }
     }

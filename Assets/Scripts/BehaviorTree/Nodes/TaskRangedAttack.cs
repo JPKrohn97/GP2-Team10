@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace BehaviorTree
 {
@@ -8,19 +9,24 @@ namespace BehaviorTree
         private Transform firePoint;
         private GameObject projectilePrefab;
         private Animator animator;
+        private NavMeshAgent agent;
         private float attackCooldown;
         private float lastAttackTime;
         private float projectileSpeed;
 
-        public TaskRangedAttack(Transform transform, Transform firePoint, GameObject projectile, 
-            Animator animator, float cooldown, float speed)
+        public TaskRangedAttack(Transform transform, NavMeshAgent agent, Transform firePoint, 
+            GameObject projectile, Animator animator, float cooldown, float speed)
         {
             this.transform = transform;
+            this.agent = agent;
             this.firePoint = firePoint;
             this.projectilePrefab = projectile;
             this.animator = animator;
             this.attackCooldown = cooldown;
             this.projectileSpeed = speed;
+            
+            // Disable automatic NavMeshAgent rotation
+            agent.updateRotation = false;
         }
 
         public override NodeState Evaluate()
@@ -29,6 +35,9 @@ namespace BehaviorTree
             if (target == null)
                 return state = NodeState.Failure;
 
+            // Stop movement while attacking
+            agent.isStopped = true;
+            
             // Instant direction change - left/right only
             EnemyFacing.FaceTarget(transform, target);
 
