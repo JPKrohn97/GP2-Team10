@@ -9,7 +9,7 @@ public class PlayerAttackCollider : MonoBehaviour
             EnemyHealth enemy = other.GetComponent<EnemyHealth>();
 
             enemy.TakeDamage(35);
-
+            ManagerCinemachine.Instance.CinemachineCameraShake();
         }
     }
 }

@@ -12,10 +12,14 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
     {
         animator.SetTrigger("NormalCamera");
     }
-    public void CinemachineShake(float intensity, float time)
+    //public void CinemachineShake(float intensity, float time)
+    //{
+    //    animator.SetFloat("ShakeIntensity", intensity);
+    //    animator.SetFloat("ShakeTime", time);
+    //    animator.SetTrigger("Shake");
+    //}
+    public void CinemachineCameraShake()
     {
-        animator.SetFloat("ShakeIntensity", intensity);
-        animator.SetFloat("ShakeTime", time);
-        animator.SetTrigger("Shake");
+
     }
 }
