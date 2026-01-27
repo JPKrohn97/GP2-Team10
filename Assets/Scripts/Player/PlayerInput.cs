@@ -33,6 +33,12 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
 
+#if UNITY_MOBILE
+
+
+
+
+#elif UNITY_STANDALONE || UNITY_WEBGL
         moveInput = 0;
         if (Input.GetKey(KeyCode.A)) moveInput = -1;
         else if (Input.GetKey(KeyCode.D)) moveInput = 1;
