@@ -7,9 +7,10 @@ public class EnemyWeaponCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
-            IDamageable damageable = other.GetComponent<IDamageable>();
+            IDamageable damageable = other.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
                 damageable.TakeDamage(damage);

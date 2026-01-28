@@ -75,17 +75,32 @@ public class PlayerAnimations : MonoBehaviour
 
     public void PlayComboAnimation(int step)
     {
-       
         animator.ResetTrigger(Attack0Hash);
         animator.ResetTrigger(Attack1Hash);
         animator.ResetTrigger(Attack2Hash);
+        
 
+        if (player != null) player.IsFinalComboActive = false; 
 
         switch (step)
         {
-            case 0: animator.SetTrigger(Attack0Hash); break;
-            case 1: animator.SetTrigger(Attack1Hash); break;
-            case 2: animator.SetTrigger(Attack2Hash); break;
+            case 0: 
+                animator.SetTrigger(Attack0Hash);
+                if(ManagerCinemachine.Instance != null)
+                    ManagerCinemachine.Instance.HitImpact(0.05f, 0.1f); 
+                break;
+
+            case 1:
+                animator.SetTrigger(Attack1Hash);
+                if(ManagerCinemachine.Instance != null)
+                    ManagerCinemachine.Instance.HitImpact(0.05f, 0.1f);
+                break;
+
+            case 2: 
+                animator.SetTrigger(Attack2Hash);
+                if (player != null)
+                    player.IsFinalComboActive = true; 
+                break;
         }
     }
 

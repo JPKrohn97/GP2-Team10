@@ -14,8 +14,18 @@ namespace BehaviorTree
         private float lastAttackTime;
         private float projectileSpeed;
 
-        public TaskRangedAttack(Transform transform, NavMeshAgent agent, Transform firePoint, 
-            GameObject projectile, Animator animator, float cooldown, float speed)
+        private EnemyHealth enemyHealth; // ✅
+
+        public TaskRangedAttack(
+            Transform transform,
+            NavMeshAgent agent,
+            Transform firePoint,
+            GameObject projectile,
+            Animator animator,
+            float cooldown,
+            float speed,
+            EnemyHealth enemyHealth // ✅
+        )
         {
             this.transform = transform;
             this.agent = agent;
@@ -24,38 +34,42 @@ namespace BehaviorTree
             this.animator = animator;
             this.attackCooldown = cooldown;
             this.projectileSpeed = speed;
-            
-            // Disable automatic NavMeshAgent rotation
+            this.enemyHealth = enemyHealth;
+
             agent.updateRotation = false;
         }
 
         public override NodeState Evaluate()
         {
+            if (enemyHealth != null && enemyHealth.IsDead)
+                return state = NodeState.Failure;
+
             Transform target = (Transform)GetData("target");
             if (target == null)
                 return state = NodeState.Failure;
 
-            // Stop movement while attacking
             agent.isStopped = true;
-            
-            // Instant direction change - left/right only
             EnemyFacing.FaceTarget(transform, target);
 
             if (Time.time - lastAttackTime >= attackCooldown)
             {
+                if (enemyHealth != null && enemyHealth.IsDead)
+                    return state = NodeState.Failure;
+
                 lastAttackTime = Time.time;
                 animator?.SetTrigger("Attack");
-                
-                // Shoot projectile - only on Z-axis
+
                 if (projectilePrefab != null && firePoint != null)
                 {
-                    GameObject projectile = Object.Instantiate(projectilePrefab, 
-                        firePoint.position, firePoint.rotation);
-                    
-                    // Projectile direction only on Z-axis
+                    GameObject projectile = Object.Instantiate(
+                        projectilePrefab,
+                        firePoint.position,
+                        firePoint.rotation
+                    );
+
                     float zDir = target.position.z > transform.position.z ? 1f : -1f;
                     Vector3 shootDir = new Vector3(0, 0, zDir);
-                    
+
                     if (projectile.TryGetComponent<Rigidbody>(out var rb))
                         rb.linearVelocity = shootDir * projectileSpeed;
                 }

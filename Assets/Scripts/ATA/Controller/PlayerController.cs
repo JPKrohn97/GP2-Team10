@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public Animator Animator;
     public PlayerCombat Combat;
     public PlayerAnimations AnimationEvents;
+    public EnemyHealth CurrentDeadEnemy { get; private set; }
+    
     #endregion
 
     [Header("Settings")]
@@ -32,8 +34,12 @@ public class PlayerController : MonoBehaviour
 
     public GameObject projectilePrefab;
     public Transform firePoint;
+    
 
     public bool IsOnDeadEnemy { get; private set; }
+    public bool IsFinalComboActive { get; set; }
+    
+
 
     // Input System Class
     public PlayerControls InputHandler;
@@ -153,6 +159,14 @@ public class PlayerController : MonoBehaviour
 
         enemyPartContacts++;
         IsOnDeadEnemy = true;
+        
+        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+    
+
+        if (enemy != null && enemy.IsDead)
+        {
+            CurrentDeadEnemy = enemy;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -160,26 +174,35 @@ public class PlayerController : MonoBehaviour
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
 
         enemyPartContacts = Mathf.Max(0, enemyPartContacts - 1);
+    
+
         if (enemyPartContacts == 0)
         {
             IsOnDeadEnemy = false;
+            CurrentDeadEnemy = null; 
         }
     }
     
     public void SpawnProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, transform.rotation);
+        GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
 
-        Rigidbody prb = projectile.GetComponent<Rigidbody>();
-        if (prb == null) return;
-
-        float bulletSpeed = 40f;
+        if (projectile != null)
+        {
+            Rigidbody prb = projectile.GetComponent<Rigidbody>();
         
-        Vector3 shootDir = transform.forward;
-        shootDir.y = 0f;
-        shootDir.Normalize();
-
-        prb.linearVelocity = shootDir * bulletSpeed;
+  
+            prb.linearVelocity = Vector3.zero;
+            prb.angularVelocity = Vector3.zero;
+            
+            prb.linearVelocity = transform.forward * 30f;
+        }
+    }
+    
+    public void ApplyKnockback(Vector3 dir, float force)
+    {
+        dir.y = 0f;
+        RB.AddForce(dir.normalized * force, ForceMode.Impulse);
     }
     
 }

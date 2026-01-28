@@ -1,45 +1,48 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class ProjectileController : MonoBehaviour
 {
-    public float speed = 10f;
-    public float lifeTime = 3f;
     public int damage = 20; 
+    public float lifeTime = 5f;
 
-    private Rigidbody rb;
-
-    void Start()
+    private void OnEnable()
     {
-        rb = GetComponent<Rigidbody>();
-        
-        rb.linearVelocity = transform.forward * speed; 
-
-        Destroy(gameObject, lifeTime);
+        StartCoroutine(DeactivateRoutine());
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Enemy")) 
+        if (other.CompareTag("Enemy"))
         {
-
-            /*
-            EnemyBehaviour enemyScript = other.GetComponent<EnemyBehaviour>();
+      
+            IDamageable target = other.GetComponentInParent<IDamageable>();
             
-            if (enemyScript != null)
+            if (target != null)
             {
- 
-                enemyScript.TakeDamage(damage, transform.position);
+                target.TakeDamage(damage);
+                ReturnToPool(); 
+                return;
             }
-            */
+        }
 
-   
-            Destroy(gameObject); 
-        }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (!other.CompareTag("Player") && !other.isTrigger)
         {
-            
-            Destroy(gameObject);
+            ReturnToPool();
         }
+    }
+
+
+    private void ReturnToPool()
+    {
+        StopAllCoroutines(); 
+        ManagerObjectPool.Instance.Despawn(ObjectPoolType.Projectile, gameObject);
+    }
+
+    IEnumerator DeactivateRoutine()
+    {
+        yield return new WaitForSeconds(lifeTime);
+        ReturnToPool();
     }
 }

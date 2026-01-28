@@ -50,7 +50,7 @@ public class ManagerObjectPool : Singleton<ManagerObjectPool>
         //t.transform.localRotation = Quaternion.identity;
         return clone;
     }
-    public GameObject Spawn(ObjectPoolType poolType, Vector3 pos)
+    public GameObject Spawn(ObjectPoolType poolType, Vector3 pos,Quaternion rot)
     {
         ObjectPool pool = GetObjectPool(poolType);
         if (pool == null) return null;
@@ -59,6 +59,7 @@ public class ManagerObjectPool : Singleton<ManagerObjectPool>
         if (clone == null) return null;
 
         clone.transform.position = pos;
+        clone.transform.rotation = rot;
         clone.SetActive(true);
         //t.transform.localRotation = Quaternion.identity;
         return clone;

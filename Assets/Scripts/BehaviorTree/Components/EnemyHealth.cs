@@ -5,55 +5,53 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private EnemyAnimatorController animatorController;
+    [SerializeField] private Collider interactionCollider;
 
     private BehaviorTreeBase behaviorTree;
     private int currentHealth;
 
+    public bool IsDead { get; private set; }
+
     private void Awake()
     {
         currentHealth = maxHealth;
+
         behaviorTree = GetComponent<BehaviorTreeBase>();
-        
+
         if (animatorController == null)
             animatorController = GetComponentInChildren<EnemyAnimatorController>();
+
+        if (interactionCollider != null)
+            interactionCollider.enabled = false;
     }
 
     public void TakeDamage(int damage)
     {
-        if (currentHealth <= 0) return;
+        if (IsDead) return;
 
         currentHealth -= damage;
-        Debug.Log($"Enemy took {damage} damage. Health: {currentHealth}/{maxHealth}");
-
         if (currentHealth <= 0)
-        {
             Die();
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(25);
-        }
     }
 
     private void Die()
     {
-        Debug.Log("Enemy died");
+        IsDead = true;
 
-        // Enable ragdoll (handles all physics components)
-        if (animatorController)
-        {
+        if (animatorController != null)
             animatorController.EnableRagdoll();
-        }
 
-        // Disable behavior tree
-        if (behaviorTree) 
+        if (behaviorTree != null)
             behaviorTree.enabled = false;
 
-        // Destroy after delay
-        Destroy(gameObject, 5f);
+        if (interactionCollider != null)
+            interactionCollider.enabled = true;
+
+        Destroy(gameObject, 30f);
+    }
+
+    public void ConsumeBody()
+    {
+        Destroy(gameObject);
     }
 }

@@ -11,7 +11,8 @@ public enum ObjectPoolType
     BloodHitParticle1,
     BloodHitParticle2,
     BiteParticle,
-    Projectile
+    Projectile,
+    ClawParticle
 
 
 }
