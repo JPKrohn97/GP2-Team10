@@ -364,6 +364,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  healthAnimDuration: 0.25
+  healthEase: 9
   healthSlider: {fileID: 122410497}
   damageImage: {fileID: 24825771}
 --- !u!1 &77309873
@@ -804,6 +806,10 @@ MonoBehaviour:
   - ObjectPoolType: 7
     Prefab: {fileID: 6538910227845178582, guid: d6deef8a273e3b341a5b0a969d579eb8, type: 3}
     MaximumInstanceCount: 25
+    ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 8
+    Prefab: {fileID: 1190165961247154, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+    MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
 --- !u!4 &436616334
 Transform:
