@@ -26,6 +26,7 @@ public class RangedEnemyBT : BehaviorTreeBase
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        enemyHealth = GetComponent<EnemyHealth>();
     }
 
     protected override Node SetupTree()
