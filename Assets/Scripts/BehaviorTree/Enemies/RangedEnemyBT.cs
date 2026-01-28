@@ -21,7 +21,7 @@ public class RangedEnemyBT : BehaviorTreeBase
 
     private NavMeshAgent agent;
     private Animator animator;
-
+    private EnemyHealth enemyHealth;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -38,7 +38,7 @@ public class RangedEnemyBT : BehaviorTreeBase
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
                 new CheckInAttackRange(transform, attackRange),
                 new TaskRangedAttack(transform, agent, firePoint, projectilePrefab, 
-                    animator, attackCooldown, projectileSpeed)
+                    animator, attackCooldown, projectileSpeed,enemyHealth)
             }),
             // Patrol
             new TaskPatrol(transform, agent, waypoints, animator)
