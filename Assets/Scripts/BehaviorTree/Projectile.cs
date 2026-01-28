@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using DG.Tweening;
+using System.Collections;
 public class Projectile : MonoBehaviour
 {
     [Header("Settings")]
@@ -17,9 +18,15 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, lifetime);
+        //DOVirtual.DelayedCall(lifetime, () => {ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);});
+        StartCoroutine(LifeTimeDespawn());
     }
+    IEnumerator LifeTimeDespawn() 
+    { 
+        yield return new WaitForSeconds(lifetime);
+        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
 
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (hasHit) return;
@@ -39,7 +46,7 @@ public class Projectile : MonoBehaviour
         
         SpawnHitEffect();
         
-        Destroy(gameObject);
+        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -48,7 +55,7 @@ public class Projectile : MonoBehaviour
         hasHit = true;
 
         SpawnHitEffect();
-        Destroy(gameObject);
+        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
     }
 
     private void SpawnHitEffect()

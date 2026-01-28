@@ -13,7 +13,8 @@ public enum ObjectPoolType
     BiteParticle,
     Projectile,
     ClawParticle,
-    TestParticle
+    TestParticle,
+    EnemyProjectile
 
 
 }
