@@ -10,7 +10,9 @@ public class EnemyAnimatorController : MonoBehaviour
     [Header("Ragdoll")]
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody[] ragdollRigidbodies;
-    
+    [SerializeField] private Collider[] ragdollColliders;
+
+
     [Header("Components to Disable on Death")]
     [SerializeField] private Collider mainCollider;
     [SerializeField] private NavMeshAgent agent;
@@ -83,6 +85,10 @@ public class EnemyAnimatorController : MonoBehaviour
         {
             rb.isKinematic = !isRagdoll;
             rb.detectCollisions = isRagdoll;
+        }
+        foreach (Collider col in ragdollColliders)
+        {
+            col.enabled = isRagdoll;
         }
     }
 
