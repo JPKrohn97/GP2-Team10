@@ -35,16 +35,16 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
 
     IEnumerator FinisherRoutine()
     {
-        // A. Hit Kamerasına geç (Zoom yapar)
         animator.SetTrigger("HitCamera");
 
-        // B. Zamanı yavaşlat (Matrix efekti)
-        Time.timeScale = 0.1f;
+        Time.timeScale = 0.2f;
 
-        // C. Bekle (Gerçek hayatta 0.2 sn, oyunda çok daha uzun hissettirir)
-        yield return new WaitForSecondsRealtime(0.6f);
+        Time.fixedDeltaTime *= 0.02f;
+        
+        yield return new WaitForSecondsRealtime(0.9f);
+        
+        Time.fixedDeltaTime /= 0.02f;
 
-        // D. Normale dön (Normal kameraya geç ve zamanı düzelt)
         Time.timeScale = 1f;
         animator.SetTrigger("NormalCamera");
     }

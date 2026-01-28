@@ -34,7 +34,6 @@ public class PlayerGroundedState : PlayerState
         if (player.InputHandler.Player.Jump.triggered) 
         {
             stateMachine.ChangeState(player.JumpState);
-            Debug.Log("ziplama test");
             return;
         }
 

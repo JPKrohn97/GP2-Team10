@@ -43,7 +43,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         }
         else
         {
-           // will animation 
+           animator.SetTrigger("Hit");
         }
     }
 
