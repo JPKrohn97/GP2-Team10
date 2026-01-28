@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 426285519017936626}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000001955767, y: -0.000000028870769, z: -0.000000042505775, w: 1}
-  m_LocalPosition: {x: -0.147, y: 0.324, z: 0.389}
+  m_LocalPosition: {x: -0.344, y: 0.072, z: 0.662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -163,12 +163,13 @@ GameObject:
   - component: {fileID: 9210704700443322828}
   - component: {fileID: 8825109617794800239}
   - component: {fileID: 3218893614409839678}
+  - component: {fileID: 1786693667100431956}
   - component: {fileID: 3085999068187215194}
   - component: {fileID: 3373440398937413067}
   - component: {fileID: 6784557350734749437}
   m_Layer: 8
   m_Name: PlayerParent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,6 +238,24 @@ MonoBehaviour:
   lastClickTime: 0
   comboResetTime: 0.8
   bitePos: {fileID: 5615560404989133585}
+--- !u!114 &1786693667100431956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126066162392831847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6c43e8adcf406daf998fd3f59c3ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  healthAnimDuration: 0.25
+  healthEase: 9
+  healthSlider: {fileID: 0}
+  damageImage: {fileID: 0}
 --- !u!54 &3085999068187215194
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -16,7 +16,6 @@ public class EnemyWeaponCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Enemy weapon collider triggered with player");
 
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
