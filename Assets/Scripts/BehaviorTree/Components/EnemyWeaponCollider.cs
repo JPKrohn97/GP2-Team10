@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using DG.Tweening;
+using System.Collections;
 public class EnemyWeaponCollider : MonoBehaviour
 {
     [SerializeField] private int damage = 10;
@@ -38,7 +39,11 @@ public class EnemyWeaponCollider : MonoBehaviour
         if (hitEffectPrefab != null)
         {
             Vector3 hitPosition = other.ClosestPoint(transform.position);
-            Instantiate(hitEffectPrefab, hitPosition, Quaternion.identity);
+            GameObject spawnedPart= ManagerObjectPool.Instance.Spawn(ObjectPoolType.TestParticle, hitPosition, Quaternion.identity);
+            DOVirtual.DelayedCall(0.6f, () =>
+            {
+                ManagerObjectPool.Instance.Despawn(ObjectPoolType.TestParticle, spawnedPart);
+            });
         }
     }
 }
