@@ -61,11 +61,16 @@ namespace BehaviorTree
 
                 if (projectilePrefab != null && firePoint != null&& !enemyHealth.IsDead )
                 {
-                    GameObject projectile = Object.Instantiate(
-                        projectilePrefab,
+                    GameObject projectile = ManagerObjectPool.Instance.Spawn(
+                        ObjectPoolType.EnemyProjectile,
                         firePoint.position,
                         firePoint.rotation
                     );
+                    //GameObject projectile = Object.Instantiate(
+                    //    projectilePrefab,
+                    //    firePoint.position,
+                    //    firePoint.rotation
+                    //);
 
                     float zDir = target.position.z > transform.position.z ? 1f : -1f;
                     Vector3 shootDir = new Vector3(0, 0, zDir);

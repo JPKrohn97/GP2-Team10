@@ -84,7 +84,7 @@ public class EnemyAnimatorController : MonoBehaviour
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = !isRagdoll;
-            rb.detectCollisions = isRagdoll;
+            //rb.detectCollisions = isRagdoll;
         }
         foreach (Collider col in ragdollColliders)
         {
