@@ -14,7 +14,7 @@ namespace BehaviorTree
         private float lastAttackTime;
         private float projectileSpeed;
 
-        private EnemyHealth enemyHealth; // ✅
+        private EnemyHealth enemyHealth;
 
         public TaskRangedAttack(
             Transform transform,
@@ -24,7 +24,7 @@ namespace BehaviorTree
             Animator animator,
             float cooldown,
             float speed,
-            EnemyHealth enemyHealth // ✅
+            EnemyHealth enemyHealth 
         )
         {
             this.transform = transform;
