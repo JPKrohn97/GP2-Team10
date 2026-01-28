@@ -22,7 +22,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         
         currentHealth = maxHealth;
         UpdateHealthUI();
