@@ -9,7 +9,7 @@ public class RangedEnemyBT : BehaviorTreeBase
     public float detectionRange = 15f;
     public float attackRange = 12f;
     public float attackCooldown = 2f;
-    public float projectileSpeed = 10f;
+    public float projectileSpeed = 20f;
     public LayerMask playerLayer;
 
     [Header("Shooting")]
@@ -30,17 +30,17 @@ public class RangedEnemyBT : BehaviorTreeBase
 
     protected override Node SetupTree()
     {
-        EnemyHealth health = GetComponent<EnemyHealth>(); // ✅
-
         Node root = new Selector(new List<Node>
         {
+            // Ranged attack sequence
             new Sequence(new List<Node>
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
                 new CheckInAttackRange(transform, attackRange),
-                new TaskRangedAttack(transform, agent, firePoint, projectilePrefab,
-                    animator, attackCooldown, projectileSpeed, health) // ✅
+                new TaskRangedAttack(transform, agent, firePoint, projectilePrefab, 
+                    animator, attackCooldown, projectileSpeed)
             }),
+            // Patrol
             new TaskPatrol(transform, agent, waypoints, animator)
         });
 
