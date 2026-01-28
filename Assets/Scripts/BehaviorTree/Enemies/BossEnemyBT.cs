@@ -46,7 +46,7 @@ public class BossEnemyBT : BehaviorTreeBase
                     heavyAttackChance)
             }),
             // Patrol
-            new TaskPatrol(transform, agent, waypoints)
+            new TaskPatrol(transform, agent, waypoints, animator)
         });
 
         return root;

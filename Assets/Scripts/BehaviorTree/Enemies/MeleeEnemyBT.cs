@@ -38,7 +38,7 @@ public class MeleeEnemyBT : BehaviorTreeBase
                 new TaskAttack(transform, animator, attackCooldown, attackDamage)
             }),
             // Patrol (when player is not in range)
-            new TaskPatrol(transform, agent, waypoints)
+            new TaskPatrol(transform, agent, waypoints, animator)
         });
 
         return root;

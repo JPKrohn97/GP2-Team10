@@ -41,7 +41,7 @@ public class RangedEnemyBT : BehaviorTreeBase
                     animator, attackCooldown, projectileSpeed)
             }),
             // Patrol
-            new TaskPatrol(transform, agent, waypoints)
+            new TaskPatrol(transform, agent, waypoints, animator)
         });
 
         return root;
