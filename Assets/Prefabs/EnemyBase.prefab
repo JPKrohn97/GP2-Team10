@@ -153,6 +153,8 @@ MonoBehaviour:
   maxHealth: 100
   animatorController: {fileID: 2973783318281034374}
   interactionCollider: {fileID: 0}
+  currentHealth: 0
+  IsDead: 0
 --- !u!195 &5532213318625229610
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -174,7 +176,7 @@ NavMeshAgent:
   m_Height: 1.79
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!136 &107832899360681900
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -188,7 +190,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
