@@ -12,7 +12,6 @@ public class MeleeEnemyBT : BehaviorTreeBase
     public int attackDamage = 10;
     public LayerMask playerLayer;
 
-
     [Header("Patrol")]
     public Transform[] waypoints;
 

@@ -8,9 +8,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] private Collider interactionCollider;
 
     private BehaviorTreeBase behaviorTree;
-    private int currentHealth;
+    public int currentHealth;
 
-    public bool IsDead { get; private set; }
+    public bool IsDead;
 
     private void Awake()
     {

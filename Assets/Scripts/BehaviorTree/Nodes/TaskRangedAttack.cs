@@ -59,7 +59,7 @@ namespace BehaviorTree
                 lastAttackTime = Time.time;
                 animator?.SetTrigger("Attack");
 
-                if (projectilePrefab != null && firePoint != null)
+                if (projectilePrefab != null && firePoint != null&& !enemyHealth.IsDead )
                 {
                     GameObject projectile = Object.Instantiate(
                         projectilePrefab,
