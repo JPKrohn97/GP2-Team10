@@ -1,52 +1,125 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class PlayerCombat : MonoBehaviour
 {
-    private PlayerController player; 
-    [SerializeField] private Collider leftAttackCollider;
-    [SerializeField] private Collider rightAttackCollider;
+    private PlayerController player;
 
     [Header("Combo Settings")]
     public int comboStep = 0;
-    public float lastClickTime;
-    public float comboResetTime = 0.8f;
+    public float lastClickTime = -999f;
+    public float comboResetTime = 1.2f;
+
+    [Header("Final Attack Guard")]
+    private bool isFinalAttackInProgress = false;
+    public float finalAttackDuration = 0.6f;
+    private float finalTimer;
+
+    [Header("Attack Movement")]
+    public float attackStepForce = 5f;
+    public float attackStepDuration = 0.15f;
+
     [SerializeField] private Transform bitePos;
+    [SerializeField] private Collider leftAttackCollider;
+    [SerializeField] private Collider rightAttackCollider;
+
+    private Tween stopTween;
 
     void Start()
     {
-        player = GetComponent<PlayerController>(); 
-        if (leftAttackCollider != null) leftAttackCollider.enabled = false;
-        if (rightAttackCollider != null) rightAttackCollider.enabled = false;
+        player = GetComponent<PlayerController>();
+        DisableAllColliders();
     }
 
     void Update()
     {
+        if (!isFinalAttackInProgress) return;
 
-        if (Time.time - lastClickTime > comboResetTime)
+        finalTimer -= Time.deltaTime;
+        if (finalTimer <= 0f)
         {
-            comboStep = 0;
+            isFinalAttackInProgress = false;
+            if (player != null) player.IsFinalComboActive = false;
         }
     }
 
-
     public void Attack()
     {
-        lastClickTime = Time.time;
+        if (isFinalAttackInProgress) return;
         
+        if (Time.time - lastClickTime > comboResetTime)
+            comboStep = 0;
+
+        lastClickTime = Time.time;
+
+        DisableAllColliders();
+
+        bool isFinal = (comboStep == 2);
+        if (player != null) player.IsFinalComboActive = isFinal;
+
+        if (isFinal)
+        {
+            isFinalAttackInProgress = true;
+            finalTimer = finalAttackDuration;
+        }
 
         player.AnimationEvents.PlayComboAnimation(comboStep);
+        PerformAttackStep();
 
-        comboStep++;
-        if (comboStep > 2) comboStep = 0;
+        comboStep = (comboStep + 1) % 3;
     }
 
-    public void SpawnBiteParticle() 
+    private void PerformAttackStep()
     {
-        ManagerObjectPool.Instance.Spawn(ObjectPoolType.BiteParticle, bitePos);
-    } 
+        if (player == null || player.RB == null) return;
 
-    public void EnableLeftAttackCollider() => leftAttackCollider.enabled = true;
-    public void DisableLeftAttackCollider() => leftAttackCollider.enabled = false;
-    public void EnableRightAttackCollider() => rightAttackCollider.enabled = true;
-    public void DisableRightAttackCollider() => rightAttackCollider.enabled = false;
+        stopTween?.Kill();
+
+        player.RB.linearVelocity = Vector3.zero;
+
+        Vector3 attackDir = player.transform.forward;
+        attackDir.y = 0f;
+
+        player.RB.AddForce(attackDir.normalized * attackStepForce, ForceMode.Impulse);
+
+        stopTween = DOVirtual.DelayedCall(attackStepDuration, () =>
+        {
+            if (player != null && player.RB != null && player.IsGrounded)
+                player.RB.linearVelocity = Vector3.zero;
+        });
+    }
+
+    private void DisableAllColliders()
+    {
+        if (leftAttackCollider != null) leftAttackCollider.enabled = false;
+        if (rightAttackCollider != null) rightAttackCollider.enabled = false;
+    }
+
+    public void EnableLeftAttackCollider()
+    {
+        if (rightAttackCollider != null) rightAttackCollider.enabled = false;
+        if (leftAttackCollider != null) leftAttackCollider.enabled = true;
+    }
+
+    public void EnableRightAttackCollider()
+    {
+        if (leftAttackCollider != null) leftAttackCollider.enabled = false;
+        if (rightAttackCollider != null) rightAttackCollider.enabled = true;
+    }
+
+    public void DisableLeftAttackCollider()
+    {
+        if (leftAttackCollider != null) leftAttackCollider.enabled = false;
+    }
+
+    public void DisableRightAttackCollider()
+    {
+        if (rightAttackCollider != null) rightAttackCollider.enabled = false;
+    }
+
+    public void SpawnBiteParticle()
+    {
+        if (ManagerObjectPool.Instance == null || bitePos == null) return;
+        ManagerObjectPool.Instance.Spawn(ObjectPoolType.BiteParticle, bitePos);
+    }
 }

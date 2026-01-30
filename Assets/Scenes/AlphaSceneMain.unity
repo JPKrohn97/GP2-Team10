@@ -7112,6 +7112,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 423422, guid: 7952f7e6ac9b93b4682e63e68d9a2f74, type: 3}
   m_PrefabInstance: {fileID: 768540762}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &245790191 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9063872510476915131, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+  m_PrefabInstance: {fileID: 438091342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &250541387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10914,6 +10919,10 @@ PrefabInstance:
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1786693667100431956, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: playerMesh
+      value: 
+      objectReference: {fileID: 245790191}
+    - target: {fileID: 1786693667100431956, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 812567706}
@@ -10921,9 +10930,25 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 3218893614409839678, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: attackStepForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6152627030172885555, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7126066162392831847, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_Name
       value: PlayerParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: moveSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9063872510476915131, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9210704700443322828, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_LocalPosition.x

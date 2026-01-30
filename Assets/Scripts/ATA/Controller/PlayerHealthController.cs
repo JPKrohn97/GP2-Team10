@@ -13,7 +13,15 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
 
     [Header("UI References")]
     public Slider healthSlider; 
-    public Image damageImage;   
+    public Image damageImage; 
+    
+    [Header("References")]
+    public SkinnedMeshRenderer playerMesh; 
+    public Color flashColor = Color.red; 
+    public float flashDuration = 0.3f;
+    private Material playerMat;
+    private Color originalColor;
+    private Tween flashTween;
 
     private PlayerController playerController;
     private Animator animator;
@@ -24,6 +32,17 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         playerController = GetComponent<PlayerController>();
         animator = GetComponentInChildren<Animator>();
         
+        if (playerMesh != null)
+        {
+
+            playerMat = playerMesh.material;
+
+            if (playerMat.HasProperty("_Color"))
+                originalColor = playerMat.color;
+            else
+                originalColor = Color.white;
+        }
+        
         currentHealth = maxHealth;
         UpdateHealthUI();
     }
@@ -33,6 +52,8 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         if (isDead) return; 
 
         currentHealth -= damage;
+        
+        DamageFlash();
 
 
         UpdateHealthUI();
@@ -45,6 +66,17 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         {
            animator.SetTrigger("Hit");
         }
+    }
+    
+    private void DamageFlash()
+    {
+        if (playerMat == null) return;
+
+        flashTween?.Kill();
+
+        playerMat.color = flashColor;
+
+        flashTween = playerMat.DOColor(originalColor, flashDuration);
     }
 
 
