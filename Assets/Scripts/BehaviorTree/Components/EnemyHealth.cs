@@ -1,16 +1,32 @@
-using UnityEngine;
 using BehaviorTree;
+using DG.Tweening;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private EnemyAnimatorController animatorController;
     [SerializeField] private Collider interactionCollider;
+    [SerializeField] private Slider healthSlider;
+    [SerializeField] private Slider damageSlider;
+    [SerializeField] private GameObject healthCanvas;
+    [Header("Damage Feedback")]
+    [SerializeField] private float damageFlashDuration = 0.2f;
+    [SerializeField] private Material damageMaterial;
+    
+    [Header("Death Effect")]
+    [SerializeField] private GameObject deathEffectPrefab;
 
     private BehaviorTreeBase behaviorTree;
-    public int currentHealth;
+    private int currentHealth;
+    private Renderer[] renderers;
+    private Material[][] originalMaterials;
+    private bool isFlashing = false;
 
-    public bool IsDead;
+    public bool IsDead { get; private set; }
 
     private void Awake()
     {
@@ -23,20 +39,100 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         if (interactionCollider != null)
             interactionCollider.enabled = false;
+        
+        // Cache all renderers and their original materials
+        renderers = GetComponentsInChildren<Renderer>();
+        originalMaterials = new Material[renderers.Length][];
+        
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            // Create a copy of the materials array to avoid modifying shared materials
+            Material[] materials = renderers[i].materials;
+            originalMaterials[i] = new Material[materials.Length];
+            
+            for (int j = 0; j < materials.Length; j++)
+            {
+                originalMaterials[i][j] = materials[j];
+            }
+        }
     }
 
     public void TakeDamage(int damage)
     {
         if (IsDead) return;
 
+
         currentHealth -= damage;
+       
+        healthSlider.value -= (float)damage / maxHealth;
+        var slider = damageSlider.value;
+        DOTween.To(() => slider, x => damageSlider.value = x, (float)((float)currentHealth / (float)maxHealth), 0.5f).SetEase(Ease.OutSine);
+
+
+        // Flash damage material when taking damage
+        if (!isFlashing && damageMaterial != null)
+        {
+            StartCoroutine(DamageFlash());
+        }
+        
         if (currentHealth <= 0)
             Die();
+    }
+
+    private IEnumerator DamageFlash()
+    {
+        isFlashing = true;
+        
+        // Change all materials to damage material
+        foreach (Renderer renderer in renderers)
+        {
+            if (renderer != null)
+            {
+                Material[] newMaterials = new Material[renderer.materials.Length];
+                for (int i = 0; i < newMaterials.Length; i++)
+                {
+                    newMaterials[i] = damageMaterial;
+                }
+                renderer.materials = newMaterials;
+            }
+        }
+        
+        // Wait for flash duration
+        yield return new WaitForSeconds(damageFlashDuration);
+        
+        // Restore original materials
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] != null)
+            {
+                renderers[i].materials = originalMaterials[i];
+            }
+        }
+        
+        isFlashing = false;
     }
 
     private void Die()
     {
         IsDead = true;
+        healthCanvas.SetActive(false);
+        // Stop any ongoing flash
+        StopAllCoroutines();
+        
+        // Restore original materials before ragdoll
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] != null)
+            {
+                renderers[i].materials = originalMaterials[i];
+            }
+        }
+        
+        // Spawn death VFX effect
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        }
 
         if (animatorController != null)
             animatorController.EnableRagdoll();
