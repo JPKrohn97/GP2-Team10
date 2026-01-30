@@ -4,6 +4,9 @@ using UnityEngine;
 public class PlayerRunState : PlayerGroundedState 
 {
     private const float DeadZone = 0.01f;
+    
+    private float acceleration = 50f; 
+    private float deceleration = 60f;
     public PlayerRunState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
 
     public override void Enter()
@@ -47,20 +50,21 @@ public class PlayerRunState : PlayerGroundedState
         base.PhysicsUpdate();
 
         float inputX = player.CurrentMovementInput.x;
-
-
-        Vector3 velocity = player.RB.linearVelocity;
         
+        float targetSpeed = inputX * player.moveSpeed;
 
-        velocity.z = inputX * player.moveSpeed; 
-        velocity.x = 0f; 
-        player.RB.linearVelocity = velocity;
-        
-        if (Mathf.Abs(inputX) > DeadZone)
+        Vector3 currentVelocity = player.RB.linearVelocity;
+
+        float speedChangeRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+
+        float newSpeedZ = Mathf.MoveTowards(currentVelocity.z, targetSpeed, speedChangeRate * Time.fixedDeltaTime);
+
+        Vector3 finalVelocity = new Vector3(0f, currentVelocity.y, newSpeedZ);
+        player.RB.linearVelocity = finalVelocity;
+
+        if (Mathf.Abs(inputX) > 0.01f)
         {
-
             float targetY = (inputX > 0f) ? 0f : 180f; 
-
             player.transform.rotation = Quaternion.Euler(0f, targetY, 0f);
         }
     }
