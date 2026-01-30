@@ -61,7 +61,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         if (IsDead) return;
 
-
+        ManagerCinemachine.Instance.ShakeOnHit();
         currentHealth -= damage;
        
         healthSlider.value -= (float)damage / maxHealth;

@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Cinemachine;
 
 public class ManagerCinemachine : Singleton<ManagerCinemachine>
 {
     public Animator animator;
-
+    [SerializeField] private CinemachineImpulseSource impulseSource;
+    [SerializeField] private float power = 10f;
     public void SetMutationCamera()
     {
         animator.SetTrigger("MutationCamera");
@@ -21,7 +23,12 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
     //    animator.SetFloat("ShakeTime", time);
     //    animator.SetTrigger("Shake");
     //}
-    
+    public void ShakeOnHit()
+    {
+        if (impulseSource == null) return;
+
+        impulseSource.GenerateImpulseWithForce(power);
+    }
     public void HitImpact(float duration, float speed = 0f)
     {
         Time.timeScale = speed;

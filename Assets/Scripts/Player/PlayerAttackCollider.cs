@@ -3,10 +3,12 @@ using UnityEngine;
 public class PlayerAttackCollider : MonoBehaviour
 {
     private PlayerController player;
-    private bool cameraFiredThisSwing; 
+    private bool cameraFiredThisSwing;
+    private Collider col;
 
     private void Awake()
     {
+        col = GetComponent<Collider>();
         player = GetComponentInParent<PlayerController>();
     }
 
@@ -21,7 +23,7 @@ public class PlayerAttackCollider : MonoBehaviour
 
         EnemyHealth enemy = other.GetComponent<EnemyHealth>();
         if (enemy == null) return;
-
+        col.enabled = false;    
         enemy.TakeDamage(35);
         
         Vector3 hitPoint = other.ClosestPoint(transform.position);

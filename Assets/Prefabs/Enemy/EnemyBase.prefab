@@ -158,8 +158,8 @@ MonoBehaviour:
   damageSlider: {fileID: 8522546620790038805}
   healthCanvas: {fileID: 2698048900380778813}
   damageFlashDuration: 0.2
-  damageMaterial: {fileID: 0}
-  deathEffectPrefab: {fileID: 0}
+  damageMaterial: {fileID: 2100000, guid: 29b2e5f4bd78ba541abcf0ad0521c20c, type: 2}
+  deathEffectPrefab: {fileID: 7733045279645208561, guid: 6cf23a8f866acc942a8e375dbfb1624b, type: 3}
 --- !u!195 &5532213318625229610
 NavMeshAgent:
   m_ObjectHideFlags: 0
