@@ -52,7 +52,7 @@ public class PlayerCombat : MonoBehaviour
 
         lastClickTime = Time.time;
 
-        DisableAllColliders();
+        //DisableAllColliders();
 
         bool isFinal = (comboStep == 2);
         if (player != null) player.IsFinalComboActive = isFinal;
