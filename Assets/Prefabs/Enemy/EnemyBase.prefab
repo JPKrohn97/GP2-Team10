@@ -159,6 +159,7 @@ MonoBehaviour:
   healthCanvas: {fileID: 2698048900380778813}
   damageFlashDuration: 0.2
   damageMaterial: {fileID: 2100000, guid: 29b2e5f4bd78ba541abcf0ad0521c20c, type: 2}
+  freezeOnDamage: 1
   deathEffectPrefab: {fileID: 7733045279645208561, guid: 6cf23a8f866acc942a8e375dbfb1624b, type: 3}
 --- !u!195 &5532213318625229610
 NavMeshAgent:
@@ -1780,6 +1781,8 @@ MonoBehaviour:
   ragdollColliders: []
   mainCollider: {fileID: 107832899360681900}
   agent: {fileID: 5532213318625229610}
+  meleeBossEnemy: {fileID: 0}
+  groundShockwavePrefab: {fileID: 0}
 --- !u!1 &6804164692931939407 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: df866a28cb1587448828f11f7d57e82b, type: 3}

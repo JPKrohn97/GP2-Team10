@@ -12,10 +12,13 @@ public class EnemyAnimatorController : MonoBehaviour
     [SerializeField] private Rigidbody[] ragdollRigidbodies;
     [SerializeField] private Collider[] ragdollColliders;
 
-
     [Header("Components to Disable on Death")]
     [SerializeField] private Collider mainCollider;
     [SerializeField] private NavMeshAgent agent;
+
+    [Header("Boss Abilities")]
+    public MeleeBossEnemy meleeBossEnemy;
+    [SerializeField] private GameObject groundShockwavePrefab;
 
     private void Awake()
     {
@@ -35,43 +38,40 @@ public class EnemyAnimatorController : MonoBehaviour
     public void EnableRightHitCollider()
     {
         if (rightHitCollider)
-        {
             rightHitCollider.enabled = true;
-            Debug.Log("Right Hit Collider Enabled");
-        }
     }
 
     public void EnableLeftHitCollider()
     {
         if (leftHitCollider)
-        {
             leftHitCollider.enabled = true;
-            Debug.Log("Left Hit Collider Enabled");
-        }
     }
 
     public void DisableRightHitCollider()
     {
         if (rightHitCollider)
-        {
             rightHitCollider.enabled = false;
-            Debug.Log("Right Hit Collider Disabled");
-        }
     }
 
     public void DisableLeftHitCollider()
     {
         if (leftHitCollider)
-        {
             leftHitCollider.enabled = false;
-            Debug.Log("Left Hit Collider Disabled");
-        }
+    }
+    
+    public void DisableAllWeaponColliders()
+    {
+        if (rightHitCollider) rightHitCollider.enabled = false;
+        if (leftHitCollider) leftHitCollider.enabled = false;
     }
     #endregion
 
     #region Ragdoll
     public void EnableRagdoll()
     {
+        // Disable weapon colliders immediately
+        DisableAllWeaponColliders();
+        
         if (animator) animator.enabled = false;
         if (mainCollider) mainCollider.enabled = false;
         if (agent) agent.enabled = false;
@@ -84,7 +84,6 @@ public class EnemyAnimatorController : MonoBehaviour
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = !isRagdoll;
-            //rb.detectCollisions = isRagdoll;
         }
         foreach (Collider col in ragdollColliders)
         {
@@ -98,6 +97,55 @@ public class EnemyAnimatorController : MonoBehaviour
     {
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
         Debug.Log($"Found {ragdollRigidbodies.Length} rigidbodies for ragdoll");
+    }
+    #endregion
+
+    #region Boss Abilities (Animation Events)
+    public void StartGroundPound()
+    {
+        Debug.Log("<color=magenta>=== StartGroundPound() called from animation event! ===</color>");
+        SpawnGroundShockwave();
+    }
+
+    private void SpawnGroundShockwave()
+    {
+        Debug.Log($"<color=magenta>SpawnGroundShockwave() - Prefab: {groundShockwavePrefab != null}, Boss: {meleeBossEnemy != null}</color>");
+        
+        if (groundShockwavePrefab == null)
+        {
+            Debug.LogError("Ground Shockwave Prefab is NOT assigned in Inspector!");
+            return;
+        }
+
+        if (meleeBossEnemy == null)
+        {
+            Debug.LogError("MeleeBossEnemy reference is missing! Assign it in Inspector!");
+            return;
+        }
+
+        // Spawn at boss position, NOT as child
+        Vector3 spawnPos = transform.position;
+        spawnPos.y = 0.5f; // Ground level
+        
+        GameObject shockwaveObj = Instantiate(groundShockwavePrefab, transform);
+        
+        Debug.Log($"<color=cyan>Shockwave GameObject instantiated at {spawnPos}</color>");
+        
+        GroundShockwave shockwave = shockwaveObj.GetComponent<GroundShockwave>();
+        if (shockwave != null)
+        {
+            shockwave.Initialize(
+                meleeBossEnemy.shockwaveDamage,
+                meleeBossEnemy.shockwaveRadius,
+                meleeBossEnemy.shockwaveSpeed
+            );
+            
+            Debug.Log($"<color=green>Ground Shockwave initialized! Damage: {meleeBossEnemy.shockwaveDamage}, Radius: {meleeBossEnemy.shockwaveRadius}, Speed: {meleeBossEnemy.shockwaveSpeed}</color>");
+        }
+        else
+        {
+            Debug.LogError("GroundShockwave component NOT found on prefab! Add the script to Shock_Wave prefab!");
+        }
     }
     #endregion
 }
