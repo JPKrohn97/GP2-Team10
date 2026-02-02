@@ -8,37 +8,21 @@ namespace BehaviorTree
         private Animator animator;
         
         private float lightCooldown;
-        private int lightDamage;
-        private float lightRange;
-        
         private float heavyCooldown;
-        private int heavyDamage;
-        private float shockwaveRadius;
-        private float shockwaveSpeed;
         private float heavyChance;
-        private float attackTelegraphDelay; // Time before shockwave spawns after animation starts
 
         private float lightTimer = 0f;
         private float heavyTimer = 0f;
-        private bool isPerformingHeavyAttack = false;
-        private float heavyAttackTimer = 0f;
+        private int attacksSinceLastHeavy = 0;
 
         public TaskMeleeBossAttack(Transform transform, Animator animator,
-            float lightCooldown, int lightDamage, float lightRange,
-            float heavyCooldown, int heavyDamage, float shockwaveRadius, 
-            float shockwaveSpeed, float heavyChance, float attackTelegraphDelay = 0.5f)
+            float lightCooldown, float heavyCooldown, float heavyChance)
         {
             this.transform = transform;
             this.animator = animator;
             this.lightCooldown = lightCooldown;
-            this.lightDamage = lightDamage;
-            this.lightRange = lightRange;
             this.heavyCooldown = heavyCooldown;
-            this.heavyDamage = heavyDamage;
-            this.shockwaveRadius = shockwaveRadius;
-            this.shockwaveSpeed = shockwaveSpeed;
             this.heavyChance = heavyChance;
-            this.attackTelegraphDelay = attackTelegraphDelay;
         }
 
         public override NodeState Evaluate()
@@ -49,74 +33,59 @@ namespace BehaviorTree
 
             EnemyFacing.FaceTarget(transform, target);
 
+            if (IsAttackAnimationPlaying())
+            {
+                return state = NodeState.Running;
+            }
+
             lightTimer -= Time.deltaTime;
             heavyTimer -= Time.deltaTime;
 
-            // Handle heavy attack telegraph timing
-            if (isPerformingHeavyAttack)
-            {
-                heavyAttackTimer -= Time.deltaTime;
-                if (heavyAttackTimer <= 0f)
-                {
-                    isPerformingHeavyAttack = false;
-                    SpawnGroundShockwave();
-                }
-                return state = NodeState.Running;
-            }
-
-            // Attempt heavy ground pound attack
-            if (heavyTimer <= 0 && Random.value < heavyChance)
-            {
-                heavyTimer = heavyCooldown;
-                animator?.SetTrigger("GroundPound");
-                
-                // Start telegraph delay
-                isPerformingHeavyAttack = true;
-                heavyAttackTimer = attackTelegraphDelay;
-                
-                Debug.Log($"Boss starting Ground Pound! Shockwave in {attackTelegraphDelay}s");
-                return state = NodeState.Running;
-            }
-
-            // Light melee attack
+            // Only decide which attack when ready to attack
             if (lightTimer <= 0)
             {
-                lightTimer = lightCooldown;
-                animator?.SetTrigger("LightAttack");
-                LightMeleeAttack();
+                bool heavyAvailable = heavyTimer <= 0;
+                bool randomHeavyChance = Random.value < heavyChance;
+                bool forcedHeavy = attacksSinceLastHeavy >= 3;
+                
+                // Heavy attack: if available AND (random OR forced)
+                if (heavyAvailable && (forcedHeavy || randomHeavyChance))
+                {
+                    heavyTimer = heavyCooldown;
+                    lightTimer = lightCooldown;
+                    attacksSinceLastHeavy = 0;
+                    animator?.SetTrigger("BossStomp");
+                    
+                    return state = NodeState.Running;
+                }
+                else
+                {
+                    lightTimer = lightCooldown;
+                    
+                    // ONLY count when heavy was available but not chosen
+                    if (heavyAvailable)
+                    {
+                        attacksSinceLastHeavy++;
+                    }
+                    
+                    animator?.SetTrigger("LightAttack");
+                    return state = NodeState.Running;
+                }
             }
 
             return state = NodeState.Running;
         }
 
-        private void LightMeleeAttack()
+        private bool IsAttackAnimationPlaying()
         {
-            // Check if player is in range
-            Collider[] hits = Physics.OverlapSphere(transform.position, lightRange);
-            foreach (var hit in hits)
-            {
-                if (hit.CompareTag("Player"))
-                {
-                    var playerHealth = hit.GetComponentInParent<IDamageable>();
-                    if (playerHealth != null)
-                    {
-                        playerHealth.TakeDamage(lightDamage);
-                        Debug.Log($"Boss Light Melee Attack! Damage: {lightDamage}");
-                    }
-                }
-            }
-        }
-
-        private void SpawnGroundShockwave()
-        {
-            Debug.Log($"Boss Ground Pound Impact! Creating shockwave...");
+            if (animator == null) return false;
             
-            // Create shockwave object
-            GameObject shockwave = new GameObject("Shockwave");
-            shockwave.transform.position = transform.position;
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             
-            var shockwaveComponent = shockwave.AddComponent<GroundShockwave>();
-            shockwaveComponent.Initialize(heavyDamage, shockwaveRadius, shockwaveSpeed);
+            bool isPlayingLightAttack = stateInfo.IsName("atk_front01");
+            bool isPlayingStomp = stateInfo.IsName("atk_ground02");
+            
+            return isPlayingLightAttack || isPlayingStomp;
         }
     }
 }

@@ -1781,6 +1781,8 @@ MonoBehaviour:
   ragdollColliders: []
   mainCollider: {fileID: 107832899360681900}
   agent: {fileID: 5532213318625229610}
+  meleeBossEnemy: {fileID: 0}
+  groundShockwavePrefab: {fileID: 0}
 --- !u!1 &6804164692931939407 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: df866a28cb1587448828f11f7d57e82b, type: 3}
