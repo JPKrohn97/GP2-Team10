@@ -159,6 +159,7 @@ MonoBehaviour:
   healthCanvas: {fileID: 2698048900380778813}
   damageFlashDuration: 0.2
   damageMaterial: {fileID: 2100000, guid: 29b2e5f4bd78ba541abcf0ad0521c20c, type: 2}
+  freezeOnDamage: 1
   deathEffectPrefab: {fileID: 7733045279645208561, guid: 6cf23a8f866acc942a8e375dbfb1624b, type: 3}
 --- !u!195 &5532213318625229610
 NavMeshAgent:
@@ -444,11 +445,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090264433881961374, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 128.32
+      value: 49.11
       objectReference: {fileID: 0}
     - target: {fileID: 7090264433881961374, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 28.79
+      value: 17.25
       objectReference: {fileID: 0}
     - target: {fileID: 7090264433881961374, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -460,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090264433881961374, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 310.14
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8149811069802495875, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_Pivot.x
@@ -528,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8149811069802495875, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2.102
       objectReference: {fileID: 0}
     - target: {fileID: 8149811069802495875, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -544,11 +545,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8299202541250442486, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 128.32
+      value: 49.11
       objectReference: {fileID: 0}
     - target: {fileID: 8299202541250442486, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 28.79
+      value: 17.25
       objectReference: {fileID: 0}
     - target: {fileID: 8299202541250442486, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -560,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8299202541250442486, guid: 1275dfcbe47266f498b6d5a7e25bf43f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 310.14
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

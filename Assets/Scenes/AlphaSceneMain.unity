@@ -8128,6 +8128,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6011810865444234328, guid: 39024b16132ade0438c6d71fe32dc369, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011810865444234328, guid: 39024b16132ade0438c6d71fe32dc369, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8105521903955687424, guid: 39024b16132ade0438c6d71fe32dc369, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
@@ -8493,6 +8501,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroy: 0
   animator: {fileID: 312946194}
+  impulseSource: {fileID: 0}
+  power: 10
 --- !u!114 &312946196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10922,6 +10932,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1288336167612677008, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3405956085e0e3f4089af98bff6c28fb, type: 2}
     - target: {fileID: 1786693667100431956, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: maxHealth
       value: 200
@@ -10938,17 +10952,37 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 3018205048921880893, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3218893614409839678, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: attackStepForce
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669521222218382481, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 80b9095c4beab724da68d5bb6eea111a, type: 2}
+    - target: {fileID: 4237193833722237085, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6152627030172885555, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6357322276774459687, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3405956085e0e3f4089af98bff6c28fb, type: 2}
     - target: {fileID: 7126066162392831847, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_Name
       value: PlayerParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341861635433635205, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: moveSpeed
@@ -11006,11 +11040,6 @@ PrefabInstance:
       addedObject: {fileID: 1249889686}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
---- !u!4 &438091343 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2419653410048775873, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-  m_PrefabInstance: {fileID: 438091342}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &446828455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 407602, guid: 37b8bc688caaa5a44b7dec1fa9ef2d2a, type: 3}
@@ -11141,6 +11170,14 @@ PrefabInstance:
     - target: {fileID: 5975701126784473455, guid: 9b70c832a681bc1428ad66c65a053a05, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214376161911620919, guid: 9b70c832a681bc1428ad66c65a053a05, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214376161911620919, guid: 9b70c832a681bc1428ad66c65a053a05, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -48611,7 +48648,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 0.001
-  m_NavMeshData: {fileID: 23800000, guid: 69cae5e9dab6f13408b1cc32748d1c7a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 0f4c3eeca9ca6b34083eceac44f470df, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1790501362
 PrefabInstance:
@@ -49717,6 +49754,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1243445198883248374, guid: 0a0a390d15536964c9bd2530deb0098e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243445198883248374, guid: 0a0a390d15536964c9bd2530deb0098e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3626310060052300974, guid: 0a0a390d15536964c9bd2530deb0098e, type: 3}
       propertyPath: m_Name
       value: ChargeEnemy
@@ -54149,7 +54194,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 438091343}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -56595,6 +56640,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1243445198883248374, guid: 0a0a390d15536964c9bd2530deb0098e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243445198883248374, guid: 0a0a390d15536964c9bd2530deb0098e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3626310060052300974, guid: 0a0a390d15536964c9bd2530deb0098e, type: 3}
       propertyPath: m_Name
       value: ChargeEnemy (1)
