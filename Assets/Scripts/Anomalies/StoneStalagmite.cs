@@ -1,51 +1,52 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class StoneStalagmite : MonoBehaviour
 {
-    [Header("References")]
     public Transform spike;
-    public GameObject groundHint;
-
-    [Header("Settings")]
+    public float riseHeight = 1.2f;
     public float riseSpeed = 6f;
     public float activeTime = 1.5f;
 
-    private bool activated = false;
-    private Vector3 hiddenPosition;
-    private Vector3 visiblePosition;
+    private Vector3 hiddenPos;
+    private Vector3 visiblePos;
+    private bool activated;
 
     void Start()
     {
-        hiddenPosition = spike.localPosition;
-        visiblePosition = hiddenPosition + Vector3.up * 1.2f;
+        if (spike == null)
+        {
+            Debug.LogError("StoneStalagmite: spike is NOT assigned!", this);
+            enabled = false;
+            return;
+        }
+
+        hiddenPos = spike.position;
+        visiblePos = hiddenPos + Vector3.up * riseHeight;
     }
 
-    void OnTriggerEnter(Collider other)   // 
+    public void Activate()
     {
         if (activated) return;
+        activated = true;
 
-        if (other.CompareTag("Player"))
-        {
-            activated = true;
-            groundHint.SetActive(false);
-            StartCoroutine(RiseSpike());
-        }
+        Debug.Log("Activate called: rising spike", this);
+        StartCoroutine(RiseSpike());
     }
 
-    System.Collections.IEnumerator RiseSpike()
+    IEnumerator RiseSpike()
     {
-        float t = 0f;
-        while (t < 1f)
+        while (Vector3.Distance(spike.position, visiblePos) > 0.01f)
         {
-            spike.localPosition = Vector3.Lerp(hiddenPosition, visiblePosition, t);
-            t += Time.deltaTime * riseSpeed;
+            spike.position = Vector3.MoveTowards(
+                spike.position,
+                visiblePos,
+                riseSpeed * Time.deltaTime
+            );
             yield return null;
         }
 
-        spike.localPosition = visiblePosition;
-
         yield return new WaitForSeconds(activeTime);
-
         Destroy(gameObject);
     }
 }
