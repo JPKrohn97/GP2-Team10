@@ -138,6 +138,14 @@ PrefabInstance:
       propertyPath: chargeTriggerName
       value: ChargeAttack
       objectReference: {fileID: 0}
+    - target: {fileID: 2557340960593766060, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557340960593766060, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4261432205761127855, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -192,6 +200,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6333635732227776289, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092394441946641344, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092394441946641344, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8843008468145588783, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}

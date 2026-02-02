@@ -544,11 +544,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &267435683 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2419653410048775873, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-  m_PrefabInstance: {fileID: 7798968243424369940}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360594982
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +616,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 267435683}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -644,35 +639,6 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!1 &396280607 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2252297269717310719, guid: 9051c1b985047744dba596a883e2a970, type: 3}
-  m_PrefabInstance: {fileID: 561380326}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &396280611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396280607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad9c4ba1de58384fa0e796c12b94a3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionRange: 20
-  attackRange: 1.5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  lightAttackCooldown: 1.5
-  shockwaveDamage: 30
-  shockwaveRadius: 8
-  shockwaveSpeed: 5
-  heavyAttackCooldown: 1.5
-  heavyAttackChance: 0.5
-  waypoints: []
 --- !u!1 &436616332
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +896,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 267435683}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -969,14 +935,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1939447600158459009, guid: 9051c1b985047744dba596a883e2a970, type: 3}
-      propertyPath: meleeBossEnemy
-      value: 
-      objectReference: {fileID: 396280611}
-    - target: {fileID: 1939447600158459009, guid: 9051c1b985047744dba596a883e2a970, type: 3}
-      propertyPath: groundShockwavePrefab
-      value: 
-      objectReference: {fileID: 180820, guid: 922336eb2e7046b4091f8833bbf6bf5d, type: 3}
     - target: {fileID: 4891675158053481927, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1029,21 +987,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6985117900536246687, guid: 9051c1b985047744dba596a883e2a970, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8659343885622396149, guid: 9051c1b985047744dba596a883e2a970, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2252297269717310719, guid: 9051c1b985047744dba596a883e2a970, type: 3}
-      insertIndex: 7
-      addedObject: {fileID: 396280611}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9051c1b985047744dba596a883e2a970, type: 3}
 --- !u!1 &858012243
 GameObject:
@@ -1606,7 +1553,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 267435683}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
