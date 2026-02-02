@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class VolcanicLavaPool : MonoBehaviour
 {
@@ -6,16 +8,20 @@ public class VolcanicLavaPool : MonoBehaviour
     public float moveRadius = 3f;
     public float moveSpeed = 2f;
 
-    [Header("Damage")]
-    public int damage = 5;
+    [Header("Damage Over Time")]
+    public int damagePerTick = 5;
+    public float damageInterval = 1f;
 
     private Vector3 startPos;
     private Vector3 targetPos;
+
+    private HashSet<IDamageable> targetsInside = new HashSet<IDamageable>();
 
     void Start()
     {
         startPos = transform.position;
         PickNewPosition();
+        StartCoroutine(DamageRoutine());
     }
 
     void Update()
@@ -45,6 +51,27 @@ public class VolcanicLavaPool : MonoBehaviour
     {
         IDamageable dmg = other.GetComponent<IDamageable>();
         if (dmg != null)
-            dmg.TakeDamage(damage);
+            targetsInside.Add(dmg);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IDamageable dmg = other.GetComponent<IDamageable>();
+        if (dmg != null)
+            targetsInside.Remove(dmg);
+    }
+
+    IEnumerator DamageRoutine()
+    {
+        while (true)
+        {
+            foreach (var target in targetsInside)
+            {
+                if (target != null)
+                    target.TakeDamage(damagePerTick);
+            }
+
+            yield return new WaitForSeconds(damageInterval);
+        }
     }
 }
