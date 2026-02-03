@@ -186,7 +186,7 @@ namespace BehaviorTree
             
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             
-            bool isPlayingLightAttack = stateInfo.IsName("Attack");
+            bool isPlayingLightAttack = stateInfo.IsName("LightAttack");
             bool isPlayingDash = stateInfo.IsName("Jump");
             
             return isPlayingLightAttack || isPlayingDash;
@@ -205,7 +205,7 @@ namespace BehaviorTree
             Vector3 horizontalDirection = new Vector3(baseDirection.x, 0, baseDirection.z).normalized;
 
             GameObject projectile = ManagerObjectPool.Instance.Spawn(
-                ObjectPoolType.EnemyProjectile,
+                ObjectPoolType.BossProjectile,
                 firePoint.position,
                 Quaternion.LookRotation(horizontalDirection)
             );
