@@ -15,7 +15,8 @@ public enum ObjectPoolType
     ClawParticle,
     TestParticle,
     EnemyProjectile,
-    EarhProjectile
+    EarhProjectile,
+    BossProjectile
 
 
 }

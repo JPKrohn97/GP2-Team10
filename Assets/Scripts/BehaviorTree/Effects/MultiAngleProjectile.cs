@@ -44,7 +44,7 @@ public class MultiAngleProjectile : MonoBehaviour
         Vector3 shootDirection = Quaternion.AngleAxis(-angleOffset, Vector3.Cross(horizontalDir, Vector3.up)) * horizontalDir;
         
         GameObject projectile = ManagerObjectPool.Instance.Spawn(
-            ObjectPoolType.EnemyProjectile,
+            ObjectPoolType.BossProjectile,
             firePoint.position,
             Quaternion.LookRotation(shootDirection)
         );

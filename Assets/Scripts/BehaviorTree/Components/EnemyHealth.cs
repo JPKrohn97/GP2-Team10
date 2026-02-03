@@ -180,8 +180,15 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (animatorController != null)
             animatorController.EnableRagdoll();
 
+        // STOP AI COMPLETELY
         if (behaviorTree != null)
             behaviorTree.enabled = false;
+
+        if (navAgent != null)
+        {
+            navAgent.isStopped = true;
+            navAgent.enabled = false;
+        }
 
         if (interactionCollider != null)
             interactionCollider.enabled = true;

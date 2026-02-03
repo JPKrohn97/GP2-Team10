@@ -1817,6 +1817,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4630620185825430247, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 284.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630620185825430247, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 28.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630620185825430247, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630620185825430247, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630620185825430247, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 39
+      objectReference: {fileID: 0}
     - target: {fileID: 4743631384360683548, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: animatorController
       value: 
@@ -1829,21 +1849,49 @@ PrefabInstance:
       propertyPath: lightAttackCooldown
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5532213318625229610, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839578637375794575, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 284.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839578637375794575, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 28.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839578637375794575, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839578637375794575, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839578637375794575, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998540255750366970, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.98
+      objectReference: {fileID: 0}
     - target: {fileID: 6007611437241675672, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_Name
       value: BossEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.07012606
+      value: -4.663958
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.16463423
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.109262
+      value: 6.6995826
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalRotation.w
