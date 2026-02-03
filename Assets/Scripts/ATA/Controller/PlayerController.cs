@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.InputSystem.EnhancedTouch;
 
-
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
@@ -13,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public PlayerCombat Combat;
     public PlayerAnimations AnimationEvents;
     public EnemyHealth CurrentDeadEnemy { get; private set; }
-    public bool AttackBuffered { get; private set; }
     
     #endregion
 
@@ -28,22 +26,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private Collider col;
 
-
     public bool IsGrounded { get; private set; }
-    private float groundCheckTimer;
-    private const float GroundCheckInterval = 0.02f; 
+    public float LastAttackInputTime { get; private set; } = -100f;
 
     [Header("Mutation Interaction")]
     public LayerMask enemyPartLayer;
-
     public GameObject projectilePrefab;
     public Transform firePoint;
-    
-
     public bool IsOnDeadEnemy { get; private set; }
     public bool IsFinalComboActive { get; set; }
-    
-
 
     // Input System Class
     public PlayerControls InputHandler;
@@ -68,12 +59,10 @@ public class PlayerController : MonoBehaviour
     public PlayerRangeAttackState RangeAttackState { get; private set; }
     #endregion
 
-
     private int enemyPartContacts = 0;
 
     private void Awake()
     {
-        
         Input.multiTouchEnabled = true;
         
         StateMachine = new PlayerStateMachine();
@@ -113,17 +102,17 @@ public class PlayerController : MonoBehaviour
         
         MoveAction.performed += OnMove;
         MoveAction.canceled += OnMoveCanceled;
-
-
-        IsGrounded = CheckIfGrounded();
-        groundCheckTimer = 0f;
+        AttackAction.performed += ctx => VirtualAttackInput();
     }
 
     private void OnDisable()
     {
         MoveAction.performed -= OnMove;
         MoveAction.canceled -= OnMoveCanceled;
-
+        
+        // Bağlantıyı kopar
+        AttackAction.performed -= ctx => VirtualAttackInput();
+        
         InputHandler.Disable();
     }
 
@@ -133,7 +122,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         IsGrounded = CheckIfGrounded();
-
         StateMachine.CurrentState.LogicUpdate();
     }
 
@@ -142,67 +130,60 @@ public class PlayerController : MonoBehaviour
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-
     public bool CheckIfGrounded()
     {
         if (col == null) return false;
-
         Vector3 origin = col.bounds.center;
         origin.y = col.bounds.min.y + 0.05f;
-
-        float distance = groundCheckDistance + 0.1f;
-
-        return Physics.Raycast(
-            origin,
-            Vector3.down,
-            distance,
-            groundLayer,
-            QueryTriggerInteraction.Ignore
-        );
+        
+        return Physics.Raycast(origin, Vector3.down, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
+  
+    public void VirtualAttackInput()
+    {
+       
+        LastAttackInputTime = Time.time;
+
+      
+        if (StateMachine.CurrentState != SwordAttackState)
+        {
+            StateMachine.ChangeState(SwordAttackState);
+        }
+    }
+
+    public void VirtualJumpInput()
+    {
+        if (IsGrounded) StateMachine.ChangeState(JumpState);
+    }
+
+    public void VirtualRangeInput()
+    {
+        StateMachine.ChangeState(RangeAttackState);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
-
         enemyPartContacts++;
         IsOnDeadEnemy = true;
-        
         EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
-    
-
-        if (enemy != null && enemy.IsDead)
-        {
-            CurrentDeadEnemy = enemy;
-        }
+        if (enemy != null && enemy.IsDead) CurrentDeadEnemy = enemy;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
-
         enemyPartContacts = Mathf.Max(0, enemyPartContacts - 1);
-    
-
-        if (enemyPartContacts == 0)
-        {
-            IsOnDeadEnemy = false;
-            CurrentDeadEnemy = null; 
-        }
+        if (enemyPartContacts == 0) { IsOnDeadEnemy = false; CurrentDeadEnemy = null; }
     }
     
     public void SpawnProjectile()
     {
         GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
-
         if (projectile != null)
         {
             Rigidbody prb = projectile.GetComponent<Rigidbody>();
-        
-  
-            prb.linearVelocity = Vector3.zero;
-            prb.angularVelocity = Vector3.zero;
-            
             prb.linearVelocity = transform.forward * 30f;
         }
     }
@@ -213,23 +194,4 @@ public class PlayerController : MonoBehaviour
         RB.AddForce(dir.normalized * force, ForceMode.Impulse);
         DOVirtual.DelayedCall(0.5f,() => RB.linearVelocity = new Vector3(0,RB.linearVelocity.y,0));
     }
-    
-    public void VirtualJumpInput()
-    {
-        if (IsGrounded)
-        {
-            StateMachine.ChangeState(JumpState);
-        }
-    }
-
-    public void VirtualAttackInput()
-    {
-        StateMachine.ChangeState(SwordAttackState);
-    }
-
-    public void VirtualRangeInput()
-    {
-        StateMachine.ChangeState(RangeAttackState);
-    }
-    
 }
