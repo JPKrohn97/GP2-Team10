@@ -25,7 +25,13 @@ namespace BehaviorTree
         
         private bool shouldDashAfterAttack = false;
         private float attackFinishTimer = 0f;
-        private float attackFinishDelay = 0.5f; // Delay after attack before dashing
+        private float attackFinishDelay = 0.5f;
+        
+        private float emergencyDashCooldown = 3f;
+        private float emergencyDashTimer = 0f;
+        
+        private Vector3 dashTarget;
+        private float dashSpeed = 16f;
 
         public TaskRangedBossAttack(
             Transform transform,
@@ -58,18 +64,28 @@ namespace BehaviorTree
             if (target == null)
                 return state = NodeState.Failure;
 
-            if (agent != null)
-                agent.isStopped = true;
-
             // Handle dash backwards
             if (isDashing)
             {
+                if (agent != null)
+                    agent.isStopped = true;
+                
+                Vector3 direction = (dashTarget - transform.position).normalized;
+                float step = dashSpeed * Time.deltaTime;
+                Vector3 newPosition = transform.position + new Vector3(direction.x * step, 0, direction.z * step);
+                
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(newPosition, out hit, 1f, NavMesh.AllAreas))
+                {
+                    transform.position = hit.position;
+                }
+                
                 dashTimer -= Time.deltaTime;
-                if (dashTimer <= 0f)
+                float distanceToTarget = Vector3.Distance(transform.position, dashTarget);
+                
+                if (dashTimer <= 0f || distanceToTarget < 0.5f)
                 {
                     isDashing = false;
-                    if (agent != null)
-                        agent.isStopped = true;
                 }
                 return state = NodeState.Running;
             }
@@ -85,6 +101,10 @@ namespace BehaviorTree
                 }
                 return state = NodeState.Running;
             }
+            
+            // Only stop agent when NOT dashing and NOT preparing to dash
+            if (agent != null && !isDashing && !shouldDashAfterAttack)
+                agent.isStopped = true;
                 
             EnemyFacing.FaceTarget(transform, target);
 
@@ -93,16 +113,18 @@ namespace BehaviorTree
                 return state = NodeState.Running;
             }
 
-            // Check if player is too close - LIGHT ATTACK then DASH
+            // Check if player is too close - EMERGENCY DASH
             float distanceToPlayer = Vector3.Distance(transform.position, target.position);
-            if (distanceToPlayer < closeRangeThreshold && lightTimer <= 0)
+            
+            emergencyDashTimer -= Time.deltaTime;
+
+            if (distanceToPlayer < closeRangeThreshold && emergencyDashTimer <= 0)
             {
-                // Execute light attack
                 lightTimer = lightCooldown;
+                emergencyDashTimer = emergencyDashCooldown;
                 animator?.SetTrigger("Attack");
                 ShootNormalProjectile();
                 
-                // Schedule dash backwards after attack finishes
                 shouldDashAfterAttack = true;
                 attackFinishTimer = attackFinishDelay;
                 
@@ -118,8 +140,6 @@ namespace BehaviorTree
                 bool heavyAvailable = heavyTimer <= 0;
                 bool canDashBack = CanDashBackwards(target);
                 
-                // If we can dash back, prefer heavy attack after dash
-                // If we can't dash back, choose randomly
                 bool shouldUseHeavy;
                 if (canDashBack)
                 {
@@ -127,7 +147,6 @@ namespace BehaviorTree
                 }
                 else
                 {
-                    // No room to retreat - random choice
                     shouldUseHeavy = heavyAvailable && Random.value < 0.5f;
                 }
                 
@@ -137,7 +156,6 @@ namespace BehaviorTree
                     heavyTimer = heavyCooldown;
                     lightTimer = lightCooldown;
                     attacksSinceLastHeavy = 0;
-                    animator?.SetTrigger("HeavyAttack");
                     ShootMultiAngleProjectiles(target);
                     
                     return state = NodeState.Running;
@@ -169,9 +187,9 @@ namespace BehaviorTree
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             
             bool isPlayingLightAttack = stateInfo.IsName("Attack");
-            bool isPlayingHeavyAttack = stateInfo.IsName("HeavyAttack");
+            bool isPlayingDash = stateInfo.IsName("Jump");
             
-            return isPlayingLightAttack || isPlayingHeavyAttack;
+            return isPlayingLightAttack || isPlayingDash;
         }
 
         private void ShootNormalProjectile()
@@ -183,14 +201,13 @@ namespace BehaviorTree
             if (target == null)
                 return;
 
-            // Calculate HORIZONTAL direction only (same as heavy attack's last projectile)
             Vector3 baseDirection = (target.position - firePoint.position).normalized;
             Vector3 horizontalDirection = new Vector3(baseDirection.x, 0, baseDirection.z).normalized;
 
             GameObject projectile = ManagerObjectPool.Instance.Spawn(
                 ObjectPoolType.EnemyProjectile,
                 firePoint.position,
-                Quaternion.LookRotation(horizontalDirection)  // Point horizontally
+                Quaternion.LookRotation(horizontalDirection)
             );
 
             if (projectile != null)
@@ -200,7 +217,7 @@ namespace BehaviorTree
                 {
                     rb.linearVelocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
-                    rb.linearVelocity = horizontalDirection * 30f;  // Shoot horizontally
+                    rb.linearVelocity = horizontalDirection * 30f;
                 }
             }
         }
@@ -221,24 +238,22 @@ namespace BehaviorTree
             Vector3 directionAwayFromPlayer = (transform.position - target.position).normalized;
             Vector3 dashDestination = transform.position + directionAwayFromPlayer * dashBackDistance;
             
-            // Check if destination is valid on NavMesh
             NavMeshHit hit;
             return NavMesh.SamplePosition(dashDestination, out hit, dashBackDistance, NavMesh.AllAreas);
         }
 
         private void DashBackwards(Transform target)
         {
-            if (agent == null) return;
+            if (agent == null)
+                return;
             
             Vector3 directionAwayFromPlayer = (transform.position - target.position).normalized;
             Vector3 dashDestination = transform.position + directionAwayFromPlayer * dashBackDistance;
             
-            // Check if destination is valid on NavMesh
             NavMeshHit hit;
             if (NavMesh.SamplePosition(dashDestination, out hit, dashBackDistance, NavMesh.AllAreas))
             {
-                agent.isStopped = false;
-                agent.SetDestination(hit.position);
+                dashTarget = hit.position;
                 isDashing = true;
                 dashTimer = dashDuration;
                 
