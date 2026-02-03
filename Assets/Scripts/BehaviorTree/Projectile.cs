@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+
 public class Projectile : MonoBehaviour
 {
     [Header("Settings")]
@@ -16,17 +17,26 @@ public class Projectile : MonoBehaviour
 
     private bool hasHit;
 
+    // Reset state when object is enabled from pool
+    private void OnEnable()
+    {
+        hasHit = false;
+        StopAllCoroutines();
+        StartCoroutine(LifeTimeDespawn());
+    }
+
     private void Start()
     {
         //DOVirtual.DelayedCall(lifetime, () => {ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);});
-        StartCoroutine(LifeTimeDespawn());
     }
+
     IEnumerator LifeTimeDespawn() 
     { 
         yield return new WaitForSeconds(lifetime);
-        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
-
+        if (gameObject.activeInHierarchy)
+            ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (hasHit) return;
