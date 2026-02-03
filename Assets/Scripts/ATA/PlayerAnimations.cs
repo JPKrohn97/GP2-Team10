@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using DG.Tweening; 
 
 public class PlayerAnimations : MonoBehaviour
@@ -39,6 +40,14 @@ public class PlayerAnimations : MonoBehaviour
     
         DisableLeftAttackColliderEvent();
         DisableRightAttackColliderEvent();
+    }
+
+    private void Start()
+    {
+        if (Application.isMobilePlatform)
+        {
+            animator.speed = 1.0f; 
+        }
     }
 
 

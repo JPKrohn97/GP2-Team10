@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public PlayerCombat Combat;
     public PlayerAnimations AnimationEvents;
     public EnemyHealth CurrentDeadEnemy { get; private set; }
+    public bool AttackBuffered { get; private set; }
     
     #endregion
 
@@ -71,6 +73,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        
+        Input.multiTouchEnabled = true;
+        
         StateMachine = new PlayerStateMachine();
         InputHandler = new PlayerControls();
 
@@ -104,6 +109,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         InputHandler.Enable();
+        EnhancedTouchSupport.Enable();
         
         MoveAction.performed += OnMove;
         MoveAction.canceled += OnMoveCanceled;
@@ -206,6 +212,24 @@ public class PlayerController : MonoBehaviour
         dir.y = 0f;
         RB.AddForce(dir.normalized * force, ForceMode.Impulse);
         DOVirtual.DelayedCall(0.5f,() => RB.linearVelocity = new Vector3(0,RB.linearVelocity.y,0));
+    }
+    
+    public void VirtualJumpInput()
+    {
+        if (IsGrounded)
+        {
+            StateMachine.ChangeState(JumpState);
+        }
+    }
+
+    public void VirtualAttackInput()
+    {
+        StateMachine.ChangeState(SwordAttackState);
+    }
+
+    public void VirtualRangeInput()
+    {
+        StateMachine.ChangeState(RangeAttackState);
     }
     
 }

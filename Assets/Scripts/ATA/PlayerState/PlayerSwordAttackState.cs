@@ -2,22 +2,31 @@
 
 public class PlayerSwordAttackState : PlayerAttackState
 {
-    private bool shouldCombo;
+    private float lastAttackInputTime = -999f;
+    
+    private float comboBufferTime; 
 
-    public PlayerSwordAttackState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
+    public PlayerSwordAttackState(PlayerController player, PlayerStateMachine stateMachine)
+        : base(player, stateMachine) { }
 
     public override void Enter()
     {
-        base.Enter(); 
+        base.Enter();
 
-        shouldCombo = false; 
-        
         player.Combat.Attack();
-        
- 
-        attackDuration = 0.7f; 
-        
-        player.RB.linearVelocity = Vector3.zero; 
+        player.RB.linearVelocity = Vector3.zero;
+
+        if (Application.isMobilePlatform)
+        {
+
+            comboBufferTime = 0.60f; 
+            attackDuration = 0.67f; 
+        }
+        else
+        {
+            comboBufferTime = 0.3f; 
+            attackDuration = 0.35f;
+        }
     }
 
     public override void LogicUpdate()
@@ -25,21 +34,18 @@ public class PlayerSwordAttackState : PlayerAttackState
         base.LogicUpdate();
 
 
-        if (player.InputHandler.Player.Attack.triggered)
+        if (player.InputHandler.Player.Attack.WasPressedThisFrame())
         {
-            shouldCombo = true;
- 
+            lastAttackInputTime = Time.time;
         }
-
 
         if (Time.time >= startTime + attackDuration)
         {
-            if (shouldCombo) 
+            if (Time.time - lastAttackInputTime <= comboBufferTime)
             {
-      
                 stateMachine.ChangeState(player.SwordAttackState);
             }
-            else 
+            else
             {
                 stateMachine.ChangeState(player.IdleState);
             }

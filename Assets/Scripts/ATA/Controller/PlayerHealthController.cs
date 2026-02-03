@@ -139,21 +139,4 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
             healthAnimDuration
         ).SetEase(healthEase);
     }
-    
-    private void Update()
-    {
-
-        
-        // for test
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(10);
-        }
-        
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Heal(10);
-        }
-    }
 }
