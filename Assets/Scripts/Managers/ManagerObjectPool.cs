@@ -13,7 +13,12 @@ public class ManagerObjectPool : Singleton<ManagerObjectPool>
     protected override void Awake()
     {
         base.Awake();
+        QualitySettings.vSyncCount = 0;
+
+        // Set your desired frame rate
+        Application.targetFrameRate = 60;
         InitObjectPools();
+
     }
 
     private void InitObjectPools()
