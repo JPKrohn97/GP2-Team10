@@ -1637,6 +1637,79 @@ MonoBehaviour:
   animator: {fileID: 1636917671}
   impulseSource: {fileID: 0}
   power: 10
+--- !u!1001 &1666932972
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1212257134449604779, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212257134449604779, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891675158053481927, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891675158053481927, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.22241783
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.735674
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985117900536246687, guid: 9051c1b985047744dba596a883e2a970, type: 3}
+      propertyPath: m_Name
+      value: BossEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9051c1b985047744dba596a883e2a970, type: 3}
 --- !u!1 &1881679053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,19 +1841,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1212257134449604779, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1212257134449604779, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4891675158053481927, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4891675158053481927, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6950717831281144859, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1825,6 +1898,10 @@ PrefabInstance:
     - target: {fileID: 6985117900536246687, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
       propertyPath: m_Name
       value: BossEnemy 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985117900536246687, guid: 4a9be6d6fc3d4f2459e0c0b89cdf8710, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1911,3 +1988,4 @@ SceneRoots:
   - {fileID: 77309876}
   - {fileID: 497286662}
   - {fileID: 4028472023896251314}
+  - {fileID: 1666932972}
