@@ -8,9 +8,9 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "48018ab2-c41a-4359-9c4b-99da991039d8",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -55,6 +55,15 @@
                     "name": "Range",
                     "type": "Button",
                     "id": "802a8f1f-b671-434c-bda4-4955bf20afe7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "38f44d3b-bb12-448b-a0b7-c83a675f80e8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -235,6 +244,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Range",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a055f19-49e6-49ce-a5da-f9c07f20e227",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09ce132e-a258-4ac5-924d-019e0b7300c2",
+                    "path": "<AndroidGamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

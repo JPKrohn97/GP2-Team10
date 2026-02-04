@@ -3,15 +3,11 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIPauseGame : MonoBehaviour
 {
     [Header("Panels")]
-    public GameObject mainMenuPanel;
+    public GameObject gamePanel;
     public GameObject optionsPanel;
-    public GameObject creditsPanel;
-
-    [Header("Scene Names")]
-    public string gameSceneName = "Game";
 
     [Header("Audio")]
     public AudioMixer mainMixer;
@@ -29,48 +25,40 @@ public class UIManager : MonoBehaviour
     {
         LoadAudioSettings();
 
-        mainMenuPanel.SetActive(true);
+        gamePanel.SetActive(false);
         optionsPanel.SetActive(false);
-        creditsPanel.SetActive(false);
     }
 
-    public void PlayNewGame()
+    public void PauseGame()
     {
-        SceneManager.LoadScene(gameSceneName);
+        Time.timeScale = 0f;
+        gamePanel.SetActive(true);
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1f;
+        gamePanel.SetActive(false);
     }
 
     public void OpenOptions()
     {
-        mainMenuPanel.SetActive(false);
+        Time.timeScale = 0f;
+        //gamePanel.SetActive(false);
         optionsPanel.SetActive(true);
-        creditsPanel.SetActive(false);
     }
 
     public void CloseOptions()
     {
-        mainMenuPanel.SetActive(true);
+        Time.timeScale = 0f;
+        //gamePanel.SetActive(true);
         optionsPanel.SetActive(false);
-        creditsPanel.SetActive(false);
     }
 
-    public void OpenCredits()
+    public void QuitGame()
     {
-        mainMenuPanel.SetActive(false);
-        optionsPanel.SetActive(false);
-        creditsPanel.SetActive(true);
-    }
-
-    public void CloseCredits()
-    {
-        mainMenuPanel.SetActive(true);
-        optionsPanel.SetActive(false);
-        creditsPanel.SetActive(false);
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
-        Debug.Log("Quit called (won't close in editor)");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 
     // CALLED BY ACCEPT BUTTON
@@ -88,7 +76,7 @@ public class UIManager : MonoBehaviour
         SetVolume("MusicVolume", sldMusic.value);
     }
 
-    public void LoadAudioSettings()
+    void LoadAudioSettings()
     {
         float master = PlayerPrefs.GetFloat(KEY_MASTER, 1f);
         float sfx = PlayerPrefs.GetFloat(KEY_SFX, 1f);

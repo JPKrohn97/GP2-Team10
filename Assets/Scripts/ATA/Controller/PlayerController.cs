@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public InputAction RangeAction { get; private set; }
     public InputAction AttackAction { get; private set; }
     public InputAction InteractAction { get; private set; }
+    public InputAction InteractPause { get; private set; }
     #endregion
 
     #region States
@@ -58,6 +59,9 @@ public class PlayerController : MonoBehaviour
     public PlayerMutationState MutationState { get; private set; }
     public PlayerRangeAttackState RangeAttackState { get; private set; }
     #endregion
+
+    [Header("Pause Game Canvas")]
+    public UIPauseGame Script;
 
     private int enemyPartContacts = 0;
 
@@ -80,6 +84,7 @@ public class PlayerController : MonoBehaviour
         RangeAction = InputHandler.Player.Range;
         AttackAction = InputHandler.Player.Attack;
         InteractAction = InputHandler.Player.Interact;
+        InteractPause = InputHandler.Player.Pause;
 
         IdleState = new PlayerIdleState(this, StateMachine);
         RunState = new PlayerRunState(this, StateMachine);
@@ -123,6 +128,11 @@ public class PlayerController : MonoBehaviour
     {
         IsGrounded = CheckIfGrounded();
         StateMachine.CurrentState.LogicUpdate();
+
+        if (InteractPause.IsPressed())
+        {
+            Script.PauseGame();
+        }
     }
 
     private void FixedUpdate()
