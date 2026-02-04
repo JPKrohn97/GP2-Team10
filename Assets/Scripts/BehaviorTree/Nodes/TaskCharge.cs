@@ -98,6 +98,7 @@ namespace BehaviorTree
             chargeDestination = hit.position;
             isCharging = true;
             chargeEndTime = Time.time + chargeDuration;
+            SoundManager.Instance.PlaySound(SoundManager.Instance.ChargeAttackImpact);
 
             EnemyFacing.FaceDirection(transform, destination);
             SafeSetTrigger(chargeTrigger);

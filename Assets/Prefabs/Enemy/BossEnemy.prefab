@@ -1954,6 +1954,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3237675892610646776, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       insertIndex: 7
       addedObject: {fileID: 4473589533596789999}
+    - targetCorrespondingSourceObject: {fileID: 3237675892610646776, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7804937130964362871}
   m_SourcePrefab: {fileID: 100100000, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
 --- !u!65 &1097830339855887813 stripped
 BoxCollider:
@@ -1989,6 +1992,23 @@ MonoBehaviour:
   heavyAttackCooldown: 1.5
   heavyAttackChance: 0.5
   waypoints: []
+--- !u!114 &7804937130964362871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252297269717310719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d4799df232a846954c73710c96f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 9180891094221923629}
+  enemyHealth: {fileID: 8249344241571255835}
+  stepInterval: 0.6
+  movementThreshold: 0.1
+  isBoss: 1
 --- !u!4 &3582589807982865821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 151054274513777562, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
@@ -2004,6 +2024,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 816378553023645574, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
   m_PrefabInstance: {fileID: 3724280616241487367}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8249344241571255835 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4743631384360683548, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+  m_PrefabInstance: {fileID: 3724280616241487367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252297269717310719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02dd70bcd8f83a840b007f18cec8aba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &9180891094221923629 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 5532213318625229610, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
