@@ -32,17 +32,14 @@ public class ChargingEnemyBT : BehaviorTreeBase
 
     protected override Node SetupTree()
     {
-        // Same structure as MeleeEnemy and RangedEnemy
         Node root = new Selector(new List<Node>
         {
-            // Charge sequence (priority)
             new Sequence(new List<Node>
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
                 new TaskCharge(transform, agent, animator, chargeSpeed,
-                    chargeDuration, chargeCooldown, 0.3f, chargeTriggerName)
+                    chargeDuration, chargeCooldown, 0.8f, chargeTriggerName)
             }),
-            // Patrol (when player is not in range)
             new TaskPatrol(transform, agent, waypoints, animator)
         });
 

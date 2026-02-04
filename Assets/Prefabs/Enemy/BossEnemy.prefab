@@ -1883,15 +1883,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.663958
+      value: -0.22241783
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.16463423
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.6995826
+      value: -24.21
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1990,7 +1990,7 @@ MonoBehaviour:
   shockwaveRadius: 8
   shockwaveSpeed: 5
   heavyAttackCooldown: 1.5
-  heavyAttackChance: 0.5
+  heavyAttackChance: 0.3
   waypoints: []
 --- !u!114 &7804937130964362871
 MonoBehaviour:

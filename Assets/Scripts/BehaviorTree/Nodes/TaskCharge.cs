@@ -12,17 +12,23 @@ namespace BehaviorTree
         private float chargeSpeed;
         private float originalSpeed;
         private float chargeDuration;
+        private float maxChargeDistance = 12f;
+        private float accelerationTime;
         private float chargeCooldown;
         private string chargeTrigger;
 
         private float lastChargeTime = -999f;
         private bool isCharging = false;
         private float chargeEndTime;
-        private Vector3 chargeDestination;
+        private float chargeStartTime;
+        private Vector3 chargeDirection;
+        private Vector3 chargeStartPosition;
+        private Quaternion lockedRotation;
+        private float currentChargeSpeed = 0f;
 
         public TaskCharge(Transform transform, NavMeshAgent agent, Animator animator,
             float chargeSpeed, float chargeDuration, float cooldown,
-            float accelerationTime = 0.3f, string chargeTrigger = "Charge")
+            float accelerationTime = 0.5f, string chargeTrigger = "Charge")
         {
             this.transform = transform;
             this.agent = agent;
@@ -32,6 +38,7 @@ namespace BehaviorTree
             this.chargeDuration = chargeDuration;
             this.chargeCooldown = cooldown;
             this.chargeTrigger = chargeTrigger;
+            this.accelerationTime = accelerationTime;
 
             agent.updateRotation = false;
         }
@@ -47,14 +54,32 @@ namespace BehaviorTree
 
             if (isCharging)
             {
-                if (Time.time >= chargeEndTime)
+                float distanceTraveled = Vector3.Distance(chargeStartPosition, transform.position);
+                
+                if (Time.time >= chargeEndTime || distanceTraveled >= maxChargeDistance)
                 {
                     EndCharge();
                     return state = NodeState.Success;
                 }
 
+                // LOCK rotation
+                transform.rotation = lockedRotation;
+                
+                // SMOOTH ACCELERATION with clamped progress
+                float timeSinceStart = Time.time - chargeStartTime;
+                float chargeProgress = Mathf.Clamp01(timeSinceStart / accelerationTime);
+                currentChargeSpeed = Mathf.Lerp(0f, chargeSpeed, chargeProgress);
+                
+                // Apply velocity
                 agent.isStopped = false;
-                agent.SetDestination(chargeDestination);
+                agent.velocity = chargeDirection * currentChargeSpeed;
+                
+                // Debug to see acceleration
+                if (Time.frameCount % 10 == 0)
+                {
+                    Debug.Log($"<color=green>Charging - Progress: {chargeProgress:F2}, Speed: {currentChargeSpeed:F2}/{chargeSpeed}</color>");
+                }
+                
                 return state = NodeState.Running;
             }
 
@@ -62,7 +87,7 @@ namespace BehaviorTree
             if (Time.time - lastChargeTime < chargeCooldown)
             {
                 agent.isStopped = true;
-                agent.ResetPath();
+                agent.velocity = Vector3.zero;
                 EnemyFacing.FaceTarget(transform, target);
                 return state = NodeState.Running;
             }
@@ -74,48 +99,37 @@ namespace BehaviorTree
 
         private void StartCharge(Transform target)
         {
-            float direction = target.position.z > transform.position.z ? 1f : -1f;
+            float directionZ = target.position.z - transform.position.z;
+            float direction = directionZ > 0 ? 1f : -1f;
 
-            // Calculate destination past player
-            Vector3 destination = new Vector3(
-                transform.position.x,
-                transform.position.y,
-                transform.position.z + (direction * 20f)
-            );
-
-            // Validate on NavMesh
-            NavMeshHit hit;
-            if (!NavMesh.SamplePosition(destination, out hit, 2f, NavMesh.AllAreas))
-            {
-                // Fallback: shorter distance
-                destination.z = transform.position.z + (direction * 10f);
-                if (!NavMesh.SamplePosition(destination, out hit, 2f, NavMesh.AllAreas))
-                {
-                    return; // Can't find valid destination
-                }
-            }
-
-            chargeDestination = hit.position;
+            chargeDirection = new Vector3(0, 0, direction).normalized;
+            
+            EnemyFacing.FaceTarget(transform, target);
+            lockedRotation = transform.rotation;
+            
+            chargeStartPosition = transform.position;
+            chargeStartTime = Time.time;
+            currentChargeSpeed = 0f; // Start from 0
+            
             isCharging = true;
             chargeEndTime = Time.time + chargeDuration;
-            SoundManager.Instance.PlaySound(SoundManager.Instance.ChargeAttackImpact, transform.gameObject);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack);
 
-            EnemyFacing.FaceDirection(transform, destination);
             SafeSetTrigger(chargeTrigger);
-
-            agent.ResetPath();
-            agent.speed = chargeSpeed;
-            agent.isStopped = false;
-            agent.SetDestination(chargeDestination);
+            
+            Debug.Log($"<color=cyan>Charge Started! Acceleration: 0 ? {chargeSpeed} over {accelerationTime}s</color>");
         }
 
         private void EndCharge()
         {
             isCharging = false;
             lastChargeTime = Time.time;
-            agent.speed = originalSpeed;
+            currentChargeSpeed = 0f;
+            agent.velocity = Vector3.zero;
             agent.isStopped = true;
-            agent.ResetPath();
+            
+            float totalDistance = Vector3.Distance(chargeStartPosition, transform.position);
+            Debug.Log($"<color=yellow>Charge Ended - Distance: {totalDistance:F2}, Final Speed: {currentChargeSpeed:F2}</color>");
         }
 
         private void StopCharge()
@@ -123,10 +137,10 @@ namespace BehaviorTree
             if (isCharging)
             {
                 isCharging = false;
-                agent.speed = originalSpeed;
+                currentChargeSpeed = 0f;
             }
+            agent.velocity = Vector3.zero;
             agent.isStopped = true;
-            agent.ResetPath();
         }
 
         private void SafeSetTrigger(string paramName)

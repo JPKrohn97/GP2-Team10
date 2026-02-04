@@ -40,7 +40,7 @@ public class MeleeBossEnemy : BehaviorTreeBase
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
                 new TaskGoToTarget(transform, agent, attackRange, animator),
-                new TaskMeleeBossAttack(transform, animator,
+                new TaskMeleeBossAttack(transform, agent, animator,
                     lightAttackCooldown, heavyAttackCooldown, heavyAttackChance)
             }),
             new TaskPatrol(transform, agent, waypoints, animator)
