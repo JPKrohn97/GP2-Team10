@@ -252,9 +252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spike: {fileID: 5151789610805214991}
-  riseHeight: 2
+  riseHeight: 1
   riseSpeed: 8
-  activeTime: 1.5
+  activeTime: 0.5
 --- !u!1 &2533106080398685591
 GameObject:
   m_ObjectHideFlags: 0
