@@ -1,69 +1,79 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class UIManager : MonoBehaviour
 {
     [Header("Panels")]
-    public GameObject mainMenuPanel;
     public GameObject optionsPanel;
-    public GameObject creditsPanel;
 
-    [Header("Scene Names")]
-    public string gameSceneName = "Game";   // change to actual game scene name
+    [Header("Audio")]
+    public AudioMixer mainMixer;
+
+    [Header("Sliders")]
+    public Slider sldMaster;
+    public Slider sldSFX;
+    public Slider sldMusic;
+
+    const string KEY_MASTER = "MasterVol";
+    const string KEY_SFX = "SFXVol";
+    const string KEY_MUSIC = "MusicVol";
 
     void Start()
     {
-        ShowMainMenu();
+        LoadAudioSettings();
     }
 
-    // ---------- Panel switching ----------
-    public void ShowMainMenu()
+    // CALLED BY ACCEPT BUTTON
+    public void ApplyAudioSettings()
     {
-        mainMenuPanel.SetActive(true);
-        optionsPanel.SetActive(false);
-        creditsPanel.SetActive(false);
+        ApplyMixerFromSliders();
+        SaveSliderValues();
+        CloseOptions();
     }
 
-    public void OpenOptions()
-    {
-        mainMenuPanel.SetActive(false);
-        optionsPanel.SetActive(true);
-        creditsPanel.SetActive(false);
-    }
 
     public void CloseOptions()
     {
-        ShowMainMenu();
-    }
-
-    public void OpenCredits()
-    {
-        mainMenuPanel.SetActive(false);
         optionsPanel.SetActive(false);
-        creditsPanel.SetActive(true);
     }
 
-    public void CloseCredits()
+    void ApplyMixerFromSliders()
     {
-        ShowMainMenu();
+        SetVolume("MasterVolume", sldMaster.value);
+        SetVolume("SFXVolume", sldSFX.value);
+        SetVolume("MusicVolume", sldMusic.value);
     }
 
-    // ---------- Buttons ----------
-    public void PlayNewGame()
+    void SaveSliderValues()
+    {
+        PlayerPrefs.SetFloat(KEY_MASTER, sldMaster.value);
+        PlayerPrefs.SetFloat(KEY_SFX, sldSFX.value);
+        PlayerPrefs.SetFloat(KEY_MUSIC, sldMusic.value);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadAudioSettings()
     {
         
-        SceneManager.LoadScene(gameSceneName);
+        float master = PlayerPrefs.GetFloat(KEY_MASTER, 1f);
+        float sfx = PlayerPrefs.GetFloat(KEY_SFX, 1f);
+        float music = PlayerPrefs.GetFloat(KEY_MUSIC, 1f);
+
+        sldMaster.value = master;
+        sldSFX.value = sfx;
+        sldMusic.value = music;
+
+       
+        ApplyMixerFromSliders();
     }
 
-    public void ContinueGame()
+    void SetVolume(string exposedParam, float sliderValue)
     {
-        
-        SceneManager.LoadScene(gameSceneName);
-    }
+       
+        sliderValue = Mathf.Clamp(sliderValue, 0.0001f, 1f);
 
-    public void ExitGame()
-    {
-        Application.Quit();
-        Debug.Log("Quit called (won't close in editor)");
+        float db = Mathf.Log10(sliderValue) * 20f; // 
+        mainMixer.SetFloat(exposedParam, db);
     }
 }
