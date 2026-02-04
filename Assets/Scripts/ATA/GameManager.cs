@@ -9,4 +9,19 @@ public class GameManager : MonoBehaviour
 
         QualitySettings.vSyncCount = 0;
     }
+
+    public void IntroNarrativeSequence()
+    {
+
+    }
+    public void FirstBossNarrativeSequence()
+    {
+
+    }
+    public void FinalBossNarrativeSequence()
+    {
+
+    }
+
+
 }
