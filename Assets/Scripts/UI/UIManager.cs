@@ -1,11 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [Header("Panels")]
+    public GameObject mainMenuPanel;
     public GameObject optionsPanel;
+    public GameObject creditsPanel;
+
+    [Header("Scene Names")]
+    public string gameSceneName = "Game";
 
     [Header("Audio")]
     public AudioMixer mainMixer;
@@ -22,6 +28,49 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         LoadAudioSettings();
+
+        mainMenuPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+    }
+
+    public void PlayNewGame()
+    {
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    public void OpenOptions()
+    {
+        mainMenuPanel.SetActive(false);
+        optionsPanel.SetActive(true);
+        creditsPanel.SetActive(false);
+    }
+
+    public void CloseOptions()
+    {
+        mainMenuPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+    }
+
+    public void OpenCredits()
+    {
+        mainMenuPanel.SetActive(false);
+        optionsPanel.SetActive(false);
+        creditsPanel.SetActive(true);
+    }
+
+    public void CloseCredits()
+    {
+        mainMenuPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit called (won't close in editor)");
     }
 
     // CALLED BY ACCEPT BUTTON
@@ -32,12 +81,6 @@ public class UIManager : MonoBehaviour
         CloseOptions();
     }
 
-
-    public void CloseOptions()
-    {
-        optionsPanel.SetActive(false);
-    }
-
     void ApplyMixerFromSliders()
     {
         SetVolume("MasterVolume", sldMaster.value);
@@ -45,17 +88,9 @@ public class UIManager : MonoBehaviour
         SetVolume("MusicVolume", sldMusic.value);
     }
 
-    void SaveSliderValues()
-    {
-        PlayerPrefs.SetFloat(KEY_MASTER, sldMaster.value);
-        PlayerPrefs.SetFloat(KEY_SFX, sldSFX.value);
-        PlayerPrefs.SetFloat(KEY_MUSIC, sldMusic.value);
-        PlayerPrefs.Save();
-    }
-
     public void LoadAudioSettings()
     {
-        
+
         float master = PlayerPrefs.GetFloat(KEY_MASTER, 1f);
         float sfx = PlayerPrefs.GetFloat(KEY_SFX, 1f);
         float music = PlayerPrefs.GetFloat(KEY_MUSIC, 1f);
@@ -64,8 +99,16 @@ public class UIManager : MonoBehaviour
         sldSFX.value = sfx;
         sldMusic.value = music;
 
-       
+
         ApplyMixerFromSliders();
+    }
+
+    void SaveSliderValues()
+    {
+        PlayerPrefs.SetFloat(KEY_MASTER, sldMaster.value);
+        PlayerPrefs.SetFloat(KEY_SFX, sldSFX.value);
+        PlayerPrefs.SetFloat(KEY_MUSIC, sldMusic.value);
+        PlayerPrefs.Save();
     }
 
     void SetVolume(string exposedParam, float sliderValue)
