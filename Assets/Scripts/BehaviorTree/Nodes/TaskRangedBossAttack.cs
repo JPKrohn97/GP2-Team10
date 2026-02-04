@@ -123,6 +123,7 @@ namespace BehaviorTree
                 lightTimer = lightCooldown;
                 emergencyDashTimer = emergencyDashCooldown;
                 animator?.SetTrigger("Attack");
+                SoundManager.Instance.PlaySound(SoundManager.Instance.FireBlast);
                 ShootNormalProjectile();
                 
                 shouldDashAfterAttack = true;
