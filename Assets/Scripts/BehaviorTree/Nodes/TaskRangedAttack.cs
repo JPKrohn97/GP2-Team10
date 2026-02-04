@@ -58,7 +58,7 @@ namespace BehaviorTree
 
                 lastAttackTime = Time.time;
                 animator?.SetTrigger("Attack");
-                SoundManager.Instance.PlaySound(SoundManager.Instance.RangedImpact);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.RangedImpact, transform.gameObject);
 
                 if (projectilePrefab != null && firePoint != null&& !enemyHealth.IsDead )
                 {

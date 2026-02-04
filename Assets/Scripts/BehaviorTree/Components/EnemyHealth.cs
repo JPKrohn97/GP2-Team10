@@ -75,7 +75,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         DOTween.To(() => slider, x => damageSlider.value = x, (float)((float)currentHealth / (float)maxHealth), 0.5f).SetEase(Ease.OutSine);
 
         // Play hurt sound
-        SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyHurt);
+        SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyHurt,gameObject);
 
         // Flash damage material when taking damage
         if (!isFlashing && damageMaterial != null)
@@ -169,11 +169,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             // Check if it's a boss enemy
             if (enemyBT is BossEnemyBT || enemyBT is MeleeBossEnemy || enemyBT is RangedBossEnemy)
             {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyDies);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyDies,gameObject);
             }
             else
             {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyDies);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyDies, gameObject);
             }
         }
         

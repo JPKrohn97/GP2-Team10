@@ -55,7 +55,7 @@ namespace BehaviorTree
                     lightTimer = lightCooldown;
                     attacksSinceLastHeavy = 0;
                     animator?.SetTrigger("BossStomp");
-                    SoundManager.Instance.PlaySound(SoundManager.Instance.StoneBossJump);
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.StoneBossJump,transform.gameObject);
                     
                     return state = NodeState.Running;
                 }
@@ -70,7 +70,7 @@ namespace BehaviorTree
                     }
                     
                     animator?.SetTrigger("LightAttack");
-                    SoundManager.Instance.PlaySound(SoundManager.Instance.BasicBossAttack);
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.BasicBossAttack,transform.gameObject);
                     return state = NodeState.Running;
                 }
             }

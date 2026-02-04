@@ -53,11 +53,24 @@ public class SoundManager : Singleton<SoundManager>
 
     public EventReference MenuSelect;
 
-
+    private EventInstance instance;
+    public void PlaySoundOneShot(EventReference sound, Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(sound, position);
+    }
     public void PlaySound(EventReference eventReference, string parameterSheetName, string parameterName)
     {
         EventInstance inst = RuntimeManager.CreateInstance(eventReference);
         inst.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        inst.setParameterByNameWithLabel(parameterName, parameterName);
+        inst.start();
+        inst.release();
+    }
+    public void PlaySound(EventReference eventReference, string parameterSheetName, string parameterName, Transform playPosition)
+    {
+        EventInstance inst = RuntimeManager.CreateInstance(eventReference);
+        RuntimeManager.AttachInstanceToGameObject(inst, playPosition.gameObject);
+        inst.set3DAttributes(RuntimeUtils.To3DAttributes(playPosition));
         inst.setParameterByNameWithLabel(parameterName, parameterName);
         inst.start();
         inst.release();
@@ -69,8 +82,55 @@ public class SoundManager : Singleton<SoundManager>
         inst.start();
         inst.release();
     }
-    public void PlaySoundOneShot(EventReference sound, Vector3 position)
+    public void PlaySound(EventReference eventReference, Transform playPosition)
     {
-        RuntimeManager.PlayOneShot(sound, position);
+        EventInstance inst = RuntimeManager.CreateInstance(eventReference);
+        RuntimeManager.AttachInstanceToGameObject(inst, playPosition.gameObject);
+
+        inst.set3DAttributes(RuntimeUtils.To3DAttributes(playPosition));
+        inst.start();
+        inst.release();
     }
+    public void PlaySound(EventReference eventReference, GameObject playPosition)
+    {
+        EventInstance inst = RuntimeManager.CreateInstance(eventReference);
+        RuntimeManager.AttachInstanceToGameObject(inst, playPosition);
+
+        inst.set3DAttributes(RuntimeUtils.To3DAttributes(playPosition));
+        inst.start();
+        inst.release();
+    }
+    public void StartPlaySound(EventReference eventReference, Transform playPosition)
+    {
+        EventInstance inst = RuntimeManager.CreateInstance(eventReference);
+        inst.set3DAttributes(RuntimeUtils.To3DAttributes(playPosition));
+        PLAYBACK_STATE playBackState;
+        inst.getPlaybackState(out playBackState);
+
+        // Only start if it's NOT already playing
+        if (playBackState == PLAYBACK_STATE.STOPPED)
+        {
+
+            var attributes = RuntimeUtils.To3DAttributes(transform.position);
+            inst.set3DAttributes(attributes);
+            inst.start();
+        }
+    }
+
+    public void StopSound(EventReference eventReference)
+    {
+        EventInstance inst = RuntimeManager.CreateInstance(eventReference);
+        PLAYBACK_STATE playBackState;
+        inst.getPlaybackState(out playBackState);
+        // Only stop if it's playing
+        if (playBackState == PLAYBACK_STATE.PLAYING)
+        {
+            inst.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            inst.release();
+        }
+    }
+
+
+
+
 }

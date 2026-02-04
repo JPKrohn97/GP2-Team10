@@ -56,11 +56,11 @@ public class EnemyFootsteps : MonoBehaviour
     {
         if (isBoss)
         {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.BossSteps);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.BossSteps,transform.gameObject);
         }
         else
         {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyFootSteps);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyFootSteps, transform.gameObject );
         }
     }
 }
