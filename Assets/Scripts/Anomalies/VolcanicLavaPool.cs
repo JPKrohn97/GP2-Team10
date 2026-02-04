@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class VolcanicLavaPool : MonoBehaviour
 {
@@ -73,5 +75,11 @@ public class VolcanicLavaPool : MonoBehaviour
 
             yield return new WaitForSeconds(damageInterval);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(transform.position, new Vector3(moveRadius, moveRadius, moveRadius));
     }
 }
