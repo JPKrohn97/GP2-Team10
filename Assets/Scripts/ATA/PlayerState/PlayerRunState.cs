@@ -2,28 +2,24 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerGroundedState 
 {
+    private const float DeadZone = 0.1f;
 
-    private const float DeadZone = 0.15f; 
-    
-    private float acceleration = 50f; 
-    private float deceleration = 60f;
+    private float acceleration = 60f; 
+    private float deceleration = 80f; 
+    private float turnSpeed = 100f; 
 
     public PlayerRunState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
 
     public override void Enter()
     {
         base.Enter();
-
-        if (player.AnimationEvents != null)
-            player.AnimationEvents.SetMovingBool(true);
+        player.AnimationEvents?.SetMovingBool(true);
     }
 
     public override void Exit()
     {
         base.Exit();
-
-        if (player.AnimationEvents != null)
-            player.AnimationEvents.SetMovingBool(false);
+        player.AnimationEvents?.SetMovingBool(false);
     }
 
     public override void LogicUpdate()
@@ -31,9 +27,8 @@ public class PlayerRunState : PlayerGroundedState
         base.LogicUpdate();
 
         if (stateMachine.CurrentState != this) return;
-
-
-        if (player.CurrentMovementInput == Vector2.zero)
+        
+        if (player.CurrentMovementInput.sqrMagnitude < 0.01f)
         {
             stateMachine.ChangeState(player.IdleState);
         }
@@ -43,26 +38,51 @@ public class PlayerRunState : PlayerGroundedState
     {
         base.PhysicsUpdate();
 
-        float inputX = player.CurrentMovementInput.x;
-        if (Mathf.Abs(inputX) < DeadZone)
+        float rawInputX = player.CurrentMovementInput.x;
+
+        float direction = 0f;
+        if (Mathf.Abs(rawInputX) > DeadZone)
         {
-            inputX = 0f;
+            direction = Mathf.Sign(rawInputX);
         }
-
-        float targetSpeed = inputX * player.moveSpeed;
+        else 
+        {
+            direction = 0f;
+        }
+        
+        float targetSpeed = direction * player.moveSpeed;
+        
         Vector3 currentVelocity = player.RB.linearVelocity;
+        
+        float currentSpeedZ = currentVelocity.z;
+        float speedChangeRate;
 
-        float speedChangeRate = (Mathf.Abs(targetSpeed) > DeadZone) ? acceleration : deceleration;
-
-        float newSpeedZ = Mathf.MoveTowards(currentVelocity.z, targetSpeed, speedChangeRate * Time.fixedDeltaTime);
-
+        if (Mathf.Abs(targetSpeed) < 0.1f) 
+        {
+            speedChangeRate = deceleration; 
+        }
+        else if (Mathf.Sign(targetSpeed) != Mathf.Sign(currentSpeedZ) && Mathf.Abs(currentSpeedZ) > 0.1f)
+        {
+            speedChangeRate = turnSpeed;
+        }
+        else
+        {
+            speedChangeRate = acceleration; 
+        }
+        
+        float newSpeedZ = Mathf.MoveTowards(currentSpeedZ, targetSpeed, speedChangeRate * Time.fixedDeltaTime);
+        
         Vector3 finalVelocity = new Vector3(0f, currentVelocity.y, newSpeedZ);
         player.RB.linearVelocity = finalVelocity;
 
-        if (Mathf.Abs(inputX) > DeadZone)
+        // Rotation
+        if (direction != 0f)
         {
-            float targetY = (inputX > 0f) ? 0f : 180f; 
-            player.transform.rotation = Quaternion.Euler(0f, targetY, 0f);
+            float targetY = (direction > 0f) ? 0f : 180f; 
+            
+     
+            Quaternion targetRotation = Quaternion.Euler(0f, targetY, 0f);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 20f * Time.fixedDeltaTime);
         }
     }
 }

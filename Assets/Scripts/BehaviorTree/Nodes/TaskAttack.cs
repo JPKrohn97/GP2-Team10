@@ -33,6 +33,7 @@ namespace BehaviorTree
             {
                 lastAttackTime = Time.time;
                 animator?.SetTrigger(attackTrigger);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.SwordImpactImpact, transform.gameObject);
             }
 
             return state = NodeState.Running;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace BehaviorTree
 {
@@ -6,6 +7,7 @@ namespace BehaviorTree
     {
         private Transform transform;
         private Animator animator;
+        private NavMeshAgent agent;
         
         private float lightCooldown;
         private float heavyCooldown;
@@ -15,10 +17,11 @@ namespace BehaviorTree
         private float heavyTimer = 0f;
         private int attacksSinceLastHeavy = 0;
 
-        public TaskMeleeBossAttack(Transform transform, Animator animator,
+        public TaskMeleeBossAttack(Transform transform, NavMeshAgent agent, Animator animator,
             float lightCooldown, float heavyCooldown, float heavyChance)
         {
             this.transform = transform;
+            this.agent = agent;
             this.animator = animator;
             this.lightCooldown = lightCooldown;
             this.heavyCooldown = heavyCooldown;
@@ -31,7 +34,18 @@ namespace BehaviorTree
             if (target == null)
                 return state = NodeState.Failure;
 
-            EnemyFacing.FaceTarget(transform, target);
+            // STOP movement during attack
+            if (agent != null)
+            {
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+            }
+
+            // ONLY face target when NOT playing attack animation
+            if (!IsAttackAnimationPlaying())
+            {
+                EnemyFacing.FaceTarget(transform, target);
+            }
 
             if (IsAttackAnimationPlaying())
             {
@@ -55,6 +69,7 @@ namespace BehaviorTree
                     lightTimer = lightCooldown;
                     attacksSinceLastHeavy = 0;
                     animator?.SetTrigger("BossStomp");
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.StoneBossJump);
                     
                     return state = NodeState.Running;
                 }
@@ -69,6 +84,7 @@ namespace BehaviorTree
                     }
                     
                     animator?.SetTrigger("LightAttack");
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.BasicBossAttack);
                     return state = NodeState.Running;
                 }
             }

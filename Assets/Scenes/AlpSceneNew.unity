@@ -12311,9 +12311,9 @@ GameObject:
   m_Component:
   - component: {fileID: 342134347}
   - component: {fileID: 342134346}
-  - component: {fileID: 342134345}
   - component: {fileID: 342134344}
   - component: {fileID: 342134343}
+  - component: {fileID: 342134348}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12397,14 +12397,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &342134345
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342134342}
-  m_Enabled: 1
 --- !u!20 &342134346
 Camera:
   m_ObjectHideFlags: 0
@@ -12471,6 +12463,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &342134348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342134342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 438091343}
 --- !u!4 &345055381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 471790, guid: 9543382690c0b4a45bab4ad4b37def98, type: 3}
@@ -15048,6 +15054,11 @@ PrefabInstance:
       addedObject: {fileID: 1249889686}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+--- !u!1 &438091343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7126066162392831847, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+  m_PrefabInstance: {fileID: 438091342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &443067649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64160,6 +64171,219 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400150, guid: 4e5d9824dc45f724690777e573f84304, type: 3}
   m_PrefabInstance: {fileID: 1215779242}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1775469872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1775469873}
+  - component: {fileID: 1775469874}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1775469873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775469872}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 72.225464, y: 30.556116, z: -77.35125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1775469874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775469872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd798ad6b327af45a7bbb5075e17d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroy: 0
+  BasicBossAttack:
+    Guid:
+      Data1: 751672234
+      Data2: 1111339768
+      Data3: -2090708073
+      Data4: -184646993
+    Path: event:/Attacks/Boss attacks/Basic Boss attack
+  FireBlast:
+    Guid:
+      Data1: 621532775
+      Data2: 1253253750
+      Data3: -644379509
+      Data4: 419390744
+    Path: event:/Attacks/Boss attacks/Fire blast
+  ShockWaveJump:
+    Guid:
+      Data1: 515043061
+      Data2: 1227231473
+      Data3: -1484155990
+      Data4: 963112533
+    Path: event:/Attacks/Boss attacks/Shock-wave jump
+  StoneBossJump:
+    Guid:
+      Data1: 753007506
+      Data2: 1136799839
+      Data3: -2029650503
+      Data4: 641134596
+    Path: event:/Attacks/Boss attacks/Stone Boss jump
+  ChargedAttack:
+    Guid:
+      Data1: 1429895615
+      Data2: 1153306708
+      Data3: -1271962985
+      Data4: 2036797053
+    Path: event:/Attacks/Charged
+  ClawsAttack:
+    Guid:
+      Data1: 1241166731
+      Data2: 1259679733
+      Data3: -1726257254
+      Data4: -2083266844
+    Path: event:/Attacks/Claws
+  RangedAttack:
+    Guid:
+      Data1: 352556965
+      Data2: 1083956559
+      Data3: 553686951
+      Data4: -404548654
+    Path: event:/Attacks/Ranged
+  SwordAttack:
+    Guid:
+      Data1: -1439952736
+      Data2: 1094611129
+      Data3: -1538193741
+      Data4: -1440187134
+    Path: event:/Attacks/Sword
+  BossSteps:
+    Guid:
+      Data1: 1870088300
+      Data2: 1166952783
+      Data3: -2099654265
+      Data4: -669382742
+    Path: event:/Footsteps/Boss Footsteps
+  EnemyFootSteps:
+    Guid:
+      Data1: 941626771
+      Data2: 1128097049
+      Data3: -1955332199
+      Data4: 932737021
+    Path: event:/Footsteps/Enemy Footsteps
+  PlayerFootSteps:
+    Guid:
+      Data1: 1548068877
+      Data2: 1187302324
+      Data3: -960637266
+      Data4: -907500413
+    Path: event:/Footsteps/Player Footsteps
+  BasicBossAttackImpact:
+    Guid:
+      Data1: 525979137
+      Data2: 1146951954
+      Data3: -1547943031
+      Data4: -166090022
+    Path: event:/Impacts/Basic Boss attack impact
+  ChargeAttackImpact:
+    Guid:
+      Data1: -818857685
+      Data2: 1242598937
+      Data3: -443272563
+      Data4: 1670559706
+    Path: event:/Impacts/Charged impact
+  ClawsImpact:
+    Guid:
+      Data1: 269772422
+      Data2: 1270743108
+      Data3: 1907469458
+      Data4: -534173811
+    Path: event:/Impacts/Claws impact
+  RangedImpact:
+    Guid:
+      Data1: -862254206
+      Data2: 1133681971
+      Data3: 1922360219
+      Data4: 242148371
+    Path: event:/Impacts/Ranged impact
+  ShockWaveImpact:
+    Guid:
+      Data1: -835539077
+      Data2: 1303628978
+      Data3: 10239673
+      Data4: -1095148301
+    Path: event:/Impacts/Shock-wave jump impact
+  SwordImpactImpact:
+    Guid:
+      Data1: 567928384
+      Data2: 1323255960
+      Data3: -1902374510
+      Data4: -954174803
+    Path: event:/Impacts/Sword impact
+  BossDies:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  EnemyDies:
+    Guid:
+      Data1: 628408407
+      Data2: 1288596855
+      Data3: -1899254123
+      Data4: -1684699568
+    Path: event:/On Death sounds/Enemy dies
+  PlayerDies:
+    Guid:
+      Data1: 1422753159
+      Data2: 1296297972
+      Data3: -1288090751
+      Data4: 1096514107
+    Path: event:/On Death sounds/Player dies
+  EnemyHurt:
+    Guid:
+      Data1: -1283937371
+      Data2: 1293262016
+      Data3: 1059024043
+      Data4: -1737534560
+    Path: event:/On Hurt sounds/Enemy hurt
+  PlayerHurt:
+    Guid:
+      Data1: 1771739371
+      Data2: 1194375359
+      Data3: -600652111
+      Data4: -1118763995
+    Path: event:/On Hurt sounds/Player hurt
+  Eating:
+    Guid:
+      Data1: 1745804386
+      Data2: 1175326443
+      Data3: 2139552425
+      Data4: -1827960819
+    Path: event:/Eating
+  MenuSelect:
+    Guid:
+      Data1: -1507363642
+      Data2: 1337442281
+      Data3: -269470053
+      Data4: 1332004780
+    Path: event:/Menu
 --- !u!1001 &1778471337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77657,3 +77881,4 @@ SceneRoots:
   - {fileID: 1984088024}
   - {fileID: 727153073}
   - {fileID: 5985927959477111042}
+  - {fileID: 1775469873}

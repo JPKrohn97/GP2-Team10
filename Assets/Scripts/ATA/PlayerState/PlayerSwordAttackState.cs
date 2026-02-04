@@ -2,8 +2,7 @@
 
 public class PlayerSwordAttackState : PlayerAttackState
 {
-    private float lastAttackInputTime = -999f;
-    
+
     private float comboBufferTime; 
 
     public PlayerSwordAttackState(PlayerController player, PlayerStateMachine stateMachine)
@@ -18,9 +17,8 @@ public class PlayerSwordAttackState : PlayerAttackState
 
         if (Application.isMobilePlatform)
         {
-
-            comboBufferTime = 0.60f; 
-            attackDuration = 0.67f; 
+            comboBufferTime = 0.3f; 
+            attackDuration = 0.35f; 
         }
         else
         {
@@ -28,26 +26,32 @@ public class PlayerSwordAttackState : PlayerAttackState
             attackDuration = 0.35f;
         }
     }
+    
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-
-        if (player.InputHandler.Player.Attack.WasPressedThisFrame())
-        {
-            lastAttackInputTime = Time.time;
-        }
-
+        
+        bool hasBufferedInput = (player.LastAttackInputTime > startTime) && 
+                                (Time.time - player.LastAttackInputTime <= comboBufferTime);
+        
         if (Time.time >= startTime + attackDuration)
         {
-            if (Time.time - lastAttackInputTime <= comboBufferTime)
+            if (hasBufferedInput)
             {
                 stateMachine.ChangeState(player.SwordAttackState);
             }
             else
             {
-                stateMachine.ChangeState(player.IdleState);
+
+                if (player.CurrentMovementInput.magnitude > 0.1f)
+                {
+                    stateMachine.ChangeState(player.RunState);
+                }
+                else
+                {
+                    stateMachine.ChangeState(player.IdleState);
+                }
             }
         }
     }
