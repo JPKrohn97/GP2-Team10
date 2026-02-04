@@ -1165,9 +1165,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1728055562}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SetMaster
-        m_Mode: 0
+        m_TargetAssemblyTypeName: AudioSettingsManager, Assembly-CSharp
+        m_MethodName: OnMasterChanged
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2285,8 +2285,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1728055562}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SetSFX
+        m_TargetAssemblyTypeName: AudioSettingsManager, Assembly-CSharp
+        m_MethodName: OnSFXChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4307,8 +4307,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1728055562}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SetMusic
+        m_TargetAssemblyTypeName: AudioSettingsManager, Assembly-CSharp
+        m_MethodName: OnMusicChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4329,7 +4329,7 @@ GameObject:
   - component: {fileID: 1728055561}
   - component: {fileID: 1728055562}
   m_Layer: 0
-  m_Name: SoundManager
+  m_Name: AudioSettingsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4362,7 +4362,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f568330482078194396dfe9c5b3b93d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 24100000, guid: e0b3b7c800645b14bb4ca7fa0f8ba05e, type: 2}
+  optionsPanel: {fileID: 459202431}
+  sldMaster: {fileID: 597175144}
+  sldSFX: {fileID: 1080572556}
+  sldMusic: {fileID: 1687251135}
+  masterBusPath: bus:/
+  sfxBusPath: bus:/SFX
+  musicBusPath: bus:/Music
 --- !u!1 &1736917472
 GameObject:
   m_ObjectHideFlags: 0
