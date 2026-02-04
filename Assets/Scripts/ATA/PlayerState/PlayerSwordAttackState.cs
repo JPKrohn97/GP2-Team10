@@ -17,8 +17,8 @@ public class PlayerSwordAttackState : PlayerAttackState
 
         if (Application.isMobilePlatform)
         {
-            comboBufferTime = 0.60f; 
-            attackDuration = 0.67f; 
+            comboBufferTime = 0.3f; 
+            attackDuration = 0.35f; 
         }
         else
         {
@@ -26,6 +26,7 @@ public class PlayerSwordAttackState : PlayerAttackState
             attackDuration = 0.35f;
         }
     }
+    
 
     public override void LogicUpdate()
     {
