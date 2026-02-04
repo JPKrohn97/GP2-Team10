@@ -123,7 +123,7 @@ namespace BehaviorTree
                 lightTimer = lightCooldown;
                 emergencyDashTimer = emergencyDashCooldown;
                 animator?.SetTrigger("Attack");
-                SoundManager.Instance.PlaySound(SoundManager.Instance.FireBlast);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.BasicBossAttack);
                 ShootNormalProjectile();
                 
                 shouldDashAfterAttack = true;
@@ -157,6 +157,7 @@ namespace BehaviorTree
                     heavyTimer = heavyCooldown;
                     lightTimer = lightCooldown;
                     attacksSinceLastHeavy = 0;
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.FireBlast);
                     ShootMultiAngleProjectiles(target);
                     
                     return state = NodeState.Running;
