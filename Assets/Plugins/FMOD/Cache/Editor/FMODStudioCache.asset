@@ -1,0 +1,1515 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9158838718566545315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Charged impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Charged impact
+  Guid:
+    Data1: -818857685
+    Data2: 1242598937
+    Data3: -443272563
+    Data4: 1670559706
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1635
+--- !u!114 &-8175041520527784648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Ranged impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Ranged impact
+  Guid:
+    Data1: -862254206
+    Data2: 1133681971
+    Data3: 1922360219
+    Data4: 242148371
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -723127202836847501}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1271
+--- !u!114 &-8085771635549928300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../Downloads/GP2/GP2/GP2/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639057433473833178
+  FileSizes:
+  - Name: Desktop
+    Value: 415424
+  Exists: 1
+--- !u!114 &-8072061254868361708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Claws
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Claws
+  Guid:
+    Data1: 1241166731
+    Data2: 1259679733
+    Data3: -1726257254
+    Data4: -2083266844
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1100
+--- !u!114 &-7915304221688117121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Death sounds/Enemy dies
+  m_EditorClassIdentifier: 
+  Path: event:/On Death sounds/Enemy dies
+  Guid:
+    Data1: 628408407
+    Data2: 1288596855
+    Data3: -1899254123
+    Data4: -1684699568
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 608
+--- !u!114 &-7608783660641342539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Sword
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Sword
+  Guid:
+    Data1: -1439952736
+    Data2: 1094611129
+    Data3: -1538193741
+    Data4: -1440187134
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1300
+--- !u!114 &-7521395258895722411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/Boss Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/Boss Footsteps
+  Guid:
+    Data1: 1870088300
+    Data2: 1166952783
+    Data3: -2099654265
+    Data4: -669382742
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 531
+--- !u!114 &-7361177496128885922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../Downloads/GP2/GP2/GP2/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639057433473843214
+  FileSizes:
+  - Name: Desktop
+    Value: 1972
+  Exists: 1
+--- !u!114 &-7244521300761530381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ranged/Biome
+  m_EditorClassIdentifier: 
+  Name: Biome
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1906472449
+    data2: 3764513817
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-7151946891796396753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Claws
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Claws
+  Guid:
+    Data1: 1241166731
+    Data2: 1259679733
+    Data3: -1726257254
+    Data4: -2083266844
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1100
+--- !u!114 &-6860350644165541555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Charged
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Charged
+  Guid:
+    Data1: 1429895615
+    Data2: 1153306708
+    Data3: -1271962985
+    Data4: 2036797053
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 530
+--- !u!114 &-6308373574207509157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Stone Boss jump
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Stone Boss jump
+  Guid:
+    Data1: 753007506
+    Data2: 1136799839
+    Data3: -2029650503
+    Data4: 641134596
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6036485438825267556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Hurt sounds/Player hurt
+  m_EditorClassIdentifier: 
+  Path: event:/On Hurt sounds/Player hurt
+  Guid:
+    Data1: 1771739371
+    Data2: 1194375359
+    Data3: -600652111
+    Data4: -1118763995
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 420
+--- !u!114 &-5398070594104409209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/Enemy Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/Enemy Footsteps
+  Guid:
+    Data1: 941626771
+    Data2: 1128097049
+    Data3: -1955332199
+    Data4: 932737021
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 464
+--- !u!114 &-5361608271462329583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Sword impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Sword impact
+  Guid:
+    Data1: 567928384
+    Data2: 1323255960
+    Data3: -1902374510
+    Data4: -954174803
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 590
+--- !u!114 &-5351238336642526135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Death sounds/Player dies
+  m_EditorClassIdentifier: 
+  Path: event:/On Death sounds/Player dies
+  Guid:
+    Data1: 1422753159
+    Data2: 1296297972
+    Data3: -1288090751
+    Data4: 1096514107
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &-4596636097091382869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Ranged
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Ranged
+  Guid:
+    Data1: 352556965
+    Data2: 1083956559
+    Data3: 553686951
+    Data4: -404548654
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7244521300761530381}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1640
+--- !u!114 &-4329784276464491537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Shock-wave jump
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Shock-wave jump
+  Guid:
+    Data1: 515043061
+    Data2: 1227231473
+    Data3: -1484155990
+    Data4: 963112533
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4049252517038299223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Fire blast
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Fire blast
+  Guid:
+    Data1: 621532775
+    Data2: 1253253750
+    Data3: -644379509
+    Data4: 419390744
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5500
+--- !u!114 &-3604372543835324297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Ranged impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Ranged impact
+  Guid:
+    Data1: -862254206
+    Data2: 1133681971
+    Data3: 1922360219
+    Data4: 242148371
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4622264908959636043}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1271
+--- !u!114 &-3570595782435878826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Menu
+  m_EditorClassIdentifier: 
+  Path: event:/Menu
+  Guid:
+    Data1: -1507363642
+    Data2: 1337442281
+    Data3: -269470053
+    Data4: 1332004780
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1086
+--- !u!114 &-2655413958907875970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Sword impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Sword impact
+  Guid:
+    Data1: 567928384
+    Data2: 1323255960
+    Data3: -1902374510
+    Data4: -954174803
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 590
+--- !u!114 &-2651322333342696860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Hurt sounds/Enemy hurt
+  m_EditorClassIdentifier: 
+  Path: event:/On Hurt sounds/Enemy hurt
+  Guid:
+    Data1: -1283937371
+    Data2: 1293262016
+    Data3: 1059024043
+    Data4: -1737534560
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 275
+--- !u!114 &-2426327766581207586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/Player Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/Player Footsteps
+  Guid:
+    Data1: 1548068877
+    Data2: 1187302324
+    Data3: -960637266
+    Data4: -907500413
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 464
+--- !u!114 &-2279752363660813888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Charged impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Charged impact
+  Guid:
+    Data1: -818857685
+    Data2: 1242598937
+    Data3: -443272563
+    Data4: 1670559706
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1635
+--- !u!114 &-2110755600212126109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ranged/Biome
+  m_EditorClassIdentifier: 
+  Name: Biome
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1906472449
+    data2: 3764513817
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1562446284992251487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/Enemy Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/Enemy Footsteps
+  Guid:
+    Data1: 941626771
+    Data2: 1128097049
+    Data3: -1955332199
+    Data4: 932737021
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 464
+--- !u!114 &-1438984913510389718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Death sounds/Enemy dies
+  m_EditorClassIdentifier: 
+  Path: event:/On Death sounds/Enemy dies
+  Guid:
+    Data1: 628408407
+    Data2: 1288596855
+    Data3: -1899254123
+    Data4: -1684699568
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 608
+--- !u!114 &-723127202836847501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ranged impact/Biome
+  m_EditorClassIdentifier: 
+  Name: Biome
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1906472449
+    data2: 3764513817
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-259827291979257866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Claws impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Claws impact
+  Guid:
+    Data1: 269772422
+    Data2: 1270743108
+    Data3: 1907469458
+    Data4: -534173811
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 682
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 5173692676613866794}
+  - {fileID: 2590219142835297684}
+  EditorEvents:
+  - {fileID: 1199180734316330607}
+  - {fileID: -2426327766581207586}
+  - {fileID: -2279752363660813888}
+  - {fileID: -5361608271462329583}
+  - {fileID: -7915304221688117121}
+  - {fileID: 471303151056119283}
+  - {fileID: -4049252517038299223}
+  - {fileID: 2318038180876774760}
+  - {fileID: 5587187070247433820}
+  - {fileID: -8175041520527784648}
+  - {fileID: -259827291979257866}
+  - {fileID: 3940354755399470996}
+  - {fileID: -8072061254868361708}
+  - {fileID: -6308373574207509157}
+  - {fileID: -1562446284992251487}
+  - {fileID: -7608783660641342539}
+  - {fileID: -4596636097091382869}
+  - {fileID: 9169837884809496790}
+  - {fileID: 4911392308689771457}
+  - {fileID: 7554014578339267147}
+  - {fileID: -3570595782435878826}
+  - {fileID: 4893513290504708230}
+  - {fileID: -4329784276464491537}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 2590219142835297684}
+  StringsBanks:
+  - {fileID: 5173692676613866794}
+  cacheVersion: 131857
+  cacheTime: 639057433473843214
+  SerializableEventsDict:
+  - key: event:/Impacts/Basic Boss attack impact
+    index: 0
+  - key: event:/Footsteps/Player Footsteps
+    index: 1
+  - key: event:/Impacts/Charged impact
+    index: 2
+  - key: event:/Impacts/Sword impact
+    index: 3
+  - key: event:/On Death sounds/Enemy dies
+    index: 4
+  - key: event:/Eating
+    index: 5
+  - key: event:/Attacks/Boss attacks/Fire blast
+    index: 6
+  - key: event:/Footsteps/Boss Footsteps
+    index: 7
+  - key: event:/Impacts/Shock-wave jump impact
+    index: 8
+  - key: event:/Impacts/Ranged impact
+    index: 9
+  - key: event:/Impacts/Claws impact
+    index: 10
+  - key: event:/On Death sounds/Player dies
+    index: 11
+  - key: event:/Attacks/Claws
+    index: 12
+  - key: event:/Attacks/Boss attacks/Stone Boss jump
+    index: 13
+  - key: event:/Footsteps/Enemy Footsteps
+    index: 14
+  - key: event:/Attacks/Sword
+    index: 15
+  - key: event:/Attacks/Ranged
+    index: 16
+  - key: event:/On Hurt sounds/Enemy hurt
+    index: 17
+  - key: event:/Attacks/Boss attacks/Basic Boss attack
+    index: 18
+  - key: event:/Attacks/Charged
+    index: 19
+  - key: event:/Menu
+    index: 20
+  - key: event:/On Hurt sounds/Player hurt
+    index: 21
+  - key: event:/Attacks/Boss attacks/Shock-wave jump
+    index: 22
+--- !u!114 &155389017641785977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Basic Boss attack
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Basic Boss attack
+  Guid:
+    Data1: 751672234
+    Data2: 1111339768
+    Data3: -2090708073
+    Data4: -184646993
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &471303151056119283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Eating
+  m_EditorClassIdentifier: 
+  Path: event:/Eating
+  Guid:
+    Data1: 1745804386
+    Data2: 1175326443
+    Data3: 2139552425
+    Data4: -1827960819
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2840
+--- !u!114 &851719942972430088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Shock-wave jump impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Shock-wave jump impact
+  Guid:
+    Data1: -835539077
+    Data2: 1303628978
+    Data3: 10239673
+    Data4: -1095148301
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1022884985913437856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Basic Boss attack impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Basic Boss attack impact
+  Guid:
+    Data1: 525979137
+    Data2: 1146951954
+    Data3: -1547943031
+    Data4: -166090022
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1199180734316330607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Basic Boss attack impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Basic Boss attack impact
+  Guid:
+    Data1: 525979137
+    Data2: 1146951954
+    Data3: -1547943031
+    Data4: -166090022
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1386040327950257778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Eating
+  m_EditorClassIdentifier: 
+  Path: event:/Eating
+  Guid:
+    Data1: 1745804386
+    Data2: 1175326443
+    Data3: 2139552425
+    Data4: -1827960819
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2840
+--- !u!114 &1780085380328039749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Ranged
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Ranged
+  Guid:
+    Data1: 352556965
+    Data2: 1083956559
+    Data3: 553686951
+    Data4: -404548654
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2110755600212126109}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1640
+--- !u!114 &2318038180876774760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/Boss Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/Boss Footsteps
+  Guid:
+    Data1: 1870088300
+    Data2: 1166952783
+    Data3: -2099654265
+    Data4: -669382742
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 531
+--- !u!114 &2411181357237748736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Fire blast
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Fire blast
+  Guid:
+    Data1: 621532775
+    Data2: 1253253750
+    Data3: -644379509
+    Data4: 419390744
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5500
+--- !u!114 &2590219142835297684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../Downloads/GP2/GP2/GP2/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639057433473833178
+  FileSizes: []
+  Exists: 1
+--- !u!114 &3150039884359698113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Shock-wave jump
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Shock-wave jump
+  Guid:
+    Data1: 515043061
+    Data2: 1227231473
+    Data3: -1484155990
+    Data4: 963112533
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3549996375923200957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Claws impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Claws impact
+  Guid:
+    Data1: 269772422
+    Data2: 1270743108
+    Data3: 1907469458
+    Data4: -534173811
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 682
+--- !u!114 &3940354755399470996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Death sounds/Player dies
+  m_EditorClassIdentifier: 
+  Path: event:/On Death sounds/Player dies
+  Guid:
+    Data1: 1422753159
+    Data2: 1296297972
+    Data3: -1288090751
+    Data4: 1096514107
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &3953448396929544807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Sword
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Sword
+  Guid:
+    Data1: -1439952736
+    Data2: 1094611129
+    Data3: -1538193741
+    Data4: -1440187134
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1300
+--- !u!114 &4528017641822378581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/Player Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/Player Footsteps
+  Guid:
+    Data1: 1548068877
+    Data2: 1187302324
+    Data3: -960637266
+    Data4: -907500413
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 464
+--- !u!114 &4571873786927555818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Menu
+  m_EditorClassIdentifier: 
+  Path: event:/Menu
+  Guid:
+    Data1: -1507363642
+    Data2: 1337442281
+    Data3: -269470053
+    Data4: 1332004780
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1086
+--- !u!114 &4622264908959636043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ranged impact/Biome
+  m_EditorClassIdentifier: 
+  Name: Biome
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1906472449
+    data2: 3764513817
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &4893513290504708230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Hurt sounds/Player hurt
+  m_EditorClassIdentifier: 
+  Path: event:/On Hurt sounds/Player hurt
+  Guid:
+    Data1: 1771739371
+    Data2: 1194375359
+    Data3: -600652111
+    Data4: -1118763995
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 420
+--- !u!114 &4911392308689771457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Basic Boss attack
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Basic Boss attack
+  Guid:
+    Data1: 751672234
+    Data2: 1111339768
+    Data3: -2090708073
+    Data4: -184646993
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5173692676613866794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../Downloads/GP2/GP2/GP2/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639057433473843214
+  FileSizes:
+  - Name: 
+    Value: 1972
+  Exists: 1
+--- !u!114 &5587187070247433820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Impacts/Shock-wave jump impact
+  m_EditorClassIdentifier: 
+  Path: event:/Impacts/Shock-wave jump impact
+  Guid:
+    Data1: -835539077
+    Data2: 1303628978
+    Data3: 10239673
+    Data4: -1095148301
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7435850421963304429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Boss attacks/Stone Boss jump
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Boss attacks/Stone Boss jump
+  Guid:
+    Data1: 753007506
+    Data2: 1136799839
+    Data3: -2029650503
+    Data4: 641134596
+  Banks:
+  - {fileID: -8085771635549928300}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7554014578339267147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Attacks/Charged
+  m_EditorClassIdentifier: 
+  Path: event:/Attacks/Charged
+  Guid:
+    Data1: 1429895615
+    Data2: 1153306708
+    Data3: -1271962985
+    Data4: 2036797053
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 530
+--- !u!114 &9169837884809496790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/On Hurt sounds/Enemy hurt
+  m_EditorClassIdentifier: 
+  Path: event:/On Hurt sounds/Enemy hurt
+  Guid:
+    Data1: -1283937371
+    Data2: 1293262016
+    Data3: 1059024043
+    Data4: -1737534560
+  Banks:
+  - {fileID: 2590219142835297684}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 275
