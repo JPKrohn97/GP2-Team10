@@ -457,7 +457,7 @@ PrefabInstance:
     - target: {fileID: -5085363890999900776, guid: 16a4f3472d163964ea3ed3fe61fdbdb1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: be7b01e6d936ee743b25b36bcf3eb507, type: 2}
+      objectReference: {fileID: 2100000, guid: e7a97a7f0af908947b04761880990436, type: 2}
     - target: {fileID: -4728426434207774260, guid: 16a4f3472d163964ea3ed3fe61fdbdb1, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -1887,19 +1887,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007611437241675672, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_Name
-      value: BossEnemy
+      value: StoneBoss
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22241783
+      value: 48.145535
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 48.727272
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.21
+      value: -4.7984734
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalRotation.w
