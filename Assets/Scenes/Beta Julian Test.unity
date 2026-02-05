@@ -5016,10 +5016,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Biome2 Visual
       objectReference: {fileID: 0}
-    - target: {fileID: 8526051057387621815, guid: e7430d4d848ec714599f6f3a2ab3c8ec, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5663,14 +5659,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2161304893976924070, guid: d2f3fdae280a767469d0c14fe92dc37c, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2161304893976924070, guid: d2f3fdae280a767469d0c14fe92dc37c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_LocalPosition.x
       value: 48.145535
@@ -5714,6 +5702,14 @@ PrefabInstance:
     - target: {fileID: 6985117900536246687, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_Name
       value: StoneBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161304893976924070, guid: d2f3fdae280a767469d0c14fe92dc37c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2161304893976924070, guid: d2f3fdae280a767469d0c14fe92dc37c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5678487771805817546, guid: d2f3fdae280a767469d0c14fe92dc37c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6018,10 +6014,6 @@ PrefabInstance:
     - target: {fileID: 444405195839676011, guid: b5637550eb61cc94cafed58c06976a70, type: 3}
       propertyPath: m_Name
       value: Biome1 Visual
-      objectReference: {fileID: 0}
-    - target: {fileID: 444405195839676011, guid: b5637550eb61cc94cafed58c06976a70, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6478853478808409677, guid: b5637550eb61cc94cafed58c06976a70, type: 3}
       propertyPath: m_LocalPosition.x
