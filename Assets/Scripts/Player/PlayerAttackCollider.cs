@@ -36,7 +36,7 @@ public class PlayerAttackCollider : MonoBehaviour
     
         Quaternion hitRotation = Quaternion.LookRotation(impactNormal);
 
-        //ManagerObjectPool.Instance.Spawn(ObjectPoolType.ClawParticle, hitPoint, hitRotation);
+        ManagerObjectPool.Instance.Spawn(ObjectPoolType.ClawHit, hitPoint, hitRotation);
 
         
 

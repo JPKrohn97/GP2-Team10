@@ -15,8 +15,10 @@ public enum ObjectPoolType
     PlayerProjectileExplosion,
     BossProjectile,
     BossProjectileExplosion,
-    BossGroundShockwave
-    
+    BossGroundShockwave,
+    FirBlastEffect,
+    EarthMuzzle
+
 
 
 }

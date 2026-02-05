@@ -94,3 +94,11 @@ MonoBehaviour:
     Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 12
+    Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 13
+    Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
