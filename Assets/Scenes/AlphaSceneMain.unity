@@ -2949,11 +2949,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!137 &95983257 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3669521222218382481, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-  m_PrefabInstance: {fileID: 438091342}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &98137128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 491826, guid: 2ec5801d5a2a5f1498f62ce2d0c5fec9, type: 3}
@@ -11232,32 +11227,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1786693667100431956, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-      propertyPath: playerMesh
-      value: 
-      objectReference: {fileID: 95983257}
-    - target: {fileID: 1786693667100431956, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 812567706}
-    - target: {fileID: 3218893614409839678, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-      propertyPath: dashTrailPrefab
-      value: 
-      objectReference: {fileID: 120358, guid: 6852975e9dbfb80488e6597f45e867d5, type: 3}
-    - target: {fileID: 3218893614409839678, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
     - target: {fileID: 7126066162392831847, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_Name
       value: PlayerParent
-      objectReference: {fileID: 0}
-    - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-      propertyPath: jumpHeight
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
-      propertyPath: dashCooldown
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9210704700443322828, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20028,6 +20003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc2101f62f20d6479118cbd70b9840e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroy: 0
 --- !u!4 &885488800
 Transform:
   m_ObjectHideFlags: 0
