@@ -126,9 +126,10 @@ public class EnemyAnimatorController : MonoBehaviour
         // Spawn at boss position, NOT as child
         Vector3 spawnPos = transform.position;
         spawnPos.y = 0.5f; // Ground level
-        
-        GameObject shockwaveObj = Instantiate(groundShockwavePrefab, transform.position,Quaternion.identity);
-        
+
+        //GameObject shockwaveObj = Instantiate(groundShockwavePrefab, transform.position,Quaternion.identity);
+        GameObject shockwaveObj = ManagerObjectPool.Instance.Spawn(ObjectPoolType.BossGroundShockwave, spawnPos, Quaternion.identity);
+
         Debug.Log($"<color=cyan>Shockwave GameObject instantiated at {spawnPos}</color>");
         
         GroundShockwave shockwave = shockwaveObj.GetComponent<GroundShockwave>();

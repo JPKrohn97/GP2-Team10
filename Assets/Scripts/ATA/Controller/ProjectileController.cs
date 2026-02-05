@@ -37,7 +37,7 @@ public class ProjectileController : MonoBehaviour
     private void ReturnToPool()
     {
         StopAllCoroutines(); 
-        ManagerObjectPool.Instance.Despawn(ObjectPoolType.Projectile, gameObject);
+        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
     }
 
     IEnumerator DeactivateRoutine()

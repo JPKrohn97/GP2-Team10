@@ -38,10 +38,10 @@ public class EnemyWeaponCollider : MonoBehaviour
       
         
             Vector3 hitPosition = other.ClosestPoint(transform.position);
-            GameObject spawnedPart= ManagerObjectPool.Instance.Spawn(ObjectPoolType.TestParticle, hitPosition, Quaternion.identity);
+            //GameObject spawnedPart= ManagerObjectPool.Instance.Spawn(ObjectPoolType.TestParticle, hitPosition, Quaternion.identity);
             DOVirtual.DelayedCall(0.6f, () =>
             {
-                ManagerObjectPool.Instance.Despawn(ObjectPoolType.TestParticle, spawnedPart);
+                //ManagerObjectPool.Instance.Despawn(ObjectPoolType.TestParticle, spawnedPart);
             });
         
     }
