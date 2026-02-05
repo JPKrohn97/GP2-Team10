@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerGroundedState 
 {
-    private const float DeadZone = 0.1f;
+    private const float DeadZone = 0.25f;
 
-    private float acceleration = 60f; 
+    private float acceleration = 90f; 
     private float deceleration = 80f; 
     private float turnSpeed = 100f; 
 
@@ -27,11 +27,15 @@ public class PlayerRunState : PlayerGroundedState
         base.LogicUpdate();
 
         if (stateMachine.CurrentState != this) return;
-        
+    
         if (player.CurrentMovementInput.sqrMagnitude < 0.01f)
         {
             stateMachine.ChangeState(player.IdleState);
+            return; 
         }
+        
+        bool isActuallyMoving = player.RB.linearVelocity.sqrMagnitude > 0.1f;
+        player.AnimationEvents?.SetMovingBool(isActuallyMoving);
     }
 
     public override void PhysicsUpdate()
