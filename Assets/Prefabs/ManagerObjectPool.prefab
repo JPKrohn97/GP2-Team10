@@ -46,39 +46,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroy: 1
   ObjectPoolsList:
-  - ObjectPoolType: 1
+  - ObjectPoolType: 0
     Prefab: {fileID: 1271427470271044, guid: ae571ae70ab87624084b26e70ea885ef, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
-  - ObjectPoolType: 2
+  - ObjectPoolType: 1
     Prefab: {fileID: 187180, guid: 1ed56f4c486ff6141a344e5e5714e1b9, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 2
+    Prefab: {fileID: 137732, guid: b2a41848dc033f04295f551876431a40, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 3
+    Prefab: {fileID: 137732, guid: b2a41848dc033f04295f551876431a40, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
   - ObjectPoolType: 4
-    Prefab: {fileID: 137732, guid: b2a41848dc033f04295f551876431a40, type: 3}
-    MaximumInstanceCount: 10
-    ParentGameObject: {fileID: 0}
-  - ObjectPoolType: 5
-    Prefab: {fileID: 137732, guid: b2a41848dc033f04295f551876431a40, type: 3}
-    MaximumInstanceCount: 10
-    ParentGameObject: {fileID: 0}
-  - ObjectPoolType: 6
     Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
-  - ObjectPoolType: 7
+  - ObjectPoolType: 5
     Prefab: {fileID: 6538910227845178582, guid: d6deef8a273e3b341a5b0a969d579eb8, type: 3}
     MaximumInstanceCount: 25
     ParentGameObject: {fileID: 0}
-  - ObjectPoolType: 8
+  - ObjectPoolType: 6
     Prefab: {fileID: 1190165961247154, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
-  - ObjectPoolType: 10
+  - ObjectPoolType: 7
     Prefab: {fileID: 768197096772467666, guid: 523a6e8cbe9d57c44add0227cabad92c, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 8
+    Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
   - ObjectPoolType: 9
+    Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 10
+    Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
+    MaximumInstanceCount: 10
+    ParentGameObject: {fileID: 0}
+  - ObjectPoolType: 11
     Prefab: {fileID: 104240, guid: afaa5e50193589145b3cc1d5c84cf5e8, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}

@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 100;
@@ -21,7 +20,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] private bool freezeOnDamage = true;
     
     [Header("Death Effect")]
-    [SerializeField] private GameObject deathEffectPrefab;
+    [SerializeField] private float deathEffectLifetime = 2f;
 
     private BehaviorTreeBase behaviorTree;
     private NavMeshAgent navAgent;
@@ -47,13 +46,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (interactionCollider != null)
             interactionCollider.enabled = false;
         
-        // Cache all renderers and their original materials
         renderers = GetComponentsInChildren<Renderer>();
         originalMaterials = new Material[renderers.Length][];
         
         for (int i = 0; i < renderers.Length; i++)
         {
-            // Create a copy of the materials array to avoid modifying shared materials
             Material[] materials = renderers[i].materials;
             originalMaterials[i] = new Material[materials.Length];
             
@@ -72,12 +69,10 @@ public class EnemyHealth : MonoBehaviour, IDamageable
        
         healthSlider.value -= (float)damage / maxHealth;
         var slider = damageSlider.value;
-        DOTween.To(() => slider, x => damageSlider.value = x, (float)((float)currentHealth / (float)maxHealth), 0.5f).SetEase(Ease.OutSine);
+        DOTween.To(() => slider, x => damageSlider.value = x, (float)currentHealth / maxHealth, 0.5f).SetEase(Ease.OutSine);
 
-        // Play hurt sound
-        SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyHurt,gameObject);
+        SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyHurt, gameObject);
 
-        // Flash damage material when taking damage
         if (!isFlashing && damageMaterial != null)
         {
             StartCoroutine(DamageFlash());
@@ -91,13 +86,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         isFlashing = true;
         
-        // Store state before freezing
         bool wasBehaviorTreeEnabled = behaviorTree != null && behaviorTree.enabled;
         bool wasNavAgentEnabled = navAgent != null && navAgent.enabled;
         Vector3 storedVelocity = navAgent != null ? navAgent.velocity : Vector3.zero;
         float originalAnimatorSpeed = animator != null ? animator.speed : 1f;
         
-        // Freeze enemy
         if (freezeOnDamage)
         {
             if (behaviorTree != null)
@@ -113,7 +106,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
                 animator.SetTrigger("HitReaction");
         }
         
-        // Change all materials to damage material
         foreach (Renderer renderer in renderers)
         {
             if (renderer != null)
@@ -127,10 +119,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             }
         }
         
-        // Wait for flash duration
         yield return new WaitForSeconds(damageFlashDuration);
         
-        // Restore original materials
         for (int i = 0; i < renderers.Length; i++)
         {
             if (renderers[i] != null)
@@ -139,7 +129,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             }
         }
         
-        // Unfreeze enemy (only if not dead)
         if (freezeOnDamage && !IsDead)
         {
             if (behaviorTree != null && wasBehaviorTreeEnabled)
@@ -162,14 +151,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         IsDead = true;
         healthCanvas.SetActive(false);
         
-        // Play death sound based on enemy type
         BehaviorTreeBase enemyBT = GetComponent<BehaviorTreeBase>();
         if (enemyBT != null)
         {
-            // Check if it's a boss enemy
             if (enemyBT is BossEnemyBT || enemyBT is MeleeBossEnemy || enemyBT is RangedBossEnemy)
             {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyDies,gameObject);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.BossDies, gameObject);
             }
             else
             {
@@ -177,10 +164,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             }
         }
         
-        // Stop any ongoing flash
         StopAllCoroutines();
         
-        // Restore original materials before ragdoll
         for (int i = 0; i < renderers.Length; i++)
         {
             if (renderers[i] != null)
@@ -189,16 +174,25 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             }
         }
         
-        // Spawn death VFX effect
-        if (deathEffectPrefab != null)
+        // Spawn death VFX using ObjectPool
+        GameObject deathEffect = ManagerObjectPool.Instance.Spawn(
+            ObjectPoolType.DeathHit, 
+            transform.position, 
+            Quaternion.identity
+        );
+        
+        // Auto-despawn after lifetime
+        if (deathEffect != null)
         {
-            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+            DOVirtual.DelayedCall(deathEffectLifetime, () =>
+            {
+                ManagerObjectPool.Instance.Despawn(ObjectPoolType.DeathHit, deathEffect);
+            });
         }
 
         if (animatorController != null)
             animatorController.EnableRagdoll();
 
-        // STOP AI COMPLETELY
         if (behaviorTree != null)
             behaviorTree.enabled = false;
 

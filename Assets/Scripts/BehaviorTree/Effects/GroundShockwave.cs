@@ -19,10 +19,9 @@ public class GroundShockwave : MonoBehaviour
         this.maxRadius = maxRadius;
         this.speed = speed;
         initialized = true;
-        transform.eulerAngles = new Vector3(-90f, 0f, 0f);
-        //Vector3 pos = transform.position;
-        //pos.y = shockwaveHeight;
-        //transform.position = pos;
+        currentRadius = 0f;
+        hasHitPlayer = false;
+        transform.eulerAngles = new Vector3(90f, 0f, 0f);
     }
 
     private void Update()
@@ -35,7 +34,7 @@ public class GroundShockwave : MonoBehaviour
 
         if (currentRadius >= maxRadius)
         {
-            Destroy(gameObject);
+            ManagerObjectPool.Instance.Despawn(ObjectPoolType.BossGroundShockwave, gameObject);
         }
     }
 
@@ -101,20 +100,16 @@ public class GroundShockwave : MonoBehaviour
 
     private void DrawCircleXZ(Vector3 center, float radius)
     {
-        int segments = 32;
-        float angleStep = 360f / segments;
-        Vector3 prevPoint = center + new Vector3(radius, 0, 0);
-
+        int segments = 50;
+        float angle = 0f;
+        Vector3 lastPoint = center + new Vector3(radius, 0, 0);
+        
         for (int i = 1; i <= segments; i++)
         {
-            float angle = angleStep * i * Mathf.Deg2Rad;
-            Vector3 newPoint = center + new Vector3(
-                Mathf.Cos(angle) * radius,
-                0,
-                Mathf.Sin(angle) * radius
-            );
-            Gizmos.DrawLine(prevPoint, newPoint);
-            prevPoint = newPoint;
+            angle = (float)i / segments * 360f * Mathf.Deg2Rad;
+            Vector3 newPoint = center + new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+            Gizmos.DrawLine(lastPoint, newPoint);
+            lastPoint = newPoint;
         }
     }
 }

@@ -18,7 +18,6 @@ public class EnemyAnimatorController : MonoBehaviour
 
     [Header("Boss Abilities")]
     public MeleeBossEnemy meleeBossEnemy;
-    [SerializeField] private GameObject groundShockwavePrefab;
 
     private void Awake()
     {
@@ -96,56 +95,47 @@ public class EnemyAnimatorController : MonoBehaviour
     private void FindRagdollRigidbodies()
     {
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
-        Debug.Log($"Found {ragdollRigidbodies.Length} rigidbodies for ragdoll");
     }
     #endregion
 
     #region Boss Abilities (Animation Events)
     public void StartGroundPound()
     {
-        Debug.Log("<color=magenta>=== StartGroundPound() called from animation event! ===</color>");
         SpawnGroundShockwave();
     }
 
     private void SpawnGroundShockwave()
     {
-        Debug.Log($"<color=magenta>SpawnGroundShockwave() - Prefab: {groundShockwavePrefab != null}, Boss: {meleeBossEnemy != null}</color>");
-        
-        if (groundShockwavePrefab == null)
-        {
-            Debug.LogError("Ground Shockwave Prefab is NOT assigned in Inspector!");
-            return;
-        }
-
         if (meleeBossEnemy == null)
         {
             Debug.LogError("MeleeBossEnemy reference is missing! Assign it in Inspector!");
             return;
         }
 
-        // Spawn at boss position, NOT as child
         Vector3 spawnPos = transform.position;
-        spawnPos.y = 0.5f; // Ground level
-
-        //GameObject shockwaveObj = Instantiate(groundShockwavePrefab, transform.position,Quaternion.identity);
-        GameObject shockwaveObj = ManagerObjectPool.Instance.Spawn(ObjectPoolType.BossGroundShockwave, spawnPos, Quaternion.identity);
-
-        Debug.Log($"<color=cyan>Shockwave GameObject instantiated at {spawnPos}</color>");
+        spawnPos.y = 0.5f;
         
-        GroundShockwave shockwave = shockwaveObj.GetComponent<GroundShockwave>();
-        if (shockwave != null)
+        GameObject shockwaveObj = ManagerObjectPool.Instance.Spawn(
+            ObjectPoolType.BossGroundShockwave,
+            spawnPos,
+            Quaternion.identity
+        );
+        
+        if (shockwaveObj != null)
         {
-            shockwave.Initialize(
-                meleeBossEnemy.shockwaveDamage,
-                meleeBossEnemy.shockwaveRadius,
-                meleeBossEnemy.shockwaveSpeed
-            );
-            
-            Debug.Log($"<color=green>Ground Shockwave initialized! Damage: {meleeBossEnemy.shockwaveDamage}, Radius: {meleeBossEnemy.shockwaveRadius}, Speed: {meleeBossEnemy.shockwaveSpeed}</color>");
-        }
-        else
-        {
-            Debug.LogError("GroundShockwave component NOT found on prefab! Add the script to Shock_Wave prefab!");
+            GroundShockwave shockwave = shockwaveObj.GetComponent<GroundShockwave>();
+            if (shockwave != null)
+            {
+                shockwave.Initialize(
+                    meleeBossEnemy.shockwaveDamage,
+                    meleeBossEnemy.shockwaveRadius,
+                    meleeBossEnemy.shockwaveSpeed
+                );
+            }
+            else
+            {
+                Debug.LogError("GroundShockwave component NOT found on pooled prefab!");
+            }
         }
     }
     #endregion
