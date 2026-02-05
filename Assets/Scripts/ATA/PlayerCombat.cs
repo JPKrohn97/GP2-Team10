@@ -18,6 +18,11 @@ public class PlayerCombat : MonoBehaviour
     [Header("Attack Movement")]
     public float attackStepForce = 5f;
     public float attackStepDuration = 0.15f;
+    
+    [Header("Dash Attack Settings")]
+    public LayerMask enemyLayer; 
+    public int dashDamage = 20;
+    public GameObject dashTrailPrefab;
 
     [SerializeField] private Transform bitePos;
     [SerializeField] private Collider leftAttackCollider;

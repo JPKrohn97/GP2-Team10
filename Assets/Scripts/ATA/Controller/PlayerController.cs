@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
@@ -12,12 +13,11 @@ public class PlayerController : MonoBehaviour
     public PlayerCombat Combat;
     public PlayerAnimations AnimationEvents;
     public EnemyHealth CurrentDeadEnemy { get; private set; }
-    
     #endregion
 
     [Header("Settings")]
     public float moveSpeed = 8f;
-    public float jumpHeight = 3f;
+    public float jumpHeight = 5f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     
@@ -28,11 +28,16 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded { get; private set; }
     public float LastAttackInputTime { get; private set; } = -100f;
-
+    
+    [Header("Dash Settings")]
+    public float dashCooldown = 1f;
+    [HideInInspector] public float lastDashTime = -10f;
+ 
     [Header("Mutation Interaction")]
     public LayerMask enemyPartLayer;
     public GameObject projectilePrefab;
     public Transform firePoint;
+    public float mutationRange = 2.2f;
     public bool IsOnDeadEnemy { get; private set; }
     public bool IsFinalComboActive { get; set; }
 
@@ -47,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public InputAction AttackAction { get; private set; }
     public InputAction InteractAction { get; private set; }
     public InputAction InteractPause { get; private set; }
+    public InputAction DashAction { get; private set; } // YENİ: Dash Input
     #endregion
 
     #region States
@@ -58,6 +64,8 @@ public class PlayerController : MonoBehaviour
     public PlayerSwordAttackState SwordAttackState { get; private set; }
     public PlayerMutationState MutationState { get; private set; }
     public PlayerRangeAttackState RangeAttackState { get; private set; }
+    public PlayerDashState DashState { get; private set; } 
+    
     #endregion
 
     [Header("Pause Game Canvas")]
@@ -79,13 +87,16 @@ public class PlayerController : MonoBehaviour
         if (AnimationEvents == null) AnimationEvents = GetComponent<PlayerAnimations>();
         if (Animator == null) Animator = GetComponent<Animator>();
         
+        // Inputs
         MoveAction = InputHandler.Player.Move;
         JumpAction = InputHandler.Player.Jump;
         RangeAction = InputHandler.Player.Range;
         AttackAction = InputHandler.Player.Attack;
         InteractAction = InputHandler.Player.Interact;
         InteractPause = InputHandler.Player.Pause;
+        DashAction = InputHandler.Player.Dash; 
 
+        // States
         IdleState = new PlayerIdleState(this, StateMachine);
         RunState = new PlayerRunState(this, StateMachine);
         JumpState = new PlayerJumpState(this, StateMachine);
@@ -93,6 +104,7 @@ public class PlayerController : MonoBehaviour
         SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
         MutationState = new PlayerMutationState(this, StateMachine);
         RangeAttackState = new PlayerRangeAttackState(this, StateMachine);
+        DashState = new PlayerDashState(this, StateMachine); 
     }
 
     private void Start()
@@ -107,22 +119,26 @@ public class PlayerController : MonoBehaviour
         
         MoveAction.performed += OnMove;
         MoveAction.canceled += OnMoveCanceled;
-        AttackAction.performed += ctx => VirtualAttackInput();
+        
+        AttackAction.performed += OnAttackInput;
+        DashAction.performed += OnDashInput; 
     }
 
     private void OnDisable()
     {
         MoveAction.performed -= OnMove;
         MoveAction.canceled -= OnMoveCanceled;
-        
-        // Bağlantıyı kopar
-        AttackAction.performed -= ctx => VirtualAttackInput();
+
+        AttackAction.performed -= OnAttackInput;
+        DashAction.performed -= OnDashInput; 
         
         InputHandler.Disable();
     }
 
     private void OnMove(InputAction.CallbackContext ctx) => CurrentMovementInput = ctx.ReadValue<Vector2>();
     private void OnMoveCanceled(InputAction.CallbackContext ctx) => CurrentMovementInput = Vector2.zero;
+    private void OnAttackInput(InputAction.CallbackContext ctx) => VirtualAttackInput();
+    private void OnDashInput(InputAction.CallbackContext ctx) => VirtualDashInput();
 
     private void Update()
     {
@@ -131,7 +147,21 @@ public class PlayerController : MonoBehaviour
 
         if (InteractPause.IsPressed())
         {
-            Script.PauseGame();
+            if(Script != null) Script.PauseGame();
+        }
+        
+        if (CurrentDeadEnemy != null)
+        {
+            float dist = Vector3.Distance(
+                transform.position,
+                CurrentDeadEnemy.transform.position
+            );
+
+            IsOnDeadEnemy = dist <= mutationRange;
+        }
+        else
+        {
+            IsOnDeadEnemy = false;
         }
     }
 
@@ -149,16 +179,21 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(origin, Vector3.down, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
-  
     public void VirtualAttackInput()
     {
-       
         LastAttackInputTime = Time.time;
-
-      
         if (StateMachine.CurrentState != SwordAttackState)
         {
             StateMachine.ChangeState(SwordAttackState);
+        }
+    }
+    
+    public void VirtualDashInput()
+    {
+
+        if (Time.time >= lastDashTime + dashCooldown && StateMachine.CurrentState != DashState)
+        {
+            StateMachine.ChangeState(DashState);
         }
     }
 
@@ -171,21 +206,36 @@ public class PlayerController : MonoBehaviour
     {
         StateMachine.ChangeState(RangeAttackState);
     }
+    
+    public void VirtualMutationInput()
+    {
+        if (IsOnDeadEnemy && CurrentDeadEnemy != null)
+        {
+            StateMachine.ChangeState(MutationState);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
-        enemyPartContacts++;
-        IsOnDeadEnemy = true;
+
         EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
-        if (enemy != null && enemy.IsDead) CurrentDeadEnemy = enemy;
+        if (enemy != null && enemy.IsDead)
+        {
+            CurrentDeadEnemy = enemy;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
-        enemyPartContacts = Mathf.Max(0, enemyPartContacts - 1);
-        if (enemyPartContacts == 0) { IsOnDeadEnemy = false; CurrentDeadEnemy = null; }
+
+        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+        if (enemy != null && enemy == CurrentDeadEnemy)
+        {
+            CurrentDeadEnemy = null;
+            IsOnDeadEnemy = false;
+        }
     }
     
     public void SpawnProjectile()
@@ -194,14 +244,17 @@ public class PlayerController : MonoBehaviour
         if (projectile != null)
         {
             Rigidbody prb = projectile.GetComponent<Rigidbody>();
-            prb.linearVelocity = transform.forward * 30f;
+            if(prb != null) prb.linearVelocity = transform.forward * 30f;
         }
     }
     
     public void ApplyKnockback(Vector3 dir, float force)
     {
         dir.y = 0f;
-        RB.AddForce(dir.normalized * force, ForceMode.Impulse);
-        DOVirtual.DelayedCall(0.5f,() => RB.linearVelocity = new Vector3(0,RB.linearVelocity.y,0));
+        RB.AddForce(-dir.normalized * force, ForceMode.Impulse);
+        DOVirtual.DelayedCall(0.5f,() => {
+             if(RB != null) RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
+        });
     }
+    
 }

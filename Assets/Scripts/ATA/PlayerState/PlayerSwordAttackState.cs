@@ -12,8 +12,16 @@ public class PlayerSwordAttackState : PlayerAttackState
     {
         base.Enter();
 
-        player.Combat.Attack();
+        if (player.CurrentMovementInput.sqrMagnitude > 0.01f)
+        {
+            float targetY = (player.CurrentMovementInput.x > 0f) ? 0f : 180f;
+            player.transform.rotation = Quaternion.Euler(0f, targetY, 0f);
+        }
+
+        player.RB.linearDamping = 0f;
         player.RB.linearVelocity = Vector3.zero;
+        
+        player.Combat.Attack();
 
         if (Application.isMobilePlatform)
         {
