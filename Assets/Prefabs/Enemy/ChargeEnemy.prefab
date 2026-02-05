@@ -135,6 +135,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 200790070933774254, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: chargeSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 200790070933774254, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: detectionRange
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 200790070933774254, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: chargeTriggerName
       value: ChargeAttack
       objectReference: {fileID: 0}

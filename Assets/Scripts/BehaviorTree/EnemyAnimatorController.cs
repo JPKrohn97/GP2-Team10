@@ -127,7 +127,7 @@ public class EnemyAnimatorController : MonoBehaviour
         Vector3 spawnPos = transform.position;
         spawnPos.y = 0.5f; // Ground level
         
-        GameObject shockwaveObj = Instantiate(groundShockwavePrefab, transform);
+        GameObject shockwaveObj = Instantiate(groundShockwavePrefab, transform.position,Quaternion.identity);
         
         Debug.Log($"<color=cyan>Shockwave GameObject instantiated at {spawnPos}</color>");
         
