@@ -240,12 +240,12 @@ public class PlayerController : MonoBehaviour
     
     public void SpawnProjectile()
     {
-        GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
-        if (projectile != null)
-        {
-            Rigidbody prb = projectile.GetComponent<Rigidbody>();
-            if(prb != null) prb.linearVelocity = transform.forward * 30f;
-        }
+       // GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
+        //if (projectile != null)
+        //{
+        //    Rigidbody prb = projectile.GetComponent<Rigidbody>();
+        //    if(prb != null) prb.linearVelocity = transform.forward * 30f;
+        //}
     }
     
     public void ApplyKnockback(Vector3 dir, float force)

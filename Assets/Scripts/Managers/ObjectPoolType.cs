@@ -4,19 +4,19 @@ using UnityEngine;
 
 public enum ObjectPoolType
 {
-    DefaultObject,
-    HitParticle1,
-    HitParticle2,
-    HitParticle3,
-    BloodHitParticle1,
-    BloodHitParticle2,
-    BiteParticle,
-    Projectile,
-    ClawParticle,
-    TestParticle,
+    ClawSlash,
+    ClawHit,
+    DeathHit,
+    PlayerHit,
+    EnemyHit,
     EnemyProjectile,
-    EarhProjectile,
-    BossProjectile
+    EnemyProjectileExplosion,
+    PlayerProjectile,
+    PlayerProjectileExplosion,
+    BossProjectile,
+    BossProjectileExplosion,
+    BossGroundShockwave
+    
 
 
 }

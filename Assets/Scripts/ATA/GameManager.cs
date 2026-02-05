@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     void Awake()
@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
 
         QualitySettings.vSyncCount = 0;
     }
-
+    public void RestartTheLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void IntroNarrativeSequence()
     {
 

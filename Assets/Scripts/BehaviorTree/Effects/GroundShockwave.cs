@@ -19,7 +19,7 @@ public class GroundShockwave : MonoBehaviour
         this.maxRadius = maxRadius;
         this.speed = speed;
         initialized = true;
-        transform.eulerAngles = new Vector3(90f, 0f, 0f);
+        transform.eulerAngles = new Vector3(-90f, 0f, 0f);
         //Vector3 pos = transform.position;
         //pos.y = shockwaveHeight;
         //transform.position = pos;

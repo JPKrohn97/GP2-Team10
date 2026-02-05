@@ -125,6 +125,6 @@ public class PlayerCombat : MonoBehaviour
     public void SpawnBiteParticle()
     {
         if (ManagerObjectPool.Instance == null || bitePos == null) return;
-        ManagerObjectPool.Instance.Spawn(ObjectPoolType.BiteParticle, bitePos);
+        //ManagerObjectPool.Instance.Spawn(ObjectPoolType.BiteParticle, bitePos);
     }
 }
