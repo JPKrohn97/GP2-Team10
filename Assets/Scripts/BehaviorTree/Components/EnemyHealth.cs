@@ -29,6 +29,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private Renderer[] renderers;
     private Material[][] originalMaterials;
     private bool isFlashing = false;
+    public bool isBoss = false;
 
     public bool IsDead { get; private set; }
 

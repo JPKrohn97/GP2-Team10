@@ -6,6 +6,7 @@ using UnityEngine;
 public class SaveState
 {
 
+    public bool isFirstBossDefeated;
     #region LevelSettings
     public int LevelCounter;
     public int LastLevelIndex;
@@ -14,7 +15,7 @@ public class SaveState
     public void SetInitialValues()
     {
 
-
+        isFirstBossDefeated = false;
         #region LevelSettings
         LastLevelIndex = 1;
         LevelCounter = 1;

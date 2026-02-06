@@ -12,6 +12,10 @@ public class PlayerAnimations : MonoBehaviour
     public MeshRenderer weaponMeshRenderer;
     public Material weaponMaterial;
 
+    [Header("BossUpgradeVisuals")]
+    public MeshRenderer bossLegsMeshRenderer;
+    public Material bossLegsMaterial;
+
 
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     private static readonly int UpgradeHash = Animator.StringToHash("Upgrade");
@@ -23,6 +27,9 @@ public class PlayerAnimations : MonoBehaviour
     private static readonly int Attack0Hash = Animator.StringToHash("Attack0");
     private static readonly int Attack1Hash = Animator.StringToHash("Attack1");
     private static readonly int Attack2Hash = Animator.StringToHash("Attack2");
+
+    private static readonly int BossMutationHash = Animator.StringToHash("BossMutation");
+
 
     void Awake()
     {
@@ -80,8 +87,35 @@ public class PlayerAnimations : MonoBehaviour
                 ManagerCinemachine.Instance.SetNormalCamera();
         });
     }
+    public void MutationSequence(bool isBoss)
+    {
+        animator.SetTrigger(BossMutationHash);
 
 
+        if (ManagerCinemachine.Instance != null)
+            ManagerCinemachine.Instance.SetMutationCamera();
+
+
+        if (weaponMaterial != null)
+        {
+            DOTween.To(() => bossLegsMaterial.GetFloat("_DissolveAmount"),
+                       x => bossLegsMaterial.SetFloat("_DissolveAmount", x),
+                       0f,
+                       1.7f).SetEase(Ease.OutSine);
+        }
+
+
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            if (bossLegsMeshRenderer != null) bossLegsMeshRenderer.material = bossLegsMaterial;
+
+
+            animator.SetTrigger(IdleHash);
+
+            if (ManagerCinemachine.Instance != null)
+                ManagerCinemachine.Instance.SetNormalCamera();
+        });
+    }
     public void PlayComboAnimation(int step)
     {
         animator.ResetTrigger(Attack0Hash);
