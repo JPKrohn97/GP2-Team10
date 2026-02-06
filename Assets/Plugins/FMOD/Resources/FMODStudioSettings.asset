@@ -524,10 +524,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 1
-  HasPlatforms: 1
+  HasSourceProject: 0
+  HasPlatforms: 0
   sourceProjectPath: ../../FMOD/GP2/GP2/GP2.fspro
-  sourceBankPath: ../../FMOD/GP2/GP2/Build
+  sourceBankPath: ../../../Downloads/Sound/Sound/FMOD complete 02/Build/Desktop
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

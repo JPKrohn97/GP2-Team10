@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    
+    public bool canPlayerMove = true;
     void Awake()
     {
      
@@ -25,6 +27,14 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public void OnBossDefeated()
+    {
+        ManagerSave.Instance.SaveState.isFirstBossDefeated = true;
+        ManagerSave.Instance.Save();
+
+    }
+
 
 
 }
