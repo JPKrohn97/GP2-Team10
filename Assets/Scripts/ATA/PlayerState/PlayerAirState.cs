@@ -36,24 +36,21 @@ public class PlayerAirState : PlayerState
 
         Vector3 velocity = player.RB.linearVelocity;
 
-        // Daha sert düşüş (Dead Cells hissi)
+
         if (velocity.y < 0f)
         {
             velocity += Vector3.up * Physics.gravity.y * (player.fallMultiplier - 1f) * Time.fixedDeltaTime;
         }
-
-        // Max fall speed clamp
+        
         if (velocity.y < -MaxFallSpeed)
             velocity.y = -MaxFallSpeed;
-
-        // Yatay hareket
+        
         float inputX = player.CurrentMovementInput.x;
         velocity.z = inputX * player.moveSpeed;
         velocity.x = 0f;
 
         player.RB.linearVelocity = velocity;
-
-        // Yön çevirme
+        
         if (inputX != 0f)
         {
             float targetY = (inputX > 0f) ? 0f : 180f;
