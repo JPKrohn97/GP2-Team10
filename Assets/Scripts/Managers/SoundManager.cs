@@ -53,6 +53,17 @@ public class SoundManager : Singleton<SoundManager>
 
     public EventReference MenuSelect;
 
+    [Header("Traps")]
+    [Space]
+    public EventReference SpikeTrapWarning;
+    public EventReference SpikeTrapAttack;
+    [Header("Orb Trap")]
+    [Space]
+    public EventReference OrbExplosion;
+    [Header("Lava Trap")]
+    [Space]
+    public EventReference LavaSizzle;
+
     private EventInstance instance;
     public void PlaySoundOneShot(EventReference sound, Vector3 position)
     {
