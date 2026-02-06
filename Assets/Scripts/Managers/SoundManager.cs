@@ -60,6 +60,9 @@ public class SoundManager : Singleton<SoundManager>
     [Header("Orb Trap")]
     [Space]
     public EventReference OrbExplosion;
+    [Header("Lava Trap")]
+    [Space]
+    public EventReference LavaSizzle;
 
     private EventInstance instance;
     public void PlaySoundOneShot(EventReference sound, Vector3 position)
