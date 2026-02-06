@@ -16,9 +16,13 @@ public enum ObjectPoolType
     BossProjectile,
     BossProjectileExplosion,
     BossGroundShockwave,
-    FirBlastEffect,
+    FireBlastEffect,
     EarthMuzzle,
-    GravityAnomalyExlplosion
+    GravityAnomalyExlplosion,
+    
+    SwordAttack,
+    ChargedImpact,
+    HidingStalagmite
 
 
 
