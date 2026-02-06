@@ -36,20 +36,15 @@ public class PlayerAirState : PlayerState
 
         Vector3 velocity = player.RB.linearVelocity;
 
+
         if (velocity.y < 0f)
         {
             velocity += Vector3.up * Physics.gravity.y * (player.fallMultiplier - 1f) * Time.fixedDeltaTime;
         }
-        else if (velocity.y > 0f && !player.JumpAction.IsPressed())
-        {
-            velocity += Vector3.up * Physics.gravity.y * (player.lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-
-
+        
         if (velocity.y < -MaxFallSpeed)
             velocity.y = -MaxFallSpeed;
-
-
+        
         float inputX = player.CurrentMovementInput.x;
         velocity.z = inputX * player.moveSpeed;
         velocity.x = 0f;

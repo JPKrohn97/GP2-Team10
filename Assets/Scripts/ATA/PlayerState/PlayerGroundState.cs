@@ -29,13 +29,14 @@ public class PlayerGroundedState : PlayerState
             stateMachine.ChangeState(player.RangeAttackState);
             return;
         }
-
+        
         // 4. Jump
-        if (player.InputHandler.Player.Jump.triggered) 
+        if (player.InputHandler.Player.Jump.triggered)
         {
-            stateMachine.ChangeState(player.JumpState);
+            player.Jump();
             return;
         }
+
 
         // 5. Fall
         if (!player.CheckIfGrounded())

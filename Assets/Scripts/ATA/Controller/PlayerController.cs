@@ -17,12 +17,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Settings")]
     public float moveSpeed = 8f;
-    public float jumpHeight = 5f;
-    public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
+    public float jumpHeight = 2.5f;
+    public float fallMultiplier = 3.5f;
     
     [Space]
-    public float groundCheckDistance = 0.15f;
+    public float groundCheckDistance = 0.1f;
     public LayerMask groundLayer;
     private Collider col;
 
@@ -59,7 +58,6 @@ public class PlayerController : MonoBehaviour
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerIdleState IdleState { get; private set; }
     public PlayerRunState RunState { get; private set; }
-    public PlayerJumpState JumpState { get; private set; }
     public PlayerAirState AirState { get; private set; }
     public PlayerSwordAttackState SwordAttackState { get; private set; }
     public PlayerMutationState MutationState { get; private set; }
@@ -99,7 +97,6 @@ public class PlayerController : MonoBehaviour
         // States
         IdleState = new PlayerIdleState(this, StateMachine);
         RunState = new PlayerRunState(this, StateMachine);
-        JumpState = new PlayerJumpState(this, StateMachine);
         AirState = new PlayerAirState(this, StateMachine);
         SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
         MutationState = new PlayerMutationState(this, StateMachine);
@@ -185,6 +182,17 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(origin, Vector3.down, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
+    public void Jump()
+    {
+        if (!IsGrounded) return;
+
+        Vector3 v = RB.linearVelocity;
+        v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+        RB.linearVelocity = v;
+
+        StateMachine.ChangeState(AirState);
+    }
+    
     public void VirtualAttackInput()
     {
         LastAttackInputTime = Time.time;
@@ -205,7 +213,8 @@ public class PlayerController : MonoBehaviour
 
     public void VirtualJumpInput()
     {
-        if (IsGrounded) StateMachine.ChangeState(JumpState);
+        Jump();
+        
     }
 
     public void VirtualRangeInput()
@@ -262,5 +271,4 @@ public class PlayerController : MonoBehaviour
              if(RB != null) RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
         });
     }
-    
 }
