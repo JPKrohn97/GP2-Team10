@@ -361,12 +361,12 @@ GameObject:
   - component: {fileID: 3026524279978872514}
   - component: {fileID: 6643910050193384488}
   m_Layer: 5
-  m_Name: GamePanel
+  m_Name: PausePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2133788602051873098
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2091,8 +2091,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c183b0f3a885ee4690f143009b455f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamePanel: {fileID: 2243575448003245816}
+  pausedGamePanel: {fileID: 2243575448003245816}
   optionsPanel: {fileID: 3272489036155809305}
+  IsPaused: 0
   mainMixer: {fileID: 24100000, guid: e0b3b7c800645b14bb4ca7fa0f8ba05e, type: 2}
   sldMaster: {fileID: 340111640493375324}
   sldSFX: {fileID: 2908507143516543267}
@@ -3432,25 +3433,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5600961204757315895}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1900965591594308518}
+        m_TargetAssemblyTypeName: UIPauseGame, Assembly-CSharp
+        m_MethodName: UnpauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

@@ -145,9 +145,15 @@ public class PlayerController : MonoBehaviour
         IsGrounded = CheckIfGrounded();
         StateMachine.CurrentState.LogicUpdate();
 
-        if (InteractPause.IsPressed())
+        if (InteractPause.WasPressedThisFrame())
         {
-            if(Script != null) Script.PauseGame();
+            if(Script != null)
+            {
+                if (Script.IsPaused)
+                    Script.UnpauseGame();
+                else
+                    Script.PauseGame();
+            }
         }
         
         if (CurrentDeadEnemy != null)

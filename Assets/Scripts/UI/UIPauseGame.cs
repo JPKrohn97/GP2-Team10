@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class UIPauseGame : MonoBehaviour
 {
     [Header("Panels")]
-    public GameObject gamePanel;
+    public GameObject pausedGamePanel;
     public GameObject optionsPanel;
+    public bool IsPaused;
 
     [Header("Audio")]
     public AudioMixer mainMixer;
@@ -23,41 +24,46 @@ public class UIPauseGame : MonoBehaviour
 
     void Start()
     {
-        LoadAudioSettings();
-
-        gamePanel.SetActive(false);
+        pausedGamePanel.SetActive(false);
         optionsPanel.SetActive(false);
+
+        LoadAudioSettings();
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        gamePanel.SetActive(true);
+        IsPaused = true;
+        pausedGamePanel.SetActive(true);
     }
 
     public void UnpauseGame()
     {
         Time.timeScale = 1f;
-        gamePanel.SetActive(false);
+        IsPaused = false;
+        pausedGamePanel.SetActive(false);
     }
 
     public void OpenOptions()
     {
         Time.timeScale = 0f;
-        //gamePanel.SetActive(false);
+        IsPaused = true;
+        pausedGamePanel.SetActive(false);
         optionsPanel.SetActive(true);
     }
 
     public void CloseOptions()
     {
         Time.timeScale = 0f;
-        //gamePanel.SetActive(true);
+        IsPaused = true;
+        pausedGamePanel.SetActive(true);
         optionsPanel.SetActive(false);
     }
 
     public void QuitGame()
     {
         Time.timeScale = 1f;
+        IsPaused = false;
         SceneManager.LoadScene("MainMenu");
     }
 
