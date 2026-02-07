@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     private Material bossLegRightMaterial;
     public Animator playerAnimator;
     public Image blackFadeImage;
-    private PlayerController playerController;
     void Awake()
     {
         bossLegLeftMaterial = leftLegRenderer.material;
@@ -51,14 +50,19 @@ public class GameManager : Singleton<GameManager>
     {
         canPlayerMove = false;
 
-        DOVirtual.DelayedCall(1.5f, () =>
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            CinematicBlackFadeIn(0.5f);
+        });
+        DOVirtual.DelayedCall(0.8f, () =>
         {
             playerAnimator.SetTrigger("PlayerBossDefeated");
-             ManagerCinemachine.Instance.SetBossMutationCamera();
+            ManagerCinemachine.Instance.SetBossMutationCamera();
         });
+        
     }
 
-    public void BossMutationSequqnce()
+    public void BossMutationSequence()
     {
         ManagerSave.Instance.SaveState.isFirstBossDefeated = true;
         ManagerSave.Instance.Save();
