@@ -164,6 +164,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
                 SoundManager.Instance.PlaySound(SoundManager.Instance.EnemyDies, gameObject);
             }
         }
+        ManagerCinemachine.Instance.TriggerFinisherCamera();
         if (isBoss)
         {
             GameManager.Instance.OnBossDefeated();

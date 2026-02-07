@@ -32,6 +32,12 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
 
         impulseSource.GenerateImpulseWithForce(power);
     }
+    public void ShakeOnHit(float p)
+    {
+        if (impulseSource == null) return;
+
+        impulseSource.GenerateImpulseWithForce(p);
+    }
     public void HitImpact(float duration, float speed = 0f)
     {
         Time.timeScale = speed;
