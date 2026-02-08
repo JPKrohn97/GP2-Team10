@@ -20,6 +20,14 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
     {
         animator.SetTrigger("BossMutationCamera");
     }
+    public void FirstBiteCamera()
+    {
+        animator.SetTrigger("FirstBiteCamera");
+    }
+    public void SecondBiteCamera()
+    {
+        animator.SetTrigger("SecondBiteCamera");
+    }
     //public void CinemachineShake(float intensity, float time)
     //{
     //    animator.SetFloat("ShakeIntensity", intensity);

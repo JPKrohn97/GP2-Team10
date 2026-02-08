@@ -33,24 +33,11 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    public void IntroNarrativeSequence()
-    {
-
-    }
-    public void FirstBossNarrativeSequence()
-    {
-
-    }
-    public void FinalBossNarrativeSequence()
-    {
-
-    }
-
     public void OnBossDefeated()
     {
         canPlayerMove = false;
 
-        DOVirtual.DelayedCall(1f, () =>
+        DOVirtual.DelayedCall(0.5f, () =>
         {
             CinematicBlackFadeIn(0.5f);
         });
@@ -66,17 +53,26 @@ public class GameManager : Singleton<GameManager>
     {
         ManagerSave.Instance.SaveState.isFirstBossDefeated = true;
         ManagerSave.Instance.Save();
-        playerAnimator.SetTrigger("PlayerBossMutation");
-        ManagerCinemachine.Instance.SetBossMutationCamera();
-        DOTween.To(() => bossLegLeftMaterial.GetFloat("_DissolveAmount"),
-                       x => bossLegLeftMaterial.SetFloat("_DissolveAmount", x),
-                       0f,
-                       1.7f).SetEase(Ease.OutSine);
 
-        DOTween.To(() => bossLegRightMaterial.GetFloat("_DissolveAmount"),
-                       x => bossLegRightMaterial.SetFloat("_DissolveAmount", x),
-                       0f,
-                       1.7f).SetEase(Ease.OutSine);
+        playerAnimator.SetTrigger("PlayerBossMutation");
+
+        ManagerCinemachine.Instance.SetBossMutationCamera();
+
+        DOVirtual.DelayedCall(1f, () => 
+        {
+
+            DOTween.To(() => bossLegLeftMaterial.GetFloat("_DissolveAmount"),
+                   x => bossLegLeftMaterial.SetFloat("_DissolveAmount", x),
+                   0f,
+                   1.7f).SetEase(Ease.OutSine);
+
+            DOTween.To(() => bossLegRightMaterial.GetFloat("_DissolveAmount"),
+                           x => bossLegRightMaterial.SetFloat("_DissolveAmount", x),
+                           0f,
+                           1.7f).SetEase(Ease.OutSine);
+        });
+
+
     }
 
 
