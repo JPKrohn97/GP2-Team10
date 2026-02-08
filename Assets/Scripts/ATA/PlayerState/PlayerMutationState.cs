@@ -27,6 +27,13 @@ public class PlayerMutationState : PlayerState
     
                 if (player.CurrentDeadEnemy != null)
                 {
+                    // var type = player.CurrentDeadEnemy.mutationType;
+                    //
+                    // if(player.SkillController != null)
+                    // {
+                    //     player.SkillController.AbsorbSkill(type);
+                    // }
+                    
                     player.CurrentDeadEnemy.ConsumeBody();
                 }
 

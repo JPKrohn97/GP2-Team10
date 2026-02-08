@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Animator Animator;
     public PlayerCombat Combat;
     public PlayerAnimations AnimationEvents;
+    public PlayerSkillController SkillController;
     public EnemyHealth CurrentDeadEnemy { get; private set; }
     #endregion
 
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
         if (Combat == null) Combat = GetComponent<PlayerCombat>();
         if (AnimationEvents == null) AnimationEvents = GetComponent<PlayerAnimations>();
         if (Animator == null) Animator = GetComponent<Animator>();
-        
+        if (SkillController == null) SkillController = GetComponent<PlayerSkillController>();
         // Inputs
         MoveAction = InputHandler.Player.Move;
         JumpAction = InputHandler.Player.Jump;
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
         MoveAction.canceled += OnMoveCanceled;
         
         AttackAction.performed += OnAttackInput;
-        DashAction.performed += OnDashInput; 
+        //DashAction.performed += OnDashInput; 
     }
 
     private void OnDisable()
@@ -127,7 +128,7 @@ public class PlayerController : MonoBehaviour
         MoveAction.canceled -= OnMoveCanceled;
 
         AttackAction.performed -= OnAttackInput;
-        DashAction.performed -= OnDashInput; 
+        //DashAction.performed -= OnDashInput; 
         
         InputHandler.Disable();
     }
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviour
     private void OnMove(InputAction.CallbackContext ctx) => CurrentMovementInput = ctx.ReadValue<Vector2>();
     private void OnMoveCanceled(InputAction.CallbackContext ctx) => CurrentMovementInput = Vector2.zero;
     private void OnAttackInput(InputAction.CallbackContext ctx) => VirtualAttackInput();
-    private void OnDashInput(InputAction.CallbackContext ctx) => VirtualDashInput();
+    //private void OnDashInput(InputAction.CallbackContext ctx) => VirtualDashInput();
 
     private void Update()
     {
@@ -202,25 +203,37 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void VirtualDashInput()
-    {
-
-        if (Time.time >= lastDashTime + dashCooldown && StateMachine.CurrentState != DashState)
-        {
-            StateMachine.ChangeState(DashState);
-        }
-    }
-
-    public void VirtualJumpInput()
-    {
-        Jump();
-        
-    }
-
-    public void VirtualRangeInput()
-    {
-        StateMachine.ChangeState(RangeAttackState);
-    }
+    // public void VirtualDashInput()
+    // {
+    //
+    //     if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) > 0)
+    //     {
+    //         if (Time.time >= lastDashTime + dashCooldown && StateMachine.CurrentState != DashState)
+    //             StateMachine.ChangeState(DashState);
+    //     }
+    // }
+    //
+    // public void VirtualJumpInput()
+    // {
+    //     Jump();
+    //     
+    // }
+    //
+    // public void VirtualSkillSwordInput()
+    // {
+    //     if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) > 0)
+    //     {
+    //         if (StateMachine.CurrentState != SwordAttackState) StateMachine.ChangeState(SwordAttackState);
+    //     }
+    // }
+    //
+    // public void VirtualRangeInput()
+    // {
+    //     if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) > 0)
+    //     {
+    //         StateMachine.ChangeState(RangeAttackState);
+    //     }
+    // }
     
     public void VirtualMutationInput()
     {
@@ -255,6 +268,8 @@ public class PlayerController : MonoBehaviour
     
     public void SpawnProjectile()
     {
+        
+        //int rangeLevel = SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range);
        // GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
         //if (projectile != null)
         //{
