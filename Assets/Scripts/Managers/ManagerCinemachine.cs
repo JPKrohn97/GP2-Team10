@@ -63,11 +63,11 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
 
         Time.timeScale = 0.2f;
 
-        Time.fixedDeltaTime *= 0.02f;
+        //Time.fixedDeltaTime *= 0.02f;
         
         yield return new WaitForSecondsRealtime(0.9f);
         
-        Time.fixedDeltaTime /= 0.02f;
+        //Time.fixedDeltaTime /= 0.02f;
 
         Time.timeScale = 1f;
         animator.SetTrigger("NormalCamera");

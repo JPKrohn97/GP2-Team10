@@ -21,8 +21,10 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.V)){
+            SpecialJumpButton();
+        }
 
-        
     }
     private void OnJumpMove(InputAction.CallbackContext ctx) => SpecialJumpButton();
 
