@@ -1253,7 +1253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: jumpHeight
-      value: 1.55
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 9210704700443322828, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1261,11 +1261,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210704700443322828, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.1
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9210704700443322828, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 98.3
+      value: 2.32
       objectReference: {fileID: 0}
     - target: {fileID: 9210704700443322828, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1550,7 +1550,7 @@ Transform:
   m_GameObject: {fileID: 342134342}
   serializedVersion: 2
   m_LocalRotation: {x: 0.01850988, y: -0.7068645, z: 0.01850988, w: 0.7068645}
-  m_LocalPosition: {x: 6.3360424, y: 11.6, z: 98.3}
+  m_LocalPosition: {x: 6.3360424, y: 2.45, z: 2.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2093,7 +2093,7 @@ Transform:
   m_GameObject: {fileID: 487293783}
   serializedVersion: 2
   m_LocalRotation: {x: 0.01850988, y: -0.7068645, z: 0.01850988, w: 0.7068645}
-  m_LocalPosition: {x: 10.030499, y: 13.5007305, z: 102.670006}
+  m_LocalPosition: {x: 10.030499, y: 4.35073, z: 6.6899996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3062,7 +3062,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc2101f62f20d6479118cbd70b9840e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroy: 0
+  leftLegRenderer: {fileID: 0}
+  rightLegRenderer: {fileID: 0}
   canPlayerMove: 1
+  playerAnimator: {fileID: 0}
+  blackFadeImage: {fileID: 0}
 --- !u!4 &691970108
 Transform:
   m_ObjectHideFlags: 0
@@ -3937,7 +3942,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc2101f62f20d6479118cbd70b9840e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroy: 0
+  leftLegRenderer: {fileID: 0}
+  rightLegRenderer: {fileID: 0}
   canPlayerMove: 1
+  playerAnimator: {fileID: 0}
+  blackFadeImage: {fileID: 0}
 --- !u!4 &885488800
 Transform:
   m_ObjectHideFlags: 0
