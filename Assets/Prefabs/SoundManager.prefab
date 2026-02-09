@@ -45,6 +45,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroy: 0
+  OrbExplosion:
+    Guid:
+      Data1: 1960613308
+      Data2: 1171423687
+      Data3: -694888536
+      Data4: 367077959
+    Path: event:/Anomalies/Gravity well
+  SpikeTrapWarning:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  SpikeTrapAttack:
+    Guid:
+      Data1: 1892461910
+      Data2: 1208647349
+      Data3: 1554644131
+      Data4: -1177768947
+    Path: event:/Anomalies/Hiding stalagmite
+  LavaSizzle:
+    Guid:
+      Data1: 1677592300
+      Data2: 1225658147
+      Data3: 1834324377
+      Data4: -1294163489
+    Path: event:/Anomalies/Lava lake
+  BallBounce:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  BallImpact:
+    Guid:
+      Data1: -818857685
+      Data2: 1242598937
+      Data3: -443272563
+      Data4: 1670559706
+    Path: event:/Impacts/Charged impact
   BasicBossAttack:
     Guid:
       Data1: 751672234
@@ -59,13 +101,6 @@ MonoBehaviour:
       Data3: -644379509
       Data4: 419390744
     Path: event:/Attacks/Boss attacks/Fire blast
-  ShockWaveJump:
-    Guid:
-      Data1: 515043061
-      Data2: 1227231473
-      Data3: -1484155990
-      Data4: 963112533
-    Path: event:/Attacks/Boss attacks/Shock-wave jump
   StoneBossJump:
     Guid:
       Data1: 753007506
@@ -166,11 +201,11 @@ MonoBehaviour:
     Path: event:/Impacts/Sword impact
   BossDies:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 628408407
+      Data2: 1288596855
+      Data3: -1899254123
+      Data4: -1684699568
+    Path: event:/On Death sounds/Enemy dies
   EnemyDies:
     Guid:
       Data1: 628408407
