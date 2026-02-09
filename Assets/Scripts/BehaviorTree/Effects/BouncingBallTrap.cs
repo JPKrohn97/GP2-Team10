@@ -1,152 +1,174 @@
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class BouncingBallTrap : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float bounceHeight = 3f; // Maximum height of bounce
-    [SerializeField] private float horizontalSpeed = 5f; // Speed left/right
-    [SerializeField] private float bounceSpeed = 8f; // Speed of bounce up/down
-    [SerializeField] private float groundCheckDistance = 0.5f;
+    [SerializeField] private float bounceHeight = 3f;
+    [SerializeField] private float horizontalSpeed = 5f;
+    [SerializeField] private float bounceSpeed = 8f;
+    [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private LayerMask groundLayer;
-    
+
+    [Header("Bounce Behavior")]
+    [SerializeField] private float directionChangeChance = 0.5f; // 50% chance to change direction on bounce
+
     [Header("Damage Settings")]
     [SerializeField] private int damage = 15;
     [SerializeField] private LayerMask playerLayer;
-    
+
     [Header("Visual Effects")]
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private ParticleSystem bounceParticles;
-    
+
     [Header("Audio")]
     [SerializeField] private bool playBounceSound = true;
-    
+
     [Header("Debug")]
     [SerializeField] private bool showDebugRays = true;
-    
-    private Vector3 velocity;
-    private bool movingRight = true;
+
+    private bool movingForward = true;
     private float currentHeight = 0f;
     private bool movingUp = false;
-    private Vector3 lastGroundPosition;
+    private float currentHorizontalPosition = 0f;
 
     private void Start()
     {
-        // Random initial direction
-        movingRight = Random.value > 0.5f;
-        
-        // Find ground beneath
+        movingForward = Random.value > 0.5f;
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 100f, groundLayer))
         {
-            lastGroundPosition = hit.point;
-            transform.position = lastGroundPosition + Vector3.up * 0.5f;
+            transform.position = hit.point + Vector3.up * 0.5f;
         }
-        
-        // Start moving up
+
         movingUp = true;
-        currentHeight = 0f;
+        currentHeight = 0.5f;
+        currentHorizontalPosition = transform.position.z;
+        JumpTheBall();
     }
 
     private void Update()
     {
-        MoveBall();
+        //MoveBall();
         CheckForGroundAhead();
     }
 
     private void MoveBall()
     {
-        // Horizontal movement (left/right)
-        float horizontalDirection = movingRight ? 1f : -1f;
-        Vector3 horizontalMovement = Vector3.right * horizontalDirection * horizontalSpeed * Time.deltaTime;
-        
-        // Vertical movement (bounce pattern - no gravity loss)
+        float horizontalDirection = movingForward ? 1f : -1f;
+        currentHorizontalPosition += horizontalDirection * horizontalSpeed * Time.deltaTime;
+
         if (movingUp)
         {
-            // Moving up
             currentHeight += bounceSpeed * Time.deltaTime;
-            
+
             if (currentHeight >= bounceHeight)
             {
                 currentHeight = bounceHeight;
                 movingUp = false;
-                
-                // Play bounce sound at peak
                 PlayBounceSound();
             }
         }
         else
         {
-            // Moving down
             currentHeight -= bounceSpeed * Time.deltaTime;
-            
-            if (currentHeight <= 0f)
+
+            if (currentHeight <= 0.5f)
             {
-                currentHeight = 0f;
+                currentHeight = 0.5f;
                 movingUp = true;
-                
-                // Spawn bounce particles
                 SpawnBounceEffect();
-                
-                // Play bounce sound
                 PlayBounceSound();
-                
-                // Update last ground position
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, groundLayer))
+
+                // RANDOM DIRECTION CHANGE on each bounce
+                if (Random.value < directionChangeChance)
                 {
-                    lastGroundPosition = hit.point;
+                    movingForward = !movingForward;
+
+                    if (showDebugRays)
+                    {
+                        Debug.Log($"<color=cyan>Random direction change! Now moving {(movingForward ? "FORWARD" : "BACKWARD")}</color>");
+                    }
                 }
             }
         }
-        
-        // Apply movement
-        Vector3 targetPosition = lastGroundPosition + Vector3.up * currentHeight + horizontalMovement;
-        transform.position = targetPosition;
+
+        Vector3 newPosition = transform.position;
+        newPosition.y = GetGroundHeight() + currentHeight;
+        newPosition.z = currentHorizontalPosition;
+        transform.position = newPosition;
+    }
+
+    private float GetGroundHeight()
+    {
+        RaycastHit hit;
+        Vector3 rayStart = new Vector3(transform.position.x, transform.position.y + 5f, currentHorizontalPosition);
+
+        if (Physics.Raycast(rayStart, Vector3.down, out hit, 100f, groundLayer))
+        {
+            return hit.point.y;
+        }
+
+        return 0f;
     }
 
     private void CheckForGroundAhead()
     {
-        // Check if there's ground in the direction we're moving
-        float checkDistance = horizontalSpeed * Time.deltaTime + groundCheckDistance;
-        Vector3 direction = movingRight ? Vector3.right : Vector3.left;
-        Vector3 rayStart = transform.position;
-        
-        // Raycast downward from ahead position
-        Vector3 checkPosition = rayStart + direction * checkDistance;
+        float checkDistance = horizontalSpeed * 0.3f + groundCheckDistance;
+        Vector3 direction = movingForward ? Vector3.forward : Vector3.back;
+
+        Vector3 checkPosition = transform.position + direction * checkDistance;
+        checkPosition.y += 5f;
+
         RaycastHit hit;
-        
-        bool hasGroundAhead = Physics.Raycast(checkPosition, Vector3.down, out hit, bounceHeight + 2f, groundLayer);
-        
+        bool hasGroundAhead = Physics.Raycast(checkPosition, Vector3.down, out hit, bounceHeight + 10f, groundLayer);
+
         if (showDebugRays)
         {
-            Debug.DrawRay(checkPosition, Vector3.down * (bounceHeight + 2f), hasGroundAhead ? Color.green : Color.red);
+            Debug.DrawRay(checkPosition, Vector3.down * (bounceHeight + 10f), hasGroundAhead ? Color.green : Color.red, 0.1f);
         }
+
         
-        // If no ground ahead, reverse direction
         if (!hasGroundAhead)
         {
-            movingRight = !movingRight;
-            
+            movingForward = !movingForward;
+
             if (showDebugRays)
             {
-                Debug.Log($"<color=yellow>BouncingBall reversed direction! Now moving {(movingRight ? "RIGHT" : "LEFT")}</color>");
+                Debug.Log($"<color=red>Edge detected! Forced reverse to {(movingForward ? "FORWARD" : "BACKWARD")}</color>");
             }
         }
     }
+    public void JumpTheBall()
+    {
+        transform.DOJump(transform.position + Vector3.forward * (movingForward ? 5f : -5f), bounceHeight, 1, bounceSpeed * 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            SpawnBounceEffect();
+            PlayBounceSound();
 
+            if (Random.value < directionChangeChance)
+            {
+                movingForward = !movingForward;
+                // Force reverse if no ground ahead (edge of platform)
+            }
+            CheckForGroundAhead();
+            JumpTheBall();
+            
+        });
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
-            // Deal damage to player
             IDamageable damageable = other.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
                 damageable.TakeDamage(damage);
             }
-            
-            // Play impact sound
+
             if (SoundManager.Instance != null)
             {
                 SoundManager.Instance.PlaySound(SoundManager.Instance.BallImpact, gameObject);
@@ -172,30 +194,24 @@ public class BouncingBallTrap : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Draw bounce height
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position + Vector3.up * bounceHeight, 0.3f);
-        
-        // Draw ground level
+
         Gizmos.color = Color.green;
-        if (Application.isPlaying && lastGroundPosition != Vector3.zero)
-        {
-            Gizmos.DrawWireCube(lastGroundPosition, new Vector3(2f, 0.1f, 2f));
-        }
-        else
-        {
-            Gizmos.DrawWireCube(transform.position, new Vector3(2f, 0.1f, 2f));
-        }
-        
-        // Draw direction arrow
+        float groundY = Application.isPlaying ? GetGroundHeight() : transform.position.y;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, groundY, transform.position.z), new Vector3(1f, 0.1f, 1f));
+
         Gizmos.color = Color.cyan;
-        Vector3 direction = movingRight ? Vector3.right : Vector3.left;
+        Vector3 direction = movingForward ? Vector3.forward : Vector3.back;
         Gizmos.DrawRay(transform.position, direction * 2f);
-        
-        // Draw check distance
-        Gizmos.color = Color.red;
-        float checkDist = horizontalSpeed * 0.1f + groundCheckDistance;
-        Vector3 checkPos = transform.position + direction * checkDist;
-        Gizmos.DrawLine(checkPos, checkPos + Vector3.down * (bounceHeight + 2f));
+
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.red;
+            float checkDist = horizontalSpeed * 0.3f + groundCheckDistance;
+            Vector3 checkPos = transform.position + direction * checkDist;
+            checkPos.y += 5f;
+            Gizmos.DrawLine(checkPos, checkPos + Vector3.down * (bounceHeight + 10f));
+        }
     }
 }

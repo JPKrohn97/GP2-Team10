@@ -1863,7 +1863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1490996762
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -6672,7 +6672,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490996761}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6785,11 +6785,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceHeight: 3
   horizontalSpeed: 5
-  bounceSpeed: 8
+  bounceSpeed: 5
   groundCheckDistance: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  directionChangeChance: 0.5
   damage: 15
   playerLayer:
     serializedVersion: 2
@@ -7036,11 +7037,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1212257134449604779, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1212257134449604779, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3661518917694402987, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_IsTrigger
@@ -7048,11 +7049,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4891675158053481927, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4891675158053481927, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6950717831281144859, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7100,7 +7101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6985117900536246687, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8249344241571255835, guid: 9051c1b985047744dba596a883e2a970, type: 3}
       propertyPath: isBoss
