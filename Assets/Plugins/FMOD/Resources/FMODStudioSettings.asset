@@ -527,7 +527,7 @@ MonoBehaviour:
   HasSourceProject: 0
   HasPlatforms: 0
   sourceProjectPath: ../../FMOD/GP2/GP2/GP2.fspro
-  sourceBankPath: ../../../Downloads/Sound/Sound/FMOD complete 02/Build/Desktop
+  sourceBankPath: ../../Desktop/Ecdysis_BurstDebugInformation_DoNotShip
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -549,8 +549,7 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks:
-  - Master
+  MasterBanks: []
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264

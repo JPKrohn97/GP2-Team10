@@ -7,7 +7,15 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-     
+    public enum EnemyMutationType
+    {
+        Sword,
+        Dash,
+        Range
+    }
+    
+    public EnemyMutationType mutationType;
+    
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private EnemyAnimatorController animatorController;
     [SerializeField] private Collider interactionCollider;
