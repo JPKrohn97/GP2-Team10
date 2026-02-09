@@ -207,5 +207,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         if(player != null && player.Combat != null) 
             player.Combat.SpawnBiteParticle();
+        SoundManager.Instance.PlaySound(SoundManager.Instance.Eating);
     }
 }

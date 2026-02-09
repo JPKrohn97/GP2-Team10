@@ -1,15 +1,33 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;  
 public class PlayerCiınematicAnimimationEvents : MonoBehaviour
 {
-
+    public bool isSpecialJump;
     public GameObject fakeBoss;
     private Transform playerTransform;
-    private void Awake()
+    private PlayerController playerController;
+    public Animator animController;
+    private void Awake() 
     {
         playerTransform=GetComponentInParent<PlayerController>().transform;
+        playerController=GetComponentInParent<PlayerController>();
+        animController=GetComponent<Animator>();
     }
 
+    public void SpecialJumpButton()
+    {       
+        animController.SetTrigger("SpecialJump");
+        GameManager.Instance.canPlayerMove = false;
+        Vector3 v = playerController.RB.linearVelocity;
+        v.y = Mathf.Sqrt(playerController.jumpHeight * -2f * Physics.gravity.y);
+        playerController.RB.linearVelocity = v;
+    }
+
+    public void SpecialJump()
+    {
+        isSpecialJump = true;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void FadeIn()
     {
@@ -51,7 +69,11 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
         FadeIn();
     }
  
-    
+    public void NormalGame()
+    {
+        animController.applyRootMotion = false;
+        GameManager.Instance.NormalGamePlay();
+    }
     public void End()
     {
         transform.eulerAngles = new Vector3(0, 180, 0);

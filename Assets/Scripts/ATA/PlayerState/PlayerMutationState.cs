@@ -19,33 +19,33 @@ public class PlayerMutationState : PlayerState
         player.AnimationEvents.SetAnimationTrigger("Bite");
         
 
+        EnemyHealth targetEnemy = player.CurrentDeadEnemy; 
+
         DOVirtual.DelayedCall(biteDuration, () =>
         {
-
             if(stateMachine.CurrentState == this)
             {
-    
-                if (player.CurrentDeadEnemy != null)
+            
+                if (targetEnemy != null)
                 {
-                    var type = player.CurrentDeadEnemy.mutationType;
+                    var type = targetEnemy.mutationType;
                     
                     if(player.SkillController != null)
                     {
                         player.SkillController.AbsorbSkill(type);
                     }
                     
-                    player.CurrentDeadEnemy.ConsumeBody();
+                    targetEnemy.ConsumeBody();
                 }
 
-       
                 player.AnimationEvents.MutationSequence();
 
                 DOVirtual.DelayedCall(mutationDuration, () => 
                 {
-                     if(stateMachine.CurrentState == this)
-                     {
-                         FinishMutation();
-                     }
+                    if(stateMachine.CurrentState == this)
+                    {
+                        FinishMutation();
+                    }
                 });
             }
         });

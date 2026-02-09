@@ -33,6 +33,11 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void NormalGamePlay()
+    {
+        ManagerCinemachine.Instance.SetNormalCamera();
+        canPlayerMove = true;
+    }
     public void OnBossDefeated()
     {
         canPlayerMove = false;
@@ -46,10 +51,10 @@ public class GameManager : Singleton<GameManager>
             playerAnimator.SetTrigger("PlayerBossDefeated");
             ManagerCinemachine.Instance.SetBossMutationCamera();
         });
-        
+
     }
 
-    
+
     public void BossMutationSequence()
     {
         ManagerSave.Instance.SaveState.isFirstBossDefeated = true;
@@ -59,7 +64,7 @@ public class GameManager : Singleton<GameManager>
         playerAnimator.applyRootMotion = true;
         ManagerCinemachine.Instance.SetBossMutationCamera();
 
-        DOVirtual.DelayedCall(1f, () => 
+        DOVirtual.DelayedCall(1f, () =>
         {
 
             DOTween.To(() => bossLegLeftMaterial.GetFloat("_DissolveAmount"),
