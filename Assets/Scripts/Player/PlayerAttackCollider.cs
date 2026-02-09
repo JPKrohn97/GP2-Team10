@@ -21,7 +21,7 @@ public class PlayerAttackCollider : MonoBehaviour
     {
         if (!other.CompareTag("Enemy")) return;
 
-        SoundManager.Instance.PlaySound(SoundManager.Instance.ClawsImpact,gameObject);
+        //SoundManager.Instance.PlaySound(SoundManager.Instance.ClawsImpact,gameObject);
         //SoundManager.Instance.PlaySoundOneShot(SoundManager.Instance.ClawsImpact,transform.position);
 
         EnemyHealth enemy = other.GetComponent<EnemyHealth>();

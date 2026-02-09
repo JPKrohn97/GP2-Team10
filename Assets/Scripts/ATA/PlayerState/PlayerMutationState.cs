@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using DG.Tweening; // DOTween kütüphanesi
+using DG.Tweening; 
 
 public class PlayerMutationState : PlayerState
 {
-    // AYARLAR
+    
     private float biteDuration = 2f;     
     private float mutationDuration = 2.0f; 
 
@@ -27,12 +27,12 @@ public class PlayerMutationState : PlayerState
     
                 if (player.CurrentDeadEnemy != null)
                 {
-                    // var type = player.CurrentDeadEnemy.mutationType;
-                    //
-                    // if(player.SkillController != null)
-                    // {
-                    //     player.SkillController.AbsorbSkill(type);
-                    // }
+                    var type = player.CurrentDeadEnemy.mutationType;
+                    
+                    if(player.SkillController != null)
+                    {
+                        player.SkillController.AbsorbSkill(type);
+                    }
                     
                     player.CurrentDeadEnemy.ConsumeBody();
                 }
