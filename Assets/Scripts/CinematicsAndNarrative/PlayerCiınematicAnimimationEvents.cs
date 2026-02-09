@@ -15,6 +15,13 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
         animController=GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("V"))
+        {
+            SpecialJumpButton();
+        }
+    }
     public void SpecialJumpButton()
     {       
         animController.SetTrigger("SpecialJump");
@@ -61,7 +68,7 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     {
         ManagerCinemachine.Instance.SecondBiteCamera();
         transform.eulerAngles = new Vector3(0, 0, 0); 
-        fakeBoss.transform.localPosition = new Vector3(-1f, 0, 0);
+        fakeBoss.transform.localPosition = new Vector3(-0.5f, 0, 0);
         FadeOut();
     }
     public void SecondBite()
