@@ -49,6 +49,7 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+    
     public void BossMutationSequence()
     {
         ManagerSave.Instance.SaveState.isFirstBossDefeated = true;

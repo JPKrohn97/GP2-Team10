@@ -4,11 +4,27 @@ using FMOD.Studio;
 
 public class SoundManager : Singleton<SoundManager>
 {
+    [Header("Orb Trap")]
+    [Space]
+    public EventReference OrbExplosion;
+    [Header("Traps")]
+    [Space]
+    public EventReference SpikeTrapWarning;
+    public EventReference SpikeTrapAttack;
+    
+    [Header("Lava Trap")]
+    [Space]
+    public EventReference LavaSizzle;
+
+    [Header("Bouncing Ball")]
+    [Space]
+    public EventReference BallBounce;
+    public EventReference BallImpact;
+
     [Header("BossAttacks")]
     [Space]
     public EventReference BasicBossAttack;
     public EventReference FireBlast;
-    public EventReference ShockWaveJump;
     public EventReference StoneBossJump;
     [Header("PlayerAttacks")]
     [Space]
@@ -53,21 +69,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public EventReference MenuSelect;
 
-    [Header("Traps")]
-    [Space]
-    public EventReference SpikeTrapWarning;
-    public EventReference SpikeTrapAttack;
-    [Header("Orb Trap")]
-    [Space]
-    public EventReference OrbExplosion;
-    [Header("Lava Trap")]
-    [Space]
-    public EventReference LavaSizzle;
-
-    [Header("Bouncing Ball")]
-    [Space]
-    public EventReference BallBounce;
-    public EventReference BallImpact;
+    
 
     private EventInstance instance;
     public void PlaySoundOneShot(EventReference sound, Vector3 position)
