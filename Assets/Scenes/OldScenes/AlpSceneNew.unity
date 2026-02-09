@@ -16920,6 +16920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerParent
       objectReference: {fileID: 0}
+    - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
+      propertyPath: jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8835630997411642477, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -73105,6 +73109,20 @@ MonoBehaviour:
       Data4: 0
     Path: 
   LavaSizzle:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  BallBounce:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  BallImpact:
     Guid:
       Data1: 0
       Data2: 0
