@@ -8,23 +8,12 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     private Transform playerTransform;
     private PlayerController playerController;
     public Animator animController;
-    public InputAction specialJump { get; private set; }
     private void Awake() 
     {
         playerTransform=GetComponentInParent<PlayerController>().transform;
         playerController=GetComponentInParent<PlayerController>();
         animController=GetComponent<Animator>();
     }
-    private void OnEnable()
-    {
-        specialJump.performed += OnJumpMove;
-    }
-    private void Update()
-    {
-
-        
-    }
-    private void OnJumpMove(InputAction.CallbackContext ctx) => SpecialJumpButton();
 
     public void SpecialJumpButton()
     {       

@@ -6,6 +6,8 @@ public enum ObjectPoolType
 {
     ClawSlash,
     ClawHit,
+    SwordSlash,
+    SwordHit,
     DeathHit,
     PlayerHit,
     EnemyHit,
@@ -16,5 +18,6 @@ public enum ObjectPoolType
     BossProjectile,
     BossProjectileExplosion,
     BossGroundShockwave,
-    OrbExplosion
+    OrbExplosion,
+    BiteParticle
 }
