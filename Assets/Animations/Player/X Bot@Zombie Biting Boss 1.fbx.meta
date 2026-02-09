@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a9ac72baeca7a4e40a4d9cc0a7463d23
+guid: 5a212ab36848d1443b916d4489c3315a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -55,22 +55,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.14168414
-        functionName: Beginning
+      - time: 0.12232545
+        functionName: BeforeSecondBite
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.45507938
-        functionName: BeforeFirstBite
+      - time: 0.9866099
+        functionName: End
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.88393766
-        functionName: FirstBite
+      - time: 0.4930362
+        functionName: SecondBite
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -37,7 +37,7 @@ public class GameManager : Singleton<GameManager>
     {
         canPlayerMove = false;
 
-        DOVirtual.DelayedCall(0.5f, () =>
+        DOVirtual.DelayedCall(0.1f, () =>
         {
             CinematicBlackFadeIn(0.5f);
         });
@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
         ManagerSave.Instance.Save();
 
         playerAnimator.SetTrigger("PlayerBossMutation");
-
+        playerAnimator.applyRootMotion = true;
         ManagerCinemachine.Instance.SetBossMutationCamera();
 
         DOVirtual.DelayedCall(1f, () => 

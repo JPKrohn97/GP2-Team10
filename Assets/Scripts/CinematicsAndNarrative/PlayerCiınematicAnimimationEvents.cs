@@ -4,6 +4,11 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
 {
 
     public GameObject fakeBoss;
+    private Transform playerTransform;
+    private void Awake()
+    {
+        playerTransform=GetComponentInParent<PlayerController>().transform;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void FadeIn()
@@ -15,18 +20,43 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     {
         GameManager.Instance.CinematicBlackFadeOut(0.5f);
     }
-    public void FirstBite()
-    {
-
-    }
     public void Beginning()
     {
         fakeBoss.SetActive(true);
-        DOVirtual.DelayedCall(0.5f, () => { ManagerCinemachine.Instance.FirstBiteCamera(); });
+        transform.eulerAngles = new Vector3(0, 180, 0);
+        ManagerCinemachine.Instance.FirstBiteCamera();
+
 
     }
+    public void BeforeFirstBite()
+    {
+
+        FadeOut();
+
+    }
+    public void FirstBite()
+    {
+        FadeIn();
+    }
+
+    public void BeforeSecondBite()
+    {
+        ManagerCinemachine.Instance.SecondBiteCamera();
+        transform.eulerAngles = new Vector3(0, 0, 0); 
+        fakeBoss.transform.localPosition = new Vector3(-1f, 0, 0);
+        FadeOut();
+    }
+    public void SecondBite()
+    {
+        FadeIn();
+    }
+ 
+    
     public void End()
     {
+        transform.eulerAngles = new Vector3(0, 180, 0);
         fakeBoss.SetActive(false);
+        FadeOut();
+        DOVirtual.DelayedCall(0.5f, () => GameManager.Instance.BossMutationSequence());
     }
 }
