@@ -35,6 +35,7 @@ public class PlayerRunState : PlayerGroundedState
         }
         
         bool isActuallyMoving = player.RB.linearVelocity.sqrMagnitude > 0.1f;
+        SoundManager.Instance.PlaySound(SoundManager.Instance.PlayerFootSteps,player.gameObject);
         player.AnimationEvents?.SetMovingBool(isActuallyMoving);
     }
 

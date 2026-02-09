@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext ctx) => CurrentMovementInput = ctx.ReadValue<Vector2>();
     private void OnMoveCanceled(InputAction.CallbackContext ctx) => CurrentMovementInput = Vector2.zero;
-    private void OnAttackInput(InputAction.CallbackContext ctx) => VirtualAttackInput();
+    private void OnAttackInput(InputAction.CallbackContext ctx) => VirtualClawAttackInput();
     private void OnDashInput(InputAction.CallbackContext ctx) => VirtualDashInput();
 
     private void Update()
@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
         StateMachine.ChangeState(AirState);
     }
     
-    public void VirtualAttackInput()
+    public void VirtualClawAttackInput()
     {
         LastAttackInputTime = Time.time;
         if (StateMachine.CurrentState != ClawAttackState)
@@ -240,6 +240,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsOnDeadEnemy && CurrentDeadEnemy != null)
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Eating);
             StateMachine.ChangeState(MutationState);
         }
     }
