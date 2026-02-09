@@ -302,7 +302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6333635732227776289, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: detectionRange
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6333635732227776289, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: 'waypoints.Array.data[0]'

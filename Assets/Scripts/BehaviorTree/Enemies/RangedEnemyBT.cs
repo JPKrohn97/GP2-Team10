@@ -12,6 +12,9 @@ public class RangedEnemyBT : BehaviorTreeBase
     public float projectileSpeed = 20f;
     public LayerMask playerLayer;
 
+    [Header("Height Check")]
+    public float verticalTolerance = 2f;
+
     [Header("Shooting")]
     public Transform firePoint;
     public GameObject projectilePrefab;
@@ -22,6 +25,7 @@ public class RangedEnemyBT : BehaviorTreeBase
     private NavMeshAgent agent;
     private Animator animator;
     private EnemyHealth enemyHealth;
+    
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -37,9 +41,9 @@ public class RangedEnemyBT : BehaviorTreeBase
             new Sequence(new List<Node>
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
-                new CheckInAttackRange(transform, attackRange),
+                new CheckInAttackRange(transform, attackRange, verticalTolerance),
                 new TaskRangedAttack(transform, agent, firePoint, projectilePrefab, 
-                    animator, attackCooldown, projectileSpeed,enemyHealth)
+                    animator, attackCooldown, projectileSpeed, enemyHealth)
             }),
             // Patrol
             new TaskPatrol(transform, agent, waypoints, animator)
