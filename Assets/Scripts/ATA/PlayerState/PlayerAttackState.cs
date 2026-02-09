@@ -34,7 +34,6 @@ public abstract class PlayerAttackState : PlayerState
                 
                 targetEnemy.TakeDamage(20, hitPoint);
 
-                Debug.Log("Düşmana Vuruldu!");
             }
             */
         }

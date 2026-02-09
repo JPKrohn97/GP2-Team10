@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     public InputAction AttackAction { get; private set; }
     public InputAction InteractAction { get; private set; }
     public InputAction InteractPause { get; private set; }
-    public InputAction DashAction { get; private set; } // YENİ: Dash Input
+    public InputAction DashAction { get; private set; } 
     #endregion
 
     #region States
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     public PlayerIdleState IdleState { get; private set; }
     public PlayerRunState RunState { get; private set; }
     public PlayerAirState AirState { get; private set; }
-    public PlayerSwordAttackState SwordAttackState { get; private set; }
+    public PlayerClawAttackState ClawAttackState { get; private set; }
     public PlayerMutationState MutationState { get; private set; }
     public PlayerRangeAttackState RangeAttackState { get; private set; }
     public PlayerDashState DashState { get; private set; } 
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         IdleState = new PlayerIdleState(this, StateMachine);
         RunState = new PlayerRunState(this, StateMachine);
         AirState = new PlayerAirState(this, StateMachine);
-        SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
+        ClawAttackState = new PlayerClawAttackState(this, StateMachine);
         MutationState = new PlayerMutationState(this, StateMachine);
         RangeAttackState = new PlayerRangeAttackState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine); 
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         MoveAction.canceled += OnMoveCanceled;
         
         AttackAction.performed += OnAttackInput;
-        //DashAction.performed += OnDashInput; 
+        DashAction.performed += OnDashInput; 
     }
 
     private void OnDisable()
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         MoveAction.canceled -= OnMoveCanceled;
 
         AttackAction.performed -= OnAttackInput;
-        //DashAction.performed -= OnDashInput; 
+        DashAction.performed -= OnDashInput; 
         
         InputHandler.Disable();
     }
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
     private void OnMove(InputAction.CallbackContext ctx) => CurrentMovementInput = ctx.ReadValue<Vector2>();
     private void OnMoveCanceled(InputAction.CallbackContext ctx) => CurrentMovementInput = Vector2.zero;
     private void OnAttackInput(InputAction.CallbackContext ctx) => VirtualAttackInput();
-    //private void OnDashInput(InputAction.CallbackContext ctx) => VirtualDashInput();
+    private void OnDashInput(InputAction.CallbackContext ctx) => VirtualDashInput();
 
     private void Update()
     {
@@ -171,6 +171,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.canPlayerMove == false) return;
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
@@ -197,43 +198,43 @@ public class PlayerController : MonoBehaviour
     public void VirtualAttackInput()
     {
         LastAttackInputTime = Time.time;
-        if (StateMachine.CurrentState != SwordAttackState)
+        if (StateMachine.CurrentState != ClawAttackState)
         {
-            StateMachine.ChangeState(SwordAttackState);
+            StateMachine.ChangeState(ClawAttackState);
         }
     }
     
-    // public void VirtualDashInput()
-    // {
-    //
-    //     if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) > 0)
-    //     {
-    //         if (Time.time >= lastDashTime + dashCooldown && StateMachine.CurrentState != DashState)
-    //             StateMachine.ChangeState(DashState);
-    //     }
-    // }
-    //
-    // public void VirtualJumpInput()
-    // {
-    //     Jump();
-    //     
-    // }
-    //
-    // public void VirtualSkillSwordInput()
-    // {
-    //     if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) > 0)
-    //     {
-    //         if (StateMachine.CurrentState != SwordAttackState) StateMachine.ChangeState(SwordAttackState);
-    //     }
-    // }
-    //
-    // public void VirtualRangeInput()
-    // {
-    //     if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) > 0)
-    //     {
-    //         StateMachine.ChangeState(RangeAttackState);
-    //     }
-    // }
+    public void VirtualDashInput()
+    {
+    
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) > 0)
+        {
+            if (Time.time >= lastDashTime + dashCooldown && StateMachine.CurrentState != DashState)
+                StateMachine.ChangeState(DashState);
+        }
+    }
+    
+    public void VirtualJumpInput()
+    {
+        Jump();
+        
+    }
+    
+    public void VirtualSkillSwordInput()
+    {
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) > 0)
+        {
+            if (StateMachine.CurrentState != ClawAttackState) StateMachine.ChangeState(ClawAttackState);
+        }
+    }
+    
+    public void VirtualRangeInput()
+    {
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) > 0)
+        {
+            StateMachine.ChangeState(RangeAttackState);
+        }
+    }
     
     public void VirtualMutationInput()
     {
@@ -270,7 +271,7 @@ public class PlayerController : MonoBehaviour
     {
         
         //int rangeLevel = SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range);
-       // GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
+        //GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
         //if (projectile != null)
         //{
         //    Rigidbody prb = projectile.GetComponent<Rigidbody>();
@@ -285,5 +286,11 @@ public class PlayerController : MonoBehaviour
         DOVirtual.DelayedCall(0.5f,() => {
              if(RB != null) RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
         });
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, mutationRange);
     }
 }

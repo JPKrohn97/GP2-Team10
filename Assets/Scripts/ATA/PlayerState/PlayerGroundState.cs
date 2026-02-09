@@ -18,7 +18,7 @@ public class PlayerGroundedState : PlayerState
         // 2. Attack
         if (player.InputHandler.Player.Attack.triggered) 
         {
-            stateMachine.ChangeState(player.SwordAttackState);
+            stateMachine.ChangeState(player.ClawAttackState);
             Debug.Log("saldiri test");
             return;
         }
