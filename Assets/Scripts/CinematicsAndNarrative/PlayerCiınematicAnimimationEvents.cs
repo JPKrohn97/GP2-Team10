@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;  
 public class PlayerCiınematicAnimimationEvents : MonoBehaviour
 {
     public bool isSpecialJump;
@@ -7,12 +8,23 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     private Transform playerTransform;
     private PlayerController playerController;
     public Animator animController;
+    public InputAction specialJump { get; private set; }
     private void Awake() 
     {
         playerTransform=GetComponentInParent<PlayerController>().transform;
         playerController=GetComponentInParent<PlayerController>();
         animController=GetComponent<Animator>();
     }
+    private void OnEnable()
+    {
+        specialJump.performed += OnJumpMove;
+    }
+    private void Update()
+    {
+
+        
+    }
+    private void OnJumpMove(InputAction.CallbackContext ctx) => SpecialJumpButton();
 
     public void SpecialJumpButton()
     {       
@@ -70,6 +82,7 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
  
     public void NormalGame()
     {
+        animController.applyRootMotion = false;
         GameManager.Instance.NormalGamePlay();
     }
     public void End()
