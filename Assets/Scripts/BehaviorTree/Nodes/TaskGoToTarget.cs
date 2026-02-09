@@ -21,6 +21,10 @@ namespace BehaviorTree
 
         public override NodeState Evaluate()
         {
+            // Check if agent is valid and active before using it
+            if (agent == null || !agent.enabled || !agent.isOnNavMesh)
+                return state = NodeState.Failure;
+
             Transform target = (Transform)GetData("target");
             if (target == null)
                 return state = NodeState.Failure;

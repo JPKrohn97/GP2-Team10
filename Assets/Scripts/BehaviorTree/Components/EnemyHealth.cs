@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+     
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private EnemyAnimatorController animatorController;
     [SerializeField] private Collider interactionCollider;
@@ -97,7 +98,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             if (behaviorTree != null)
                 behaviorTree.enabled = false;
             
-            if (navAgent != null && navAgent.enabled)
+            if (navAgent != null && navAgent.enabled && navAgent.isOnNavMesh)
             {
                 navAgent.velocity = Vector3.zero;
                 navAgent.isStopped = true;
@@ -135,7 +136,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             if (behaviorTree != null && wasBehaviorTreeEnabled)
                 behaviorTree.enabled = true;
             
-            if (navAgent != null && wasNavAgentEnabled)
+            if (navAgent != null && wasNavAgentEnabled && navAgent.isOnNavMesh)
             {
                 navAgent.isStopped = false;
             }
@@ -151,7 +152,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         IsDead = true;
         healthCanvas.SetActive(false);
-        
+
         BehaviorTreeBase enemyBT = GetComponent<BehaviorTreeBase>();
         if (enemyBT != null)
         {
@@ -167,8 +168,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         ManagerCinemachine.Instance.TriggerFinisherCamera();
         if (isBoss)
         {
-            GameManager.Instance.OnBossDefeated();
+           GameManager.Instance.OnBossDefeated();
         }
+        
+        // Disable behavior tree FIRST to prevent further updates
+        if (behaviorTree != null)
+            behaviorTree.enabled = false;
+        
         StopAllCoroutines();
         
         for (int i = 0; i < renderers.Length; i++)
@@ -198,10 +204,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (animatorController != null)
             animatorController.EnableRagdoll();
 
-        if (behaviorTree != null)
-            behaviorTree.enabled = false;
-
-        if (navAgent != null)
+        if (navAgent != null && navAgent.isOnNavMesh)
         {
             navAgent.isStopped = true;
             navAgent.enabled = false;
