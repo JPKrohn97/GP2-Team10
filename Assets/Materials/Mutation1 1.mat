@@ -15,7 +15,6 @@ Material:
   - _MK_ARTISTIC_ANIMATION_STUTTER
   - _MK_ARTISTIC_SKETCH
   - _MK_COLOR_GRADING_ALBEDO
-  - _MK_DISSOLVE_DEFAULT
   - _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
   - _MK_IRIDESCENCE_DEFAULT
   - _MK_LIGHT_BANDED
@@ -200,7 +199,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DiffuseSmoothness: 0
     - _DiffuseThresholdOffset: 0.25
-    - _Dissolve: 1
+    - _Dissolve: 0
     - _DissolveAmount: 0.105
     - _DissolveBorderSize: 1
     - _DissolveMapScale: 1
@@ -223,7 +222,7 @@ Material:
     - _IridescenceSmoothness: 0
     - _IridescenceThresholdOffset: 0
     - _Light: 2
-    - _LightBands: 3
+    - _LightBands: 2
     - _LightBandsScale: 1
     - _LightThreshold: 0
     - _Metallic: 0
@@ -248,7 +247,7 @@ Material:
     - _RimThresholdOffset: 0.25
     - _Saturation: 0
     - _SketchMapScale: 1
-    - _Smoothness: 0
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularHighlights: 1
