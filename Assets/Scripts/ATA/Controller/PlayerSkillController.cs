@@ -101,7 +101,7 @@ public class PlayerSkillController : MonoBehaviour
         {
             if (level >= MAX_LEVEL)
             {
-                textComponent.text = "MAX";
+                textComponent.text = "M";
             }
             else
             {
