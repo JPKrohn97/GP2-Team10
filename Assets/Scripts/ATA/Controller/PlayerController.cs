@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     
     #endregion
 
+    private bool isSpecialJumped = false;   
     [Header("Pause Game Canvas")]
     public UIPauseGame Script;
 
@@ -306,35 +307,46 @@ public class PlayerController : MonoBehaviour
           specialButton.SetActive(false);
       
       Animator.SetTrigger("SpecialJump");
-      GameManager.Instance.canPlayerMove = false;
+        specialButton.SetActive(false);
+
+        GameManager.Instance.canPlayerMove = false;
       Vector3 v =RB.linearVelocity;
       v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
       RB.linearVelocity = v;
+        isSpecialJumped = true;
     }
 
     
     private void OnTriggerEnter(Collider other)
     {
-        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break"))
+        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break")&&!isSpecialJumped)
         {
             specialButton.SetActive(true);
         }
 
         if (other.CompareTag("Fall"))
         {
+            specialButton.SetActive(false);
             GameManager.Instance.canPlayerMove = true;
         }
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
 
         EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
-        if (enemy != null && enemy.IsDead)
+        if (enemy != null && enemy.IsDead && !enemy.isBoss)
         {
             CurrentDeadEnemy = enemy;
         }
 
         
     }
-    
+    private void OnTriggerExit(Collider other)
+    {
+        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break"))
+        {
+            specialButton.SetActive(false);
+        }
+    }
+
     public void VirtualRangeInput()
     {
 
