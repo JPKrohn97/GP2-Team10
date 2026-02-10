@@ -15762,7 +15762,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fbbe75e6dec67924f988554479343925, type: 2}
     - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: jumpHeight
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8825109617794800239, guid: df8e43e3139dfb144a1e2afc32c78ae8, type: 3}
       propertyPath: specialButton
