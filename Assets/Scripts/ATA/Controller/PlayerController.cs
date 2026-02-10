@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Skill Settings")] 
     public int swordSkillDamage = 100;
-    public float swordSkillCooldown = 5f; 
     private float lastSwordSkillTime = -100f;
-    public float randeSkillCooldown = 5f; 
     private float lastRangeSkill = -100f;
+    private float lastDashTime = -100f;
+    [Space]
+    public float dashCooldown = 5f;
+    public float swordSkillCooldown = 5f; 
+    public float randeSkillCooldown = 5f; 
     
     [Header("Mutation UI")]
     public GameObject mutationButton;
@@ -45,14 +48,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private Collider col;
     
-    
-
     public bool IsGrounded { get; private set; }
     public float LastAttackInputTime { get; private set; } = -100f;
-    
-    [Header("Dash Settings")]
-    public float dashCooldown = 1f;
-    private float lastDashTime = -100f;
  
     [Header("Mutation Interaction")]
     public LayerMask enemyPartLayer;
@@ -329,9 +326,15 @@ public class PlayerController : MonoBehaviour
     public void SpawnProjectile()
     {
         
-        //int rangeLevel = SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range);
-        
-        GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.PlayerProjectile, firePoint.position, transform.rotation);
+        int rangeLevel = SkillController.GetSkillLevel(
+            EnemyHealth.EnemyMutationType.Range
+        );
+
+        GameObject projectile = ManagerObjectPool.Instance.Spawn(
+            ObjectPoolType.PlayerProjectile,
+            firePoint.position,
+            transform.rotation
+        );
     
         if (projectile != null)
         {
@@ -340,6 +343,12 @@ public class PlayerController : MonoBehaviour
             {
                 prb.linearVelocity = transform.forward * 30f;
             }
+        }
+        
+        ProjectileController pc = projectile.GetComponent<ProjectileController>();
+        if (pc != null)
+        {
+            pc.Init(rangeLevel);
         }
     }
     

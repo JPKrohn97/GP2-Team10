@@ -3,8 +3,17 @@ using System.Collections;
 
 public class ProjectileController : MonoBehaviour
 {
+    
+    private int rangeLevel;
+
     public int damage = 20; 
     public float lifeTime = 5f;
+
+    public void Init(int level)
+    {
+        rangeLevel = level; 
+        damage = 20 + (rangeLevel - 1) * 10; 
+    }
 
     private void OnEnable()
     {

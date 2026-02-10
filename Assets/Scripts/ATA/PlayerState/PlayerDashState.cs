@@ -11,6 +11,9 @@ public class PlayerDashState : PlayerState
 
     private Collider[] hitColliders = new Collider[10]; 
     private GameObject currentTrail;
+    
+    private float baseDashDuration = 0.2f;
+    private float durationPerLevel = 0.15f;
 
     public PlayerDashState(PlayerController player, PlayerStateMachine stateMachine)
         : base(player, stateMachine) { }
@@ -18,6 +21,12 @@ public class PlayerDashState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        
+        int dashLevel = player.SkillController.GetSkillLevel(
+            EnemyHealth.EnemyMutationType.Dash
+        );
+
+        dashDuration = baseDashDuration + (dashLevel - 1) * durationPerLevel;
         
         if (SoundManager.Instance != null)
         {
