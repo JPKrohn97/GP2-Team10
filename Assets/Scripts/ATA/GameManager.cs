@@ -5,10 +5,18 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     public MeshRenderer leftLegRenderer;
+    public MeshRenderer leftLegRockRenderer;
+
     public MeshRenderer rightLegRenderer;
+    public MeshRenderer rightLegRockRenderer;
+
     public bool canPlayerMove = true;
     private Material bossLegLeftMaterial;
+    private Material bossLegLeftRockMaterial;
+
     private Material bossLegRightMaterial;
+    private Material bossLegRirghtRockMaterial;
+
     public Animator playerAnimator;
     public Image blackFadeImage;
     void Awake()
