@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("UI")]
     public GameObject mutationButton;
+
     public GameObject specialButton;
     
     [Space]
