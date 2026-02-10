@@ -164,6 +164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EarthMissileNormal
       objectReference: {fileID: 0}
+    - target: {fileID: 182524, guid: 7f6c2595e07144d408b980794a40ee34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 7f6c2595e07144d408b980794a40ee34, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.520507

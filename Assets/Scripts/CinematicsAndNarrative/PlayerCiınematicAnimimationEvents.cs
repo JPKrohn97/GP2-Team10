@@ -17,10 +17,10 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("V"))
-        {
-            SpecialJumpButton();
-        }
+        //if (Input.GetKeyDown("V"))
+        //{
+        //    SpecialJumpButton();
+        //}
     }
     public void SpecialJumpButton()
     {       

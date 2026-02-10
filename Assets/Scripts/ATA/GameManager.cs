@@ -22,6 +22,8 @@ public class GameManager : Singleton<GameManager>
     void Awake()
     {
         bossLegLeftMaterial = leftLegRenderer.material;
+        
+
         bossLegRightMaterial = rightLegRenderer.material;
 
         canPlayerMove = true;

@@ -75,15 +75,15 @@ MonoBehaviour:
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
   - ObjectPoolType: 7
-    Prefab: {fileID: 100000, guid: 761a22cd4c793fe4982601e2c81036ab, type: 3}
+    Prefab: {fileID: 100008, guid: 7f6c2595e07144d408b980794a40ee34, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
   - ObjectPoolType: 8
-    Prefab: {fileID: 124754, guid: 435d3540afe9e644a9c3f504144a002e, type: 3}
+    Prefab: {fileID: 100010, guid: 0779ad1cf28e6924c8bccb279d18eccf, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
   - ObjectPoolType: 12
-    Prefab: {fileID: 168136, guid: 7d19303b835a8124c92e68b550d34351, type: 3}
+    Prefab: {fileID: 100010, guid: 87698b9d467306440a17655d9c528f3a, type: 3}
     MaximumInstanceCount: 10
     ParentGameObject: {fileID: 0}
   - ObjectPoolType: 11
