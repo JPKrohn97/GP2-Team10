@@ -111,6 +111,10 @@ PrefabInstance:
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 2940889852267974059}
+    - target: {fileID: 8843008468145588783, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: projectileSpeed
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 200790070933774254, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
     - {fileID: 5441305060347419378, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}

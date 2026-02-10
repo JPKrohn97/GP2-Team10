@@ -59,18 +59,17 @@ public class Projectile : MonoBehaviour
         ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
     }
     
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (hasHit) return;
-        hasHit = true;
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (hasHit) return;
+    //    hasHit = true;
 
-        SpawnHitEffect();
-        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
-    }
+    //    SpawnHitEffect();
+    //    ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
+    //}
 
     private void SpawnHitEffect()
     {
-        if (hitEffectPrefab != null)
-            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+            ManagerObjectPool.Instance.Spawn(ObjectPoolType.EnemyProjectileExplosion, transform.position, Quaternion.identity);
     }
 }

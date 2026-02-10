@@ -9,7 +9,7 @@ public class RangedEnemyBT : BehaviorTreeBase
     public float detectionRange = 15f;
     public float attackRange = 12f;
     public float attackCooldown = 2f;
-    public float projectileSpeed = 20f;
+    public float projectileSpeed = 12f;
     public LayerMask playerLayer;
 
     [Header("Height Check")]

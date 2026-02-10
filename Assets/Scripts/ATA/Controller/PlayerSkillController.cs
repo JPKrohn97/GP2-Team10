@@ -30,8 +30,8 @@ public class PlayerSkillController : MonoBehaviour
     private Dictionary<EnemyHealth.EnemyMutationType, float> cooldowns
         = new Dictionary<EnemyHealth.EnemyMutationType, float>()
         {
-            { EnemyHealth.EnemyMutationType.Sword, 10f },
-            { EnemyHealth.EnemyMutationType.Dash, 1f },
+            { EnemyHealth.EnemyMutationType.Sword, 5f },
+            { EnemyHealth.EnemyMutationType.Dash, 5f },
             { EnemyHealth.EnemyMutationType.Range, 5f }
         };
     
@@ -154,7 +154,7 @@ public class PlayerSkillController : MonoBehaviour
         float elapsed = Time.time - lastUseTime[type];
         float cd = cooldowns[type];
 
-        fillImage.fillAmount = Mathf.Clamp01(elapsed / cd);
+        fillImage.fillAmount = 1f - Mathf.Clamp01(elapsed / cd);
     }
     public void NotifySkillUsed(EnemyHealth.EnemyMutationType type)
     {
