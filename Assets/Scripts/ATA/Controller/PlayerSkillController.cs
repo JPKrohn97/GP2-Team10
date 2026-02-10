@@ -21,7 +21,8 @@ public class PlayerSkillController : MonoBehaviour
      
     
     private Dictionary<EnemyHealth.EnemyMutationType, int> skillLevels = new Dictionary<EnemyHealth.EnemyMutationType, int>();
-    
+
+    private const int MAX_SWORD_LEVEL = 4;
     private const int MAX_LEVEL = 3;
     
     private Dictionary<EnemyHealth.EnemyMutationType, float> lastUseTime
@@ -70,7 +71,11 @@ public class PlayerSkillController : MonoBehaviour
     {
         if (!skillLevels.ContainsKey(type)) skillLevels[type] = 0;
 
-        if (skillLevels[type] < MAX_LEVEL)
+        int maxLevel = type == EnemyHealth.EnemyMutationType.Sword
+            ? MAX_SWORD_LEVEL
+            : MAX_LEVEL;
+
+        if (skillLevels[type] < maxLevel)
         {
             skillLevels[type]++;
             UpdateSkillUI(type);
@@ -127,13 +132,18 @@ public class PlayerSkillController : MonoBehaviour
     {
         if (textComponent != null)
         {
-            if (level >= MAX_LEVEL)
+            int maxLevel = MAX_LEVEL;
+
+            if (textComponent == txtSwordLevel)
+                maxLevel = MAX_SWORD_LEVEL;
+
+            if (level >= maxLevel)
             {
                 textComponent.text = "M";
             }
             else
             {
-                textComponent.text = level.ToString(); 
+                textComponent.text = level.ToString();
             }
         }
     }

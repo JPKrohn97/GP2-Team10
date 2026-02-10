@@ -38,8 +38,8 @@ public class PlayerSwordAttackState : PlayerState
         player.AnimationEvents.HideSwordVisuals();
         player.CurrentWeapon = PlayerController.ActiveWeaponType.Claw;
 
-        player.Combat.DisableLeftAttackCollider();
-        player.Combat.DisableRightAttackCollider();
+        //player.Combat.DisableRightSwordAttackCollider();
+    
     }
 
     public override void LogicUpdate()
@@ -55,7 +55,7 @@ public class PlayerSwordAttackState : PlayerState
 
         AnimatorStateInfo info = player.Animator.GetCurrentAnimatorStateInfo(0);
         
-        bool animationFinished = info.normalizedTime >= 0.7f; 
+        bool animationFinished = info.normalizedTime >= 0.5f; 
         
     
         if (animationFinished) 

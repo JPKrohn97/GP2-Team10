@@ -230,6 +230,18 @@ public class PlayerAnimations : MonoBehaviour
         if(player != null && player.Combat != null) 
             player.Combat.EnableLeftAttackCollider();
     }
+
+    public void EnableRightSwordAttackColliderEvent()
+    {
+        if (player != null && player.Combat != null)
+            player.Combat.EnableRightSwordAttackCollider();
+    }
+    
+    public void DisableRightSwordAttackColliderEvent()
+    {
+        if (player != null && player.Combat != null)
+            player.Combat.DisableRightSwordAttackCollider();
+    }
     
     public void RangeAttackEvent()
     {

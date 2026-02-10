@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 3.5f;
 
     [Header("Skill Settings")] 
-    public int swordSkillDamage = 100;
+    public int swordSkillDamage = 50;
     private float lastSwordSkillTime = -100f;
     private float lastRangeSkill = -100f;
     private float lastDashTime = -100f;
@@ -40,8 +40,9 @@ public class PlayerController : MonoBehaviour
     public float swordSkillCooldown = 5f; 
     public float randeSkillCooldown = 5f; 
     
-    [Header("Mutation UI")]
+    [Header("UI")]
     public GameObject mutationButton;
+    public GameObject specialButton;
     
     [Space]
     public float groundCheckDistance = 0.1f;
@@ -127,6 +128,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         StateMachine.Initialize(IdleState);
+        
+    
     }
 
     private void OnEnable()
@@ -297,8 +300,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void VirtualSpecialJumpInput()
+    {
+      if(specialButton != null)
+          specialButton.SetActive(false);
+      
+      Animator.SetTrigger("SpecialJump");
+      GameManager.Instance.canPlayerMove = false;
+      Vector3 v =RB.linearVelocity;
+      v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+      RB.linearVelocity = v;
+    }
+
+    
     private void OnTriggerEnter(Collider other)
     {
+        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break"))
+        {
+            specialButton.SetActive(true);
+        }
+
+        if (other.CompareTag("Fall"))
+        {
+            GameManager.Instance.canPlayerMove = true;
+        }
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
 
         EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
@@ -306,6 +331,8 @@ public class PlayerController : MonoBehaviour
         {
             CurrentDeadEnemy = enemy;
         }
+
+        
     }
     
     public void VirtualRangeInput()
