@@ -7,6 +7,15 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    
+    
+    public enum ActiveWeaponType
+    {
+        Claw,
+        Sword
+    }
+    public ActiveWeaponType CurrentWeapon = ActiveWeaponType.Claw;
+    
     #region References
     public Rigidbody RB;
     public Animator Animator;
@@ -21,10 +30,16 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2.5f;
     public float fallMultiplier = 3.5f;
     
+    [Header("Skill Settings")]
+    public float swordSkillCooldown = 10f; // 10 saniye bekleme süresi
+    private float lastSwordSkillTime = -100f;
+    
     [Space]
     public float groundCheckDistance = 0.1f;
     public LayerMask groundLayer;
     private Collider col;
+    
+    
 
     public bool IsGrounded { get; private set; }
     public float LastAttackInputTime { get; private set; } = -100f;
@@ -39,7 +54,6 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
     public float mutationRange = 2.2f;
     public bool IsOnDeadEnemy { get; private set; }
-    public bool IsFinalComboActive { get; set; }
 
     // Input System Class
     public PlayerControls InputHandler;
@@ -64,6 +78,7 @@ public class PlayerController : MonoBehaviour
     public PlayerMutationState MutationState { get; private set; }
     public PlayerRangeAttackState RangeAttackState { get; private set; }
     public PlayerDashState DashState { get; private set; } 
+    public PlayerSwordAttackState SwordAttackState { get; private set; }
     
     #endregion
 
@@ -103,6 +118,7 @@ public class PlayerController : MonoBehaviour
         MutationState = new PlayerMutationState(this, StateMachine);
         RangeAttackState = new PlayerRangeAttackState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine); 
+        SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
     }
 
     private void Start()
@@ -195,14 +211,6 @@ public class PlayerController : MonoBehaviour
         StateMachine.ChangeState(AirState);
     }
     
-    public void VirtualClawAttackInput()
-    {
-        LastAttackInputTime = Time.time;
-        if (StateMachine.CurrentState != ClawAttackState)
-        {
-            StateMachine.ChangeState(ClawAttackState);
-        }
-    }
     
     public void VirtualDashInput()
     {
@@ -219,28 +227,54 @@ public class PlayerController : MonoBehaviour
         Jump();
         
     }
-    
+
+
+    public void VirtualClawAttackInput()
+    {
+        if (StateMachine.CurrentState == SwordAttackState)
+            return;
+
+        LastAttackInputTime = Time.time;
+
+        if (StateMachine.CurrentState != ClawAttackState)
+        {
+            StateMachine.ChangeState(ClawAttackState);
+        }
+    }
+
     public void VirtualSkillSwordInput()
     {
-        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) > 0)
+      
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) <= 0)
+            return;
+
+        if (Time.time < lastSwordSkillTime + swordSkillCooldown)
+            return;
+
+        lastSwordSkillTime = Time.time;
+
+        if (StateMachine.CurrentState != SwordAttackState)
         {
-            if (StateMachine.CurrentState != ClawAttackState) StateMachine.ChangeState(ClawAttackState);
+            CurrentWeapon = ActiveWeaponType.Sword;
+            StateMachine.ChangeState(SwordAttackState);
         }
+    }
+
+
+    public void ResetToClaw()
+    {
+        if (CurrentWeapon == ActiveWeaponType.Claw) return;
+
+        CurrentWeapon = ActiveWeaponType.Claw;
+        AnimationEvents?.HideSwordVisuals();
     }
     
-    public void VirtualRangeInput()
-    {
-        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) > 0)
-        {
-            StateMachine.ChangeState(RangeAttackState);
-        }
-    }
+    
     
     public void VirtualMutationInput()
     {
         if (IsOnDeadEnemy && CurrentDeadEnemy != null)
         {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Eating);
             StateMachine.ChangeState(MutationState);
         }
     }
@@ -268,16 +302,29 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public void VirtualRangeInput()
+    {
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) > 0)
+        {
+            StateMachine.ChangeState(RangeAttackState);
+        }
+    }
+    
     public void SpawnProjectile()
     {
         
         //int rangeLevel = SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range);
-        //GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.Projectile, firePoint.position, transform.rotation);
-        //if (projectile != null)
-        //{
-        //    Rigidbody prb = projectile.GetComponent<Rigidbody>();
-        //    if(prb != null) prb.linearVelocity = transform.forward * 30f;
-        //}
+        
+        GameObject projectile = ManagerObjectPool.Instance.Spawn(ObjectPoolType.PlayerProjectile, firePoint.position, transform.rotation);
+    
+        if (projectile != null)
+        {
+            Rigidbody prb = projectile.GetComponent<Rigidbody>();
+            if (prb != null)
+            {
+                prb.linearVelocity = transform.forward * 30f;
+            }
+        }
     }
     
     public void ApplyKnockback(Vector3 dir, float force)
@@ -288,6 +335,7 @@ public class PlayerController : MonoBehaviour
              if(RB != null) RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
         });
     }
+    
 
     private void OnDrawGizmos()
     {

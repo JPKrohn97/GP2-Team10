@@ -15,6 +15,10 @@ public class PlayerAnimations : MonoBehaviour
     [Header("BossUpgradeVisuals")]
     public MeshRenderer bossLegsMeshRenderer;
     public Material bossLegsMaterial;
+    
+    [Header("VFX Spawn Points")]
+    [SerializeField] private Transform clawSlashPoint; 
+    [SerializeField] private Transform swordSlashPoint;
 
 
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
@@ -33,18 +37,14 @@ public class PlayerAnimations : MonoBehaviour
 
     void Awake()
     {
-     
         player = GetComponentInParent<PlayerController>();
         animator = GetComponent<Animator>();
 
- 
         if (weaponMeshRenderer != null)
         {
-         
             weaponMaterial = weaponMeshRenderer.material;
         }
 
-    
         DisableLeftAttackColliderEvent();
         DisableRightAttackColliderEvent();
     }
@@ -58,43 +58,57 @@ public class PlayerAnimations : MonoBehaviour
     }
 
 
-    public void MutationSequence()
+    public void MutationSequence(EnemyHealth.EnemyMutationType type)
     {
         animator.SetTrigger(UpgradeHash);
-        
-   
+    
         if (ManagerCinemachine.Instance != null)
             ManagerCinemachine.Instance.SetMutationCamera();
 
-
-        if (weaponMaterial != null)
+        if (type == EnemyHealth.EnemyMutationType.Sword)
         {
-            DOTween.To(() => weaponMaterial.GetFloat("_DissolveAmount"),
-                       x => weaponMaterial.SetFloat("_DissolveAmount", x),
-                       0f,
-                       1.7f).SetEase(Ease.OutSine);
+            ShowSwordVisuals();
+
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                if (weaponMeshRenderer != null) 
+                    weaponMeshRenderer.material = weaponMaterial;
+            });
         }
 
-   
         DOVirtual.DelayedCall(2f, () =>
         {
-            if (weaponMeshRenderer != null) weaponMeshRenderer.material = weaponMaterial;
-            
-     
             animator.SetTrigger(IdleHash);
-            
+        
             if (ManagerCinemachine.Instance != null)
                 ManagerCinemachine.Instance.SetNormalCamera();
         });
     }
+    
+    public void ShowSwordVisuals()
+    {
+        if (weaponMaterial == null) return;
+        
+        DOTween.To(() => weaponMaterial.GetFloat("_DissolveAmount"),
+            x => weaponMaterial.SetFloat("_DissolveAmount", x),
+            0f, 1f).SetEase(Ease.OutSine);
+    }
+    
+    public void HideSwordVisuals()
+    {
+        if (weaponMaterial == null) return;
+        
+        DOTween.To(() => weaponMaterial.GetFloat("_DissolveAmount"),
+            x => weaponMaterial.SetFloat("_DissolveAmount", x),
+            1f, 0.5f).SetEase(Ease.InSine);
+    }
+
     public void MutationSequence(bool isBoss)
     {
         animator.SetTrigger(BossMutationHash);
 
-
         if (ManagerCinemachine.Instance != null)
             ManagerCinemachine.Instance.SetMutationCamera();
-
 
         if (weaponMaterial != null)
         {
@@ -104,11 +118,9 @@ public class PlayerAnimations : MonoBehaviour
                        1.7f).SetEase(Ease.OutSine);
         }
 
-
         DOVirtual.DelayedCall(2f, () =>
         {
             if (bossLegsMeshRenderer != null) bossLegsMeshRenderer.material = bossLegsMaterial;
-
 
             animator.SetTrigger(IdleHash);
 
@@ -116,14 +128,15 @@ public class PlayerAnimations : MonoBehaviour
                 ManagerCinemachine.Instance.SetNormalCamera();
         });
     }
+
     public void PlayComboAnimation(int step)
     {
         animator.ResetTrigger(Attack0Hash);
         animator.ResetTrigger(Attack1Hash);
         animator.ResetTrigger(Attack2Hash);
         
-
-        if (player != null) player.IsFinalComboActive = false; 
+        if (player != null && player.Combat != null) player.Combat.IsFinalComboActive = false; 
+        
 
         switch (step)
         {
@@ -141,36 +154,77 @@ public class PlayerAnimations : MonoBehaviour
 
             case 2: 
                 animator.SetTrigger(Attack2Hash);
-                if (player != null)
-                    player.IsFinalComboActive = true; 
+                if (player != null && player.Combat != null)
+                    player.Combat.IsFinalComboActive = true; 
                 break;
         }
     }
 
-
-    public void SetAnimationTrigger(string stateName)
+    public void PlaySwordComboAnimation(int step, int swordLevel)
     {
+        if (step >= swordLevel) return;
 
-        animator.SetTrigger(stateName);
+        ResetAllAttackTriggers();
+
+        string trigger = $"Sword_Attack{step}";
+        animator.SetTrigger(trigger);
+
+        bool isFinal = (step == swordLevel - 1);
+        
+        if (player != null && player.Combat != null)
+            player.Combat.IsFinalComboActive = isFinal;
+
+        if (ManagerCinemachine.Instance != null)
+        {
+            if (isFinal)
+                ManagerCinemachine.Instance.HitImpact(0.12f, 0.25f);
+            else
+                ManagerCinemachine.Instance.HitImpact(0.05f, 0.1f);
+        }
+    }
+    public void ClawSlashVFXEvent()
+    {
+        // Ses
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.ClawsAttack, gameObject);
+        
+        // Görsel Efekt
+        if (ManagerObjectPool.Instance != null && clawSlashPoint != null)
+        {
+            Quaternion vfxRotation = transform.rotation * Quaternion.Euler(0, 90, 0);
+            GameObject vfx = ManagerObjectPool.Instance.Spawn(ObjectPoolType.ClawSlash, clawSlashPoint.position, vfxRotation);
+            vfx.GetComponent<ParticleSystem>().Play();
+        }
     }
 
-    public void SetAnimationTrigger(int stateHash)
+    public void SwordSlashVFXEvent()
     {
-        animator.SetTrigger(stateHash);
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.SwordAttack, gameObject);
+
+        // Görsel Efekt
+        if (ManagerObjectPool.Instance != null && swordSlashPoint != null)
+        {
+            Quaternion vfxRotation = transform.rotation * Quaternion.Euler(0, 90, 0);
+            GameObject vfx = ManagerObjectPool.Instance.Spawn(ObjectPoolType.SwordSlash, swordSlashPoint.position, vfxRotation);
+            vfx.GetComponent<ParticleSystem>().Play();
+        }
     }
-
-    public void SetMovingBool(bool moving)
-    {
-        animator.SetBool(IsMovingHash, moving);
-    }
-
-    public void TriggerStartRun()
-    {
-        animator.SetTrigger(RunHash);
-    }
-
-
     
+
+    public void ResetAllAttackTriggers()
+    {
+        animator.ResetTrigger("Sword_Attack0");
+        animator.ResetTrigger("Sword_Attack1");
+        animator.ResetTrigger("Sword_Attack2");
+        animator.ResetTrigger(Attack0Hash);
+        animator.ResetTrigger(Attack1Hash);
+        animator.ResetTrigger(Attack2Hash);
+    }
+
+    public void SetAnimationTrigger(string stateName) => animator.SetTrigger(stateName);
+    public void SetAnimationTrigger(int stateHash) => animator.SetTrigger(stateHash);
+    public void SetMovingBool(bool moving) => animator.SetBool(IsMovingHash, moving);
+    public void TriggerStartRun() => animator.SetTrigger(RunHash);
+
     public void EnableLeftAttackColliderEvent()
     {
         if(player != null && player.Combat != null) 
@@ -179,12 +233,14 @@ public class PlayerAnimations : MonoBehaviour
     
     public void RangeAttackEvent()
     {
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.RangedAttack, gameObject);
+        
         if (player != null)
         {
             player.SpawnProjectile();
         }
     }
-
+    
     public void DisableLeftAttackColliderEvent()
     {
         if(player != null && player.Combat != null) 
@@ -207,6 +263,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         if(player != null && player.Combat != null) 
             player.Combat.SpawnBiteParticle();
-        SoundManager.Instance.PlaySound(SoundManager.Instance.Eating);
+        if(SoundManager.Instance != null)
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Eating);
     }
 }

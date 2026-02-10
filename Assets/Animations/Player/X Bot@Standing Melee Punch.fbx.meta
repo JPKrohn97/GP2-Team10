@@ -62,8 +62,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.29874215
+        functionName: ClawSlashVFXEvent
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.56210524
-        functionName: DisableLeftAttackColliderEvent
+        functionName: ClawSlashVFXEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

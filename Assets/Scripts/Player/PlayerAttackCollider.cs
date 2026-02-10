@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerAttackCollider : MonoBehaviour
 {
     private PlayerController player;
-    private bool cameraFiredThisSwing;
     private Collider col;
 
     private void Awake()
@@ -14,38 +13,26 @@ public class PlayerAttackCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        cameraFiredThisSwing = false;
+        col.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Enemy")) return;
 
-        //SoundManager.Instance.PlaySound(SoundManager.Instance.ClawsImpact,gameObject);
-        //SoundManager.Instance.PlaySoundOneShot(SoundManager.Instance.ClawsImpact,transform.position);
-
         EnemyHealth enemy = other.GetComponent<EnemyHealth>();
-        if (enemy == null) return;
-        col.enabled = false;    
+        if (enemy == null || enemy.IsDead) return;
+        
+        col.enabled = false;
+        
         enemy.TakeDamage(35);
         
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-
         Vector3 impactNormal = (hitPoint - other.transform.position).normalized;
-        
-    
         Quaternion hitRotation = Quaternion.LookRotation(impactNormal);
-
         ManagerObjectPool.Instance.Spawn(ObjectPoolType.ClawHit, hitPoint, hitRotation);
-
         
-
-        if (player != null && player.IsFinalComboActive && !cameraFiredThisSwing)
-        {
-            cameraFiredThisSwing = true; 
-            
-            if(ManagerCinemachine.Instance != null)
-                ManagerCinemachine.Instance.TriggerFinisherCamera();
-        }
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySound(SoundManager.Instance.ClawsImpact, gameObject);
     }
 }

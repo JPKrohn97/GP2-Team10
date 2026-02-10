@@ -61,10 +61,12 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             Die();
+            SoundManager.Instance?.PlaySound(SoundManager.Instance.PlayerDies, gameObject);
         }
         else
         {
            animator.SetTrigger("Hit");
+           SoundManager.Instance?.PlaySound(SoundManager.Instance.PlayerHurt, gameObject);
         }
     }
     

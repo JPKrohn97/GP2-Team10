@@ -21,6 +21,13 @@ public class ProjectileController : MonoBehaviour
             
             if (target != null)
             {
+                
+                if (ManagerObjectPool.Instance != null)
+                {
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    ManagerObjectPool.Instance.Spawn(ObjectPoolType.PlayerProjectileExplosion, hitPoint, Quaternion.identity);
+                }
+                
                 target.TakeDamage(damage);
                 ReturnToPool(); 
                 return;
@@ -37,7 +44,7 @@ public class ProjectileController : MonoBehaviour
     private void ReturnToPool()
     {
         StopAllCoroutines(); 
-        ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);
+        ManagerObjectPool.Instance.Despawn(ObjectPoolType.PlayerProjectile, gameObject);
     }
 
     IEnumerator DeactivateRoutine()

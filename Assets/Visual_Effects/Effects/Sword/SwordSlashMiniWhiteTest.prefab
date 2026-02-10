@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 198289660349720170}
   - component: {fileID: 199531868794233082}
   m_Layer: 0
-  m_Name: SwordSlashMiniWhite
+  m_Name: SwordSlashMiniWhiteTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4917,14 +4917,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576508625749478}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.83074546, y: -0.19786908, z: -0.5051366, w: -0.124687195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4959922670865152}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -180.416, y: -62.70401, z: -27.048004}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &198289660349720170
 ParticleSystem:
   m_ObjectHideFlags: 0

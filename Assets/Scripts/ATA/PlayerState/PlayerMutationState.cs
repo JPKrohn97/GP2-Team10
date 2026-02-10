@@ -12,33 +12,35 @@ public class PlayerMutationState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        
-
         player.RB.linearVelocity = Vector3.zero;
-        
+
+         if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Eating, player.gameObject);
+    
         player.AnimationEvents.SetAnimationTrigger("Bite");
-        
 
         EnemyHealth targetEnemy = player.CurrentDeadEnemy; 
-
+        
         DOVirtual.DelayedCall(biteDuration, () =>
         {
             if(stateMachine.CurrentState == this)
             {
-            
                 if (targetEnemy != null)
                 {
+  
                     var type = targetEnemy.mutationType;
                     
                     if(player.SkillController != null)
                     {
                         player.SkillController.AbsorbSkill(type);
                     }
-                    
+                
                     targetEnemy.ConsumeBody();
-                }
 
-                player.AnimationEvents.MutationSequence();
+                    player.AnimationEvents.MutationSequence(type); 
+                    // -------------------------
+                }
+                
 
                 DOVirtual.DelayedCall(mutationDuration, () => 
                 {

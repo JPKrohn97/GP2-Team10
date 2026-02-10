@@ -7,6 +7,9 @@ public class PlayerRunState : PlayerGroundedState
     private float acceleration = 90f; 
     private float deceleration = 80f; 
     private float turnSpeed = 100f; 
+    
+    private float stepRate = 0.35f; 
+    private float nextStepTime = 0f;
 
     public PlayerRunState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
 
@@ -14,6 +17,8 @@ public class PlayerRunState : PlayerGroundedState
     {
         base.Enter();
         player.AnimationEvents?.SetMovingBool(true);
+        
+        nextStepTime = Time.time + (stepRate / 2f);
     }
 
     public override void Exit()
@@ -35,8 +40,19 @@ public class PlayerRunState : PlayerGroundedState
         }
         
         bool isActuallyMoving = player.RB.linearVelocity.sqrMagnitude > 0.1f;
-        SoundManager.Instance.PlaySound(SoundManager.Instance.PlayerFootSteps,player.gameObject);
         player.AnimationEvents?.SetMovingBool(isActuallyMoving);
+        if (isActuallyMoving)
+        {
+
+            if (Time.time >= nextStepTime)
+            {
+                if(SoundManager.Instance != null)
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.PlayerFootSteps, player.gameObject);
+
+                nextStepTime = Time.time + stepRate;
+            }
+        }
+        
     }
 
     public override void PhysicsUpdate()

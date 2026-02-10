@@ -10,6 +10,9 @@ public class PlayerCombat : MonoBehaviour
     public float lastClickTime = -999f;
     public float comboResetTime = 1.2f;
 
+    [Header("Combo State")]
+    public bool IsFinalComboActive { get; set; }
+
     [Header("Final Attack Guard")]
     private bool isFinalAttackInProgress = false;
     public float finalAttackDuration = 0.6f;
@@ -19,10 +22,14 @@ public class PlayerCombat : MonoBehaviour
     public float attackStepForce = 5f;
     public float attackStepDuration = 0.15f;
     
-    [Header("Dash Attack Settings")]
+    [Header("Dash Attack Settings")] 
     public LayerMask enemyLayer; 
     public int dashDamage = 20;
     public GameObject dashTrailPrefab;
+    
+    [Header("Sword Combo")]
+    public int swordComboStep = 0;
+    public float swordComboResetTime = 1.2f;
 
     [SerializeField] private Transform bitePos;
     [SerializeField] private Collider leftAttackCollider;
@@ -44,7 +51,7 @@ public class PlayerCombat : MonoBehaviour
         if (finalTimer <= 0f)
         {
             isFinalAttackInProgress = false;
-            if (player != null) player.IsFinalComboActive = false;
+            IsFinalComboActive = false;
         }
     }
 
@@ -57,10 +64,8 @@ public class PlayerCombat : MonoBehaviour
 
         lastClickTime = Time.time;
 
-        //DisableAllColliders();
-
         bool isFinal = (comboStep == 2);
-        if (player != null) player.IsFinalComboActive = isFinal;
+        IsFinalComboActive = isFinal;
 
         if (isFinal)
         {
@@ -74,12 +79,11 @@ public class PlayerCombat : MonoBehaviour
         comboStep = (comboStep + 1) % 3;
     }
 
-    private void PerformAttackStep()
+    public void PerformAttackStep()
     {
         if (player == null || player.RB == null) return;
 
         stopTween?.Kill();
-
         player.RB.linearVelocity = Vector3.zero;
 
         Vector3 attackDir = player.transform.forward;
@@ -100,27 +104,10 @@ public class PlayerCombat : MonoBehaviour
         if (rightAttackCollider != null) rightAttackCollider.enabled = false;
     }
 
-    public void EnableLeftAttackCollider()
-    {
-        if (rightAttackCollider != null) rightAttackCollider.enabled = false;
-        if (leftAttackCollider != null) leftAttackCollider.enabled = true;
-    }
-
-    public void EnableRightAttackCollider()
-    {
-        if (leftAttackCollider != null) leftAttackCollider.enabled = false;
-        if (rightAttackCollider != null) rightAttackCollider.enabled = true;
-    }
-
-    public void DisableLeftAttackCollider()
-    {
-        if (leftAttackCollider != null) leftAttackCollider.enabled = false;
-    }
-
-    public void DisableRightAttackCollider()
-    {
-        if (rightAttackCollider != null) rightAttackCollider.enabled = false;
-    }
+    public void EnableLeftAttackCollider() => leftAttackCollider.enabled = true;
+    public void EnableRightAttackCollider() => rightAttackCollider.enabled = true;
+    public void DisableLeftAttackCollider() => leftAttackCollider.enabled = false;
+    public void DisableRightAttackCollider() => rightAttackCollider.enabled = false;
 
     public void SpawnBiteParticle()
     {

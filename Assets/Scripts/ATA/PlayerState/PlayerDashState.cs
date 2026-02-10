@@ -19,7 +19,10 @@ public class PlayerDashState : PlayerState
     {
         base.Enter();
         
-        Debug.Log("Enter");
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack, player.gameObject);
+        }
 
         player.lastDashTime = Time.time;
         dashStartTime = Time.time;
@@ -71,14 +74,23 @@ public class PlayerDashState : PlayerState
             hitColliders,            
             player.Combat.enemyLayer   
         );
+        
+        bool hasHitAnyone = false;
 
         for (int i = 0; i < numHits; i++)
         {
             if (hitColliders[i].TryGetComponent(out EnemyHealth enemy))
             {
                 enemy.TakeDamage(player.Combat.dashDamage);
+                hasHitAnyone = true;
                 
-                // ManagerObjectPool.Instance.Spawn(ObjectPoolType.Blood, hitColliders[i].transform.position);
+                
+                if (hasHitAnyone && SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.ChargeAttackImpact, player.gameObject);
+                    
+                }
+          
             }
         }
     }
