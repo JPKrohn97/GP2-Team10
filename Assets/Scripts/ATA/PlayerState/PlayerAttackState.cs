@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public abstract class PlayerAttackState : PlayerState
 {
     protected float attackDuration; 
@@ -10,55 +9,28 @@ public abstract class PlayerAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
- 
-        Vector3 attackPos = player.transform.position + player.transform.forward * 1.5f;
-        float attackRange = 1.5f;
-
-      
-        LayerMask enemyLayer = LayerMask.GetMask("Enemy");
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPos, attackRange, enemyLayer);
-
- 
-        foreach (Collider hitCollider in hitEnemies)
-        {
-   
-            /*
-            EnemyBehaviour targetEnemy = hitCollider.GetComponent<EnemyBehaviour>();
-
-       
-            if (targetEnemy != null)
-            {
-        
-                Vector3 hitPoint = hitCollider.transform.position + Vector3.up;
-                
-                targetEnemy.TakeDamage(20, hitPoint);
-
-            }
-            */
-        }
+        // StartTime burada set ediliyor (PlayerState içinde olduğunu varsayıyorum)
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
- 
+        // Bu süre kontrolü sadece Claw gibi tek vuruşluk saldırılar için geçerli olmalı.
+        // Sword gibi combo sistemler bunu override etmeli veya base'i çağırmamalı.
         if (Time.time >= startTime + attackDuration)
         {
             FinishAttack();
         }
     }
 
-
     protected virtual void FinishAttack()
     {
-
-        if (player.CurrentMovementInput != Vector2.zero)
+        // Vector2.zero yerine sqrMagnitude daha güvenlidir
+        if (player.CurrentMovementInput.sqrMagnitude > 0.01f)
         {
             stateMachine.ChangeState(player.RunState);
         }
-   
         else
         {
             stateMachine.ChangeState(player.IdleState);

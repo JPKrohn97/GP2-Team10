@@ -8,14 +8,15 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 public class MobileTouchController : MonoBehaviour
 {
     public UnityEvent onPress;
-    
-    [Header("Renk Ayarları")]
-    public Color pressedColor = Color.gray; 
-    private Color originalColor;          
-    private Image myImage;
 
+    [Header("Color Setting")]
+    public Color pressedColor = Color.gray;
+
+    private Color originalColor;
+    private Image myImage;
     private RectTransform myRect;
-    private int activeFingerId = -1; // Parmak takibi için
+
+    private int activeFingerId = -1;
 
     private void Awake()
     {
@@ -33,48 +34,28 @@ public class MobileTouchController : MonoBehaviour
 
     private void Update()
     {
-
         var touches = Touch.activeTouches;
 
         foreach (var touch in touches)
         {
-      
-            if (touch.phase == TouchPhase.Began)
-            {
+            if (touch.phase != TouchPhase.Began)
+                continue;
 
-                if (activeFingerId == -1 && RectTransformUtility.RectangleContainsScreenPoint(myRect, touch.screenPosition))
-                {
-                    activeFingerId = touch.finger.index;
-                    SetColor(pressedColor);
-                    onPress.Invoke();
-                }
-            }
+            if (activeFingerId != -1)
+                continue;
 
-            if (touch.finger.index == activeFingerId)
-            {
-                if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                {
-                    ResetButton();
-                }
-            }
-        }
+            if (!RectTransformUtility.RectangleContainsScreenPoint(
+                    myRect,
+                    touch.screenPosition))
+                continue;
 
-        if (activeFingerId != -1)
-        {
-            bool fingerStillActive = false;
-            foreach (var t in touches)
-            {
-                if (t.finger.index == activeFingerId)
-                {
-                    fingerStillActive = true;
-                    break;
-                }
-            }
+            activeFingerId = touch.finger.index;
 
-            if (!fingerStillActive)
-            {
-                ResetButton();
-            }
+            SetColor(pressedColor);
+            onPress?.Invoke();
+            
+            Invoke(nameof(ResetButton), 0.08f);
+            break;
         }
     }
 
@@ -86,7 +67,8 @@ public class MobileTouchController : MonoBehaviour
 
     private void SetColor(Color c)
     {
-        if (myImage != null) myImage.color = c;
+        if (myImage != null)
+            myImage.color = c;
     }
 
     

@@ -33,9 +33,15 @@ public class PlayerAirState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        
+        if (GameManager.Instance.canPlayerMove == false)
+        {
+            player.RB.linearVelocity = new Vector3(0, player.RB.linearVelocity.y, 0);
+            return;
+        }
 
         Vector3 velocity = player.RB.linearVelocity;
-
+        
 
         if (velocity.y < 0f)
         {
