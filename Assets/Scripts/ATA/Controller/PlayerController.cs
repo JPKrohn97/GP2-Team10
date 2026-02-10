@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded)
         {
             col.center = new Vector3(col.center.x, 0.9f, col.center.z);
+            col.height = 1.8f;
         }
 
         StateMachine.CurrentState.LogicUpdate();
@@ -225,7 +226,8 @@ public class PlayerController : MonoBehaviour
         v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
         RB.linearVelocity = v;
 
-        col.center = new Vector3(0, 1.6f, 0);
+        col.center = new Vector3(0, 1.2f, 0);
+        col.height = 0.9f;
         StateMachine.ChangeState(AirState);
     }
     
