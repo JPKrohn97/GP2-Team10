@@ -33,15 +33,15 @@ public class MobileTouchController : MonoBehaviour
 
     private void Update()
     {
-        // Aktif tüm dokunuşları kontrol et
+
         var touches = Touch.activeTouches;
 
         foreach (var touch in touches)
         {
-            // 1. BASILMA ANI
+      
             if (touch.phase == TouchPhase.Began)
             {
-                // Eğer butona tıklandıysa ve halihazırda bir parmak bu butonu işgal etmiyorsa
+
                 if (activeFingerId == -1 && RectTransformUtility.RectangleContainsScreenPoint(myRect, touch.screenPosition))
                 {
                     activeFingerId = touch.finger.index;
@@ -50,8 +50,6 @@ public class MobileTouchController : MonoBehaviour
                 }
             }
 
-            // 2. BIRAKILMA ANI (Veya İptal)
-            // Sadece bu butona basan parmak bıraktığında sıfırla
             if (touch.finger.index == activeFingerId)
             {
                 if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
@@ -61,8 +59,6 @@ public class MobileTouchController : MonoBehaviour
             }
         }
 
-        // 3. GÜVENLİK KONTROLÜ (Takılı kalmayı önler)
-        // Eğer kayıtlı parmak artık ekranda değilse butonu serbest bırak
         if (activeFingerId != -1)
         {
             bool fingerStillActive = false;

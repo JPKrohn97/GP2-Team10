@@ -24,7 +24,7 @@ public class PlayerDashState : PlayerState
             SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack, player.gameObject);
         }
 
-        player.lastDashTime = Time.time;
+        //player.lastDashTime = Time.time;
         dashStartTime = Time.time;
         
 

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkillController : MonoBehaviour
 {
@@ -12,22 +14,48 @@ public class PlayerSkillController : MonoBehaviour
     public TMP_Text txtSwordLevel; 
     public TMP_Text txtDashLevel;
     public TMP_Text txtRangeLevel;
+    [Header("Cooldown Fills")]
+    public Image fillSword;
+    public Image fillDash;
+    public Image fillRange;
      
     
     private Dictionary<EnemyHealth.EnemyMutationType, int> skillLevels = new Dictionary<EnemyHealth.EnemyMutationType, int>();
     
     private const int MAX_LEVEL = 3;
     
+    private Dictionary<EnemyHealth.EnemyMutationType, float> lastUseTime
+        = new Dictionary<EnemyHealth.EnemyMutationType, float>();
+
+    private Dictionary<EnemyHealth.EnemyMutationType, float> cooldowns
+        = new Dictionary<EnemyHealth.EnemyMutationType, float>()
+        {
+            { EnemyHealth.EnemyMutationType.Sword, 10f },
+            { EnemyHealth.EnemyMutationType.Dash, 1f },
+            { EnemyHealth.EnemyMutationType.Range, 5f }
+        };
+    
     private void Awake()
     {
         InitializeSkills();
     }
-    
+
+    private void Update()
+    {
+        UpdateCooldownUI(EnemyHealth.EnemyMutationType.Sword, fillSword);
+        UpdateCooldownUI(EnemyHealth.EnemyMutationType.Dash, fillDash);
+        UpdateCooldownUI(EnemyHealth.EnemyMutationType.Range, fillRange);
+    }
+
     private void InitializeSkills()
     {
         skillLevels[EnemyHealth.EnemyMutationType.Sword] = 0;
         skillLevels[EnemyHealth.EnemyMutationType.Dash] = 0;
         skillLevels[EnemyHealth.EnemyMutationType.Range] = 0;
+        
+        lastUseTime[EnemyHealth.EnemyMutationType.Sword] = -999f;
+        lastUseTime[EnemyHealth.EnemyMutationType.Dash] = -999f;
+        lastUseTime[EnemyHealth.EnemyMutationType.Range] = -999f;
 
         if (lockIconSword) lockIconSword.SetActive(true);
         if (lockIconDash) lockIconDash.SetActive(true);
@@ -108,6 +136,30 @@ public class PlayerSkillController : MonoBehaviour
                 textComponent.text = level.ToString(); 
             }
         }
+    }
+    
+    private void UpdateCooldownUI(
+        EnemyHealth.EnemyMutationType type,
+        Image fillImage
+    )
+    {
+        if (fillImage == null) return;
+
+        if (GetSkillLevel(type) <= 0)
+        {
+            fillImage.fillAmount = 0f;
+            return;
+        }
+
+        float elapsed = Time.time - lastUseTime[type];
+        float cd = cooldowns[type];
+
+        fillImage.fillAmount = Mathf.Clamp01(elapsed / cd);
+    }
+    public void NotifySkillUsed(EnemyHealth.EnemyMutationType type)
+    {
+        if (!lastUseTime.ContainsKey(type)) return;
+        lastUseTime[type] = Time.time;
     }
     
     public int GetSkillLevel(EnemyHealth.EnemyMutationType type)

@@ -586,6 +586,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8718268603330046420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4674369043173780613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634034668608113348}
+  m_Layer: 0
+  m_Name: ClawPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &634034668608113348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674369043173780613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.359, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894002468697101248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5210582443236861992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9114279113117852913}
+  m_Layer: 0
+  m_Name: SwordPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9114279113117852913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210582443236861992}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01142, y: -0.00367, z: -0.00642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3382698150872480242}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5632033707465924399
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +742,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.329, z: -0}
   m_LocalScale: {x: 0.12429983, y: 0.77568, z: 0.11045651}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 634034668608113348}
   m_Father: {fileID: 4052099584982195514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &519940084204357896
@@ -864,6 +927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ccf338edbc65a4489a7fddacece70a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentWeapon: 0
   RB: {fileID: 3085999068187215194}
   Animator: {fileID: 5044359644171570836}
   Combat: {fileID: 3218893614409839678}
@@ -872,6 +936,7 @@ MonoBehaviour:
   moveSpeed: 6
   jumpHeight: 3
   fallMultiplier: 4
+  swordSkillCooldown: 5
   groundCheckDistance: 0.1
   groundLayer:
     serializedVersion: 2
@@ -908,6 +973,8 @@ MonoBehaviour:
     m_Bits: 512
   dashDamage: 20
   dashTrailPrefab: {fileID: 120358, guid: 6852975e9dbfb80488e6597f45e867d5, type: 3}
+  swordComboStep: 0
+  swordComboResetTime: 1.2
   bitePos: {fileID: 5615560404989133585}
   leftAttackCollider: {fileID: 3018205048921880893}
   rightAttackCollider: {fileID: 5663168952328779993}
@@ -1633,7 +1700,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: dd4be155fddbc2948bd7f159397a0c96, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9114279113117852913}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4be155fddbc2948bd7f159397a0c96, type: 3}
 --- !u!4 &3382698150872480242 stripped
@@ -2273,6 +2343,8 @@ MonoBehaviour:
   weaponMaterial: {fileID: 2100000, guid: dfdbea5274e79a54ca13385e15ca0f9b, type: 2}
   bossLegsMeshRenderer: {fileID: 0}
   bossLegsMaterial: {fileID: 0}
+  clawSlashPoint: {fileID: 0}
+  swordSlashPoint: {fileID: 0}
 --- !u!4 &8718268603330046420 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 84c64d11a2e0d4b468f75b8186e7a900, type: 3}
@@ -2434,6 +2506,8 @@ MonoBehaviour:
   weaponMaterial: {fileID: 2100000, guid: dfdbea5274e79a54ca13385e15ca0f9b, type: 2}
   bossLegsMeshRenderer: {fileID: 0}
   bossLegsMaterial: {fileID: 0}
+  clawSlashPoint: {fileID: 634034668608113348}
+  swordSlashPoint: {fileID: 9114279113117852913}
 --- !u!95 &5044359644171570836
 Animator:
   serializedVersion: 7

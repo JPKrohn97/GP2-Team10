@@ -29,10 +29,16 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 8f;
     public float jumpHeight = 2.5f;
     public float fallMultiplier = 3.5f;
-    
-    [Header("Skill Settings")]
-    public float swordSkillCooldown = 10f; // 10 saniye bekleme süresi
+
+    [Header("Skill Settings")] 
+    public int swordSkillDamage = 100;
+    public float swordSkillCooldown = 5f; 
     private float lastSwordSkillTime = -100f;
+    public float randeSkillCooldown = 5f; 
+    private float lastRangeSkill = -100f;
+    
+    [Header("Mutation UI")]
+    public GameObject mutationButton;
     
     [Space]
     public float groundCheckDistance = 0.1f;
@@ -46,7 +52,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Dash Settings")]
     public float dashCooldown = 1f;
-    [HideInInspector] public float lastDashTime = -10f;
+    private float lastDashTime = -100f;
  
     [Header("Mutation Interaction")]
     public LayerMask enemyPartLayer;
@@ -183,6 +189,9 @@ public class PlayerController : MonoBehaviour
         {
             IsOnDeadEnemy = false;
         }
+        
+        if (mutationButton != null)
+            mutationButton.SetActive(IsOnDeadEnemy);
     }
 
     private void FixedUpdate()
@@ -214,12 +223,21 @@ public class PlayerController : MonoBehaviour
     
     public void VirtualDashInput()
     {
-    
-        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) > 0)
-        {
-            if (Time.time >= lastDashTime + dashCooldown && StateMachine.CurrentState != DashState)
-                StateMachine.ChangeState(DashState);
-        }
+        
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) <= 0)
+            return;
+        
+        if (Time.time < lastDashTime + dashCooldown)
+            return;
+
+        if (StateMachine.CurrentState == DashState)
+            return;
+
+        lastDashTime = Time.time;
+
+        SkillController.NotifySkillUsed(EnemyHealth.EnemyMutationType.Dash);
+
+        StateMachine.ChangeState(DashState);
     }
     
     public void VirtualJumpInput()
@@ -252,6 +270,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         lastSwordSkillTime = Time.time;
+        SkillController.NotifySkillUsed(EnemyHealth.EnemyMutationType.Sword);
 
         if (StateMachine.CurrentState != SwordAttackState)
         {
@@ -276,6 +295,8 @@ public class PlayerController : MonoBehaviour
         if (IsOnDeadEnemy && CurrentDeadEnemy != null)
         {
             StateMachine.ChangeState(MutationState);
+            if (mutationButton != null)
+                mutationButton.SetActive(false);
         }
     }
 
@@ -289,25 +310,20 @@ public class PlayerController : MonoBehaviour
             CurrentDeadEnemy = enemy;
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
-
-        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
-        if (enemy != null && enemy == CurrentDeadEnemy)
-        {
-            CurrentDeadEnemy = null;
-            IsOnDeadEnemy = false;
-        }
-    }
     
     public void VirtualRangeInput()
     {
-        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) > 0)
-        {
-            StateMachine.ChangeState(RangeAttackState);
-        }
+
+        if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Range) <= 0)
+            return;
+        
+        if (Time.time < lastRangeSkill + randeSkillCooldown)
+            return;
+        
+        lastRangeSkill = Time.time;
+        SkillController.NotifySkillUsed(EnemyHealth.EnemyMutationType.Range);
+        StateMachine.ChangeState(RangeAttackState);
+
     }
     
     public void SpawnProjectile()

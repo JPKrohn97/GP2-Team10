@@ -6,7 +6,7 @@ public class PlayerSwordAttackState : PlayerState
     private int maxSwordLevel;
 
     private float lastAttackStartTime;
-    private bool waitingForNextStep; // 🔥 KİLİT
+    private bool waitingForNextStep; 
 
     public PlayerSwordAttackState(PlayerController player, PlayerStateMachine stateMachine)
         : base(player, stateMachine) { }
@@ -46,22 +46,17 @@ public class PlayerSwordAttackState : PlayerState
     {
         base.LogicUpdate();
 
-        // Çok hızlı geçişleri önlemek için güvenlik (Buraya dokunma, bu iyi)
-        if (Time.time < lastAttackStartTime + 0.15f)
+
+        if (Time.time < lastAttackStartTime + 0.10f)
             return;
 
         if (!waitingForNextStep)
             return;
 
         AnimatorStateInfo info = player.Animator.GetCurrentAnimatorStateInfo(0);
-
-        // DEĞİŞİKLİK BURADA:
-        // 0.95f yerine 0.75f (veya deneme yanılma ile 0.7f) yap.
-        // Böylece karakter kılıcı tam indirdiğinde beklemeden diğerine geçer.
-        bool animationFinished = info.normalizedTime >= 0.75f; 
-
-        // Not: !player.Animator.IsInTransition(0) kontrolünü kaldırmayı deneyebilirsin
-        // eğer geçişlerde hala takılma varsa. Ama şimdilik kalsın, sadece süreyi kısalttık.
+        
+        bool animationFinished = info.normalizedTime >= 0.7f; 
+        
     
         if (animationFinished) 
         {
@@ -71,12 +66,10 @@ public class PlayerSwordAttackState : PlayerState
 
             if (currentComboStep >= maxSwordLevel)
             {
-                // Combo bitti, Idle'a dön
                 stateMachine.ChangeState(player.IdleState);
             }
             else
             {
-                // Beklemeden diğer vuruşa geç
                 PlayCurrentStep();
             }
         }
@@ -104,7 +97,6 @@ public class PlayerSwordAttackState : PlayerState
 
         player.Combat.PerformAttackStep();
     }
-
-    // Input kullanılmıyor (skill otomatik akıyor)
+    
     public void OnAttackInput() { }
 }

@@ -35,7 +35,7 @@ public class PlayerSwordAttackCollider : MonoBehaviour
         hasHitThisSwing = true;
 
 
-        enemy.TakeDamage(100);
+        enemy.TakeDamage(player.swordSkillDamage);
 
         if (SoundManager.Instance != null)
         {
