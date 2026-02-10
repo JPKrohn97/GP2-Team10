@@ -42,12 +42,13 @@ public class PlayerController : MonoBehaviour
     
     [Header("UI")]
     public GameObject mutationButton;
+
     public GameObject specialButton;
     
     [Space]
     public float groundCheckDistance = 0.1f;
     public LayerMask groundLayer;
-    private Collider col;
+    private CapsuleCollider col;
     
     public bool IsGrounded { get; private set; }
     public float LastAttackInputTime { get; private set; } = -100f;
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
         InputHandler = new PlayerControls();
 
         RB = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
+        col = GetComponent<CapsuleCollider>();
 
         if (Combat == null) Combat = GetComponent<PlayerCombat>();
         if (AnimationEvents == null) AnimationEvents = GetComponent<PlayerAnimations>();
@@ -164,6 +165,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         IsGrounded = CheckIfGrounded();
+        if (IsGrounded)
+        {
+            col.center = new Vector3(col.center.x, 0.9f, col.center.z);
+            col.height = 1.8f;
+        }
+
         StateMachine.CurrentState.LogicUpdate();
 
         if (InteractPause.WasPressedThisFrame())
@@ -206,7 +213,8 @@ public class PlayerController : MonoBehaviour
         if (col == null) return false;
         Vector3 origin = col.bounds.center;
         origin.y = col.bounds.min.y + 0.05f;
-        
+
+
         return Physics.Raycast(origin, Vector3.down, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
@@ -218,6 +226,8 @@ public class PlayerController : MonoBehaviour
         v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
         RB.linearVelocity = v;
 
+        col.center = new Vector3(0, 1.2f, 0);
+        col.height = 0.9f;
         StateMachine.ChangeState(AirState);
     }
     
