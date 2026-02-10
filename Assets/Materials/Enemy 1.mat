@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _MK_ARTISTIC_ANIMATION_STUTTER
   - _MK_COLOR_GRADING_ALBEDO
+  - _MK_DISSOLVE_BORDER_COLOR
   - _MK_EMISSION
   - _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
   - _MK_LIGHT_CEL
@@ -194,7 +195,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DiffuseSmoothness: 0.758
     - _DiffuseThresholdOffset: 0.25
-    - _Dissolve: 0
+    - _Dissolve: 2
     - _DissolveAmount: 0
     - _DissolveBorderSize: 1
     - _DissolveMapScale: 1
