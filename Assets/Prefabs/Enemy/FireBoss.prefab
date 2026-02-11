@@ -1956,6 +1956,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5441305060347419378, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: lightAttackDamage
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441305060347419378, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: lightAttackCooldown
       value: 2
       objectReference: {fileID: 0}

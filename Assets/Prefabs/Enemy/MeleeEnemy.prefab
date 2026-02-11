@@ -301,6 +301,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6333635732227776289, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: attackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6333635732227776289, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: detectionRange
       value: 5
       objectReference: {fileID: 0}
@@ -455,7 +459,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: bbadccc6b8f0d164ab60957b3ff48206, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3f9ff561b32447b419f06a30521d0dc7, type: 2}
+      objectReference: {fileID: 2100000, guid: c0666b7b4ed93dd42bc28c7bc5ec2563, type: 2}
     - target: {fileID: 919132149155446097, guid: bbadccc6b8f0d164ab60957b3ff48206, type: 3}
       propertyPath: m_Name
       value: SwordHandLow
