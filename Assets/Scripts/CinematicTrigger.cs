@@ -14,6 +14,7 @@ public class CinematicTrigger : MonoBehaviour
     private bool wasTriggered = false;
     private Canvas canvas;
     private TextMeshProUGUI uiText;
+    private GameObject player;
 
     private void Start()
     {
@@ -23,16 +24,26 @@ public class CinematicTrigger : MonoBehaviour
         uiText.enabled = false;
         uiText.text = string.Empty;
     }
+    private void Update()
+    {
+        if (wasTriggered && Input.anyKeyDown)
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            player.GetComponent<PlayerController>()?.UntriggerNarrative();
+            Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !wasTriggered)
         {
-            StartCoroutine(NarrativeCinematic(other.gameObject));
+            player = other.gameObject;
+            StartCoroutine(NarrativeCinematic());
         }
     }
 
-    IEnumerator NarrativeCinematic(GameObject player)
+    IEnumerator NarrativeCinematic()
     {
         wasTriggered = true;
         canvas.enabled = true;
