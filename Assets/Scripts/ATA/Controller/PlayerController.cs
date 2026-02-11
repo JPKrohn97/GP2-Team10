@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAirState AirState { get; private set; }
     public PlayerClawAttackState ClawAttackState { get; private set; }
     public PlayerMutationState MutationState { get; private set; }
+    public PlayerNarrativeState NarrativeState { get; private set; }
     public PlayerRangeAttackState RangeAttackState { get; private set; }
     public PlayerDashState DashState { get; private set; } 
     public PlayerSwordAttackState SwordAttackState { get; private set; }
@@ -107,6 +108,7 @@ public class PlayerController : MonoBehaviour
         if (AnimationEvents == null) AnimationEvents = GetComponent<PlayerAnimations>();
         if (Animator == null) Animator = GetComponent<Animator>();
         if (SkillController == null) SkillController = GetComponent<PlayerSkillController>();
+
         // Inputs
         MoveAction = InputHandler.Player.Move;
         JumpAction = InputHandler.Player.Jump;
@@ -122,6 +124,7 @@ public class PlayerController : MonoBehaviour
         AirState = new PlayerAirState(this, StateMachine);
         ClawAttackState = new PlayerClawAttackState(this, StateMachine);
         MutationState = new PlayerMutationState(this, StateMachine);
+        NarrativeState = new PlayerNarrativeState(this, StateMachine);
         RangeAttackState = new PlayerRangeAttackState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine); 
         SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
@@ -305,9 +308,19 @@ public class PlayerController : MonoBehaviour
         CurrentWeapon = ActiveWeaponType.Claw;
         AnimationEvents?.HideSwordVisuals();
     }
-    
-    
-    
+
+
+    public void TriggerNarrative()
+    {
+        Debug.Log($"stop game");
+        StateMachine.ChangeState(NarrativeState);
+    }
+    public void UntriggerNarrative()
+    {
+        Debug.Log($"start game");
+        StateMachine.ChangeState(IdleState);
+    }
+
     public void VirtualMutationInput()
     {
         if (!GameManager.Instance.canPlayerMove) return;
