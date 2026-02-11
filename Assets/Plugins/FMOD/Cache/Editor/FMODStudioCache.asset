@@ -204,30 +204,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7817
---- !u!114 &-8716845755204151819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Exploration/ExplorationState
-  m_EditorClassIdentifier: 
-  Name: ExplorationState
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 396441094
-    data2: 822528694
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &-8664709288443981453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,10 +291,10 @@ MonoBehaviour:
   Path: ../../../Downloads/Sound/Sound/FMOD complete 02/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639058906747502898
+  lastModified: 639064109037190759
   FileSizes:
   - Name: 
-    Value: 2476
+    Value: 2334
   Exists: 1
 --- !u!114 &-8572056945686081360
 MonoBehaviour:
@@ -788,8 +764,7 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters:
-  - {fileID: 6995776615654199268}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 81800
@@ -2604,8 +2579,7 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters:
-  - {fileID: 8886714755624256226}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 159999
@@ -3045,7 +3019,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -8632397873789755298}
   cacheVersion: 131857
-  cacheTime: 639058906747502898
+  cacheTime: 639064109037190759
   SerializableEventsDict:
   - key: event:/Impacts/Basic Boss attack impact
     index: 0
@@ -3256,7 +3230,7 @@ MonoBehaviour:
   Path: ../../../Downloads/Sound/Sound/FMOD complete 02/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639058906747467825
+  lastModified: 639064109037180674
   FileSizes: []
   Exists: 1
 --- !u!114 &656464707247450373
@@ -3309,8 +3283,7 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters:
-  - {fileID: -8716845755204151819}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 1119655
@@ -5372,30 +5345,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
---- !u!114 &6995776615654199268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Regular combat/CombatState
-  m_EditorClassIdentifier: 
-  Name: CombatState
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 1677348399
-    data2: 2199690169
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &7014068092431192603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5997,30 +5946,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1086
---- !u!114 &8886714755624256226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Boss Fight/MusicState
-  m_EditorClassIdentifier: 
-  Name: MusicState
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 3562617361
-    data2: 487029790
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &8919432640813671681
 MonoBehaviour:
   m_ObjectHideFlags: 0

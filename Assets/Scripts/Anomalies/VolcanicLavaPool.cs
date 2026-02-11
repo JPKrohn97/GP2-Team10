@@ -51,16 +51,26 @@ public class VolcanicLavaPool : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        IDamageable dmg = other.GetComponent<IDamageable>();
-        if (dmg != null)
-            targetsInside.Add(dmg);
+        if (other.CompareTag("Player"))
+        {
+            IDamageable dmg = other.GetComponent<IDamageable>();
+            if (dmg != null)
+                targetsInside.Add(dmg);
+        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        IDamageable dmg = other.GetComponent<IDamageable>();
-        if (dmg != null)
-            targetsInside.Remove(dmg);
+        if (other.CompareTag("Player"))
+        {
+            IDamageable dmg = other.GetComponent<IDamageable>();
+            if (dmg != null)
+                targetsInside.Remove(dmg);
+        }
+
+
+
     }
 
     IEnumerator DamageRoutine()
