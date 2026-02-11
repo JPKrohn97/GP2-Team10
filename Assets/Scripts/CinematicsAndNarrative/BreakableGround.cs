@@ -39,6 +39,7 @@ public class BreakableGround : MonoBehaviour
             other.GetComponentInChildren<PlayerCiınematicAnimimationEvents>().animController.SetTrigger("GroundHitMid");
             ManagerCinemachine.Instance.ShakeOnHit(50f);
             ManagerCinemachine.Instance.HitImpact(0.3f, 0.2f);
+            ManagerVibration.Vibrate(MoreMountains.NiceVibrations.HapticTypes.HeavyImpact);
             BreakTheGround();
         }
     }

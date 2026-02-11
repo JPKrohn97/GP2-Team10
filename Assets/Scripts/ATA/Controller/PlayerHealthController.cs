@@ -49,8 +49,9 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     
     public void TakeDamage(int damage)
     {
-        if (isDead) return; 
+        if (isDead) return;
 
+        ManagerVibration.Vibrate(MoreMountains.NiceVibrations.HapticTypes.HeavyImpact);
         currentHealth -= damage;
         
         DamageFlash();
