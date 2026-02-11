@@ -70,8 +70,8 @@ public class GameManager : Singleton<GameManager>
 
     public void BossMutationSequence()
     {
-        ManagerSave.Instance.SaveState.isFirstBossDefeated = true;
-        ManagerSave.Instance.Save();
+        //ManagerSave.Instance.SaveState.isFirstBossDefeated = true;
+        //ManagerSave.Instance.Save();
 
         playerAnimator.SetTrigger("PlayerBossMutation");
         playerAnimator.applyRootMotion = true;

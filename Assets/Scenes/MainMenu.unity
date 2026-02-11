@@ -939,6 +939,14 @@ PrefabInstance:
       value: event:/Anomalies/Magma worm
       objectReference: {fileID: 0}
     - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: ClawsAttack.Path
+      value: event:/Attacks/Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: SwordAttack.Path
+      value: event:/Attacks/Claws
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
       propertyPath: BallBounce.Guid.Data1
       value: 1737133570
       objectReference: {fileID: 0}
@@ -957,6 +965,38 @@ PrefabInstance:
     - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
       propertyPath: SpikeTrapWarning.Path
       value: event:/Anomalies/Hiding stalagmite
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: ClawsAttack.Guid.Data1
+      value: -1439952736
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: ClawsAttack.Guid.Data2
+      value: 1094611129
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: ClawsAttack.Guid.Data3
+      value: -1538193741
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: ClawsAttack.Guid.Data4
+      value: -1440187134
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: SwordAttack.Guid.Data1
+      value: 1241166731
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: SwordAttack.Guid.Data2
+      value: 1259679733
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: SwordAttack.Guid.Data3
+      value: -1726257254
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
+      propertyPath: SwordAttack.Guid.Data4
+      value: -2083266844
       objectReference: {fileID: 0}
     - target: {fileID: 1127269004664512116, guid: 912367c0fd7150b4295245df191eb348, type: 3}
       propertyPath: SpikeTrapWarning.Guid.Data1

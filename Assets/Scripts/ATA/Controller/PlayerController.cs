@@ -240,6 +240,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!GameManager.Instance.canPlayerMove) return;
         
+        SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack, transform.gameObject);
         if (StateMachine.CurrentState == MutationState) return;
 
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) <= 0)
