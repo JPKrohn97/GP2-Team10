@@ -46,7 +46,6 @@ namespace BehaviorTree
             {
                 heavyTimer = heavyCooldown;
                 animator?.SetTrigger("HeavyAttack");
-                Debug.Log($"Boss Heavy Attack! Damage: {heavyDamage}");
                 return state = NodeState.Running;
             }
 
@@ -55,7 +54,6 @@ namespace BehaviorTree
             {
                 lightTimer = lightCooldown;
                 animator?.SetTrigger("LightAttack");
-                Debug.Log($"Boss Light Attack! Damage: {lightDamage}");
             }
 
             return state = NodeState.Running;

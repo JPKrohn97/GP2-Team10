@@ -26,7 +26,7 @@ public class BouncingBallTrap : MonoBehaviour
     [SerializeField] private bool playBounceSound = true;
 
     [Header("Debug")]
-    [SerializeField] private bool showDebugRays = true;
+    [SerializeField] private bool showDebugRays = false;
 
     private bool movingForward = true;
     private float currentHeight = 0f;
@@ -134,16 +134,13 @@ public class BouncingBallTrap : MonoBehaviour
         if (!hasGroundAhead)
         {
             movingForward = !movingForward;
-
-            if (showDebugRays)
-            {
-                Debug.Log($"<color=red>Edge detected! Forced reverse to {(movingForward ? "FORWARD" : "BACKWARD")}</color>");
-            }
         }
     }
     public void JumpTheBall()
     {
-        transform.DOJump(transform.position + Vector3.forward * (movingForward ? 5f : -5f), bounceHeight, 1, bounceSpeed * 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOJump(transform.position + Vector3.forward * (movingForward ? 5f : -5f), bounceHeight, 1, bounceSpeed * 0.5f)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
         {
             SpawnBounceEffect();
             PlayBounceSound();

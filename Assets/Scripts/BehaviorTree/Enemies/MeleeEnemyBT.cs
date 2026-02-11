@@ -33,7 +33,7 @@ public class MeleeEnemyBT : BehaviorTreeBase
             new Sequence(new List<Node>
             {
                 new CheckPlayerInRange(transform, detectionRange, playerLayer),
-                new TaskGoToTarget(transform, agent, attackRange,animator),
+                new TaskGoToTarget(transform, agent, attackRange, animator),
                 new TaskAttack(transform, animator, attackCooldown, attackDamage)
             }),
             // Patrol (when player is not in range)
@@ -41,9 +41,5 @@ public class MeleeEnemyBT : BehaviorTreeBase
         });
 
         return root;
-    }
-    public void EnableCollider() 
-    {
-    
     }
 }
