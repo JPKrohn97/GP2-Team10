@@ -16,9 +16,15 @@ public class PlayerAnimations : MonoBehaviour
     public MeshRenderer bossLegsMeshRenderer;
     public Material bossLegsMaterial;
     
+    [Header("Shield Visuals")]
+    public MeshRenderer shieldMeshRenderer; 
+    private Material shieldMaterial;
+    
     [Header("VFX Spawn Points")]
     [SerializeField] private Transform clawSlashPoint; 
     [SerializeField] private Transform swordSlashPoint;
+    
+    
 
 
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
@@ -43,6 +49,11 @@ public class PlayerAnimations : MonoBehaviour
         if (weaponMeshRenderer != null)
         {
             weaponMaterial = weaponMeshRenderer.material;
+        }
+        
+        if (shieldMeshRenderer != null)
+        {
+            shieldMaterial = shieldMeshRenderer.material;
         }
 
         DisableLeftAttackColliderEvent();
@@ -75,6 +86,19 @@ public class PlayerAnimations : MonoBehaviour
                     weaponMeshRenderer.material = weaponMaterial;
             });
         }
+        
+        else if (type == EnemyHealth.EnemyMutationType.Dash)
+        {
+            ShowShieldVisuals();
+            
+            if(SoundManager.Instance != null)
+                SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack, gameObject);
+
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                HideShieldVisuals();
+            });
+        }
 
         DOVirtual.DelayedCall(2f, () =>
         {
@@ -101,6 +125,24 @@ public class PlayerAnimations : MonoBehaviour
         DOTween.To(() => weaponMaterial.GetFloat("_DissolveAmount"),
             x => weaponMaterial.SetFloat("_DissolveAmount", x),
             1f, 0.5f).SetEase(Ease.InSine);
+    }
+    
+    public void ShowShieldVisuals()
+    {
+        if (shieldMaterial == null) return;
+        
+        DOTween.To(() => shieldMaterial.GetFloat("_DissolveAmount"),
+            x => shieldMaterial.SetFloat("_DissolveAmount", x),
+            0f, 0.15f).SetEase(Ease.OutSine);
+    }
+
+    public void HideShieldVisuals()
+    {
+        if (shieldMaterial == null) return;
+        
+        DOTween.To(() => shieldMaterial.GetFloat("_DissolveAmount"),
+            x => shieldMaterial.SetFloat("_DissolveAmount", x),
+            1f, 0.3f).SetEase(Ease.InSine);
     }
 
     public void MutationSequence(bool isBoss)

@@ -390,7 +390,7 @@ public class PlayerController : MonoBehaviour
             Rigidbody prb = projectile.GetComponent<Rigidbody>();
             if (prb != null)
             {
-                prb.linearVelocity = transform.forward * 30f;
+                prb.linearVelocity = transform.forward * 15f;
             }
         }
         
@@ -401,12 +401,16 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void ApplyKnockback(Vector3 dir, float force)
+    public void ApplyKnockback(Vector3 sourcePosition, float force)
     {
+        Vector3 dir = (transform.position - sourcePosition).normalized;
         dir.y = 0f;
-        RB.AddForce(-dir.normalized * force, ForceMode.Impulse);
-        DOVirtual.DelayedCall(0.5f,() => {
-             if(RB != null) RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
+
+        RB.AddForce(dir * force, ForceMode.Impulse);
+
+        DOVirtual.DelayedCall(0.5f, () => {
+            if (RB != null) 
+                RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
         });
     }
     

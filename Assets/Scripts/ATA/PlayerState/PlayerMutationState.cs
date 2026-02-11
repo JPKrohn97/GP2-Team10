@@ -42,8 +42,10 @@ public class PlayerMutationState : PlayerState
                 targetEnemy.ConsumeBody();
                 player.AnimationEvents.MutationSequence(type); 
             }
+            
+       
 
-            // Mutation animasyonu
+        
             DOVirtual.DelayedCall(mutationDuration, () =>
             {
                 if(stateMachine.CurrentState != this) return;
@@ -59,14 +61,14 @@ public class PlayerMutationState : PlayerState
 
         if (movementLocked)
         {
-            // Yalnızca z ekseni sıfırlanıyor, x ekseni yok zaten
+   
             player.RB.linearVelocity = new Vector3(0, player.RB.linearVelocity.y, 0);
         }
     }
 
     private void FinishMutation()
     {
-        movementLocked = false; // hareket açıldı
+        movementLocked = false; 
         stateMachine.ChangeState(player.IdleState);
     }
 
