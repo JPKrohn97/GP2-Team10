@@ -967,7 +967,6 @@ MonoBehaviour:
   mainCollider: {fileID: 3661518917694402987}
   agent: {fileID: 9180891094221923629}
   meleeBossEnemy: {fileID: 4473589533596789999}
-  groundShockwavePrefab: {fileID: 180820, guid: 922336eb2e7046b4091f8833bbf6bf5d, type: 3}
 --- !u!1 &1328213288762197346 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7657966619581158213, guid: 16a4f3472d163964ea3ed3fe61fdbdb1, type: 3}
@@ -1923,7 +1922,7 @@ PrefabInstance:
     - target: {fileID: 2973783318281034374, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: rightHitCollider
       value: 
-      objectReference: {fileID: 1097830339855887813}
+      objectReference: {fileID: 0}
     - target: {fileID: 2973783318281034374, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: groundShockwavePrefab
       value: 
@@ -1982,7 +1981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007611437241675672, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_Name
-      value: BossEnemy 1
+      value: FireBoss
       objectReference: {fileID: 0}
     - target: {fileID: 6042322683319691804, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2045,7 +2044,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3902457851398447586, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 151054274513777562, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       insertIndex: -1
@@ -2064,11 +2064,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3213895719260221357}
   m_SourcePrefab: {fileID: 100100000, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
---- !u!65 &1097830339855887813 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4364845235477672898, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
-  m_PrefabInstance: {fileID: 3724280616241487367}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2252297269717310719 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3237675892610646776, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
