@@ -1811,7 +1811,7 @@ PrefabInstance:
     - target: {fileID: 2973783318281034374, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: rightHitCollider
       value: 
-      objectReference: {fileID: 1097830339855887813}
+      objectReference: {fileID: 0}
     - target: {fileID: 2973783318281034374, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: groundShockwavePrefab
       value: 
@@ -1949,7 +1949,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3902457851398447586, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 151054274513777562, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       insertIndex: -1
@@ -1965,11 +1966,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7804937130964362871}
   m_SourcePrefab: {fileID: 100100000, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
---- !u!65 &1097830339855887813 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4364845235477672898, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
-  m_PrefabInstance: {fileID: 3724280616241487367}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2252297269717310719 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3237675892610646776, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
