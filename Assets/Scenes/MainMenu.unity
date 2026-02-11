@@ -337,6 +337,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1148875642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1148875644}
+  - component: {fileID: 1148875643}
+  m_Layer: 0
+  m_Name: ManagerSave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1148875643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148875642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31476d325bf0c048a8d92b868153527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroy: 1
+  SaveState:
+    isFirstBossDefeated: 0
+    LevelCounter: 0
+    LastLevelIndex: 0
+--- !u!4 &1148875644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148875642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.3967085, y: 24.579054, z: 24.124931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1232270131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1015,9 +1064,17 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 518614390908228589, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 518614390908228589, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1728055562}
+    - target: {fileID: 846814257639135598, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 846814257639135598, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1126,6 +1183,39 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3848358100638025449, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
+      propertyPath: m_text
+      value: 'ECDYSIS
+
+
+        Designers: Yavuz Alp Bilen, Alexandra Goncharova,
+        Julian Perez Krohn, Anil Tahmaz
+
+
+        Technical Lead: Anil Tahmaz
+
+
+        Programmers:
+        Atailay Sahin, Mateusz Swiderski
+
+
+        Artists: Jonathan Mapuranga, Barkan
+        Uzmen
+
+
+        Musician: Ea Sundstorm
+
+
+        Product Owner: Alexandra
+        Goncharova
+
+
+        Producer: Mat Kohan'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848358100638025449, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
+      propertyPath: m_fontSize
+      value: 51.7
+      objectReference: {fileID: 0}
     - target: {fileID: 3863863066024479627, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -1194,6 +1284,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1615245474}
+    - target: {fileID: 8052248422766033136, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052248422766033136, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8052248422766033136, guid: 4e5e4b4c01a6cb74b8c4593dbdd8b79f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1333,3 +1431,4 @@ SceneRoots:
   - {fileID: 40472273}
   - {fileID: 1232270131}
   - {fileID: 2105689477}
+  - {fileID: 1148875644}
