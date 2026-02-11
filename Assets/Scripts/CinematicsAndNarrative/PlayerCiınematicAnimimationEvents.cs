@@ -48,7 +48,7 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     public void Beginning()
     {
         fakeBoss.SetActive(true);
-        transform.eulerAngles = new Vector3(0, 180, 0);
+        transform.parent.eulerAngles = new Vector3(0, 180, 0);
         ManagerCinemachine.Instance.FirstBiteCamera();
 
 
@@ -67,7 +67,7 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     public void BeforeSecondBite()
     {
         ManagerCinemachine.Instance.SecondBiteCamera();
-        transform.eulerAngles = new Vector3(0, 0, 0); 
+        transform.parent.eulerAngles = new Vector3(0, 0, 0); 
         fakeBoss.transform.localPosition = new Vector3(-0.5f, 0, 0);
         FadeOut();
     }
@@ -83,7 +83,7 @@ public class PlayerCiınematicAnimimationEvents : MonoBehaviour
     }
     public void End()
     {
-        transform.eulerAngles = new Vector3(0, 180, 0);
+        transform.parent.eulerAngles = new Vector3(0, 180, 0);
         fakeBoss.SetActive(false);
         FadeOut();
         DOVirtual.DelayedCall(0.5f, () => GameManager.Instance.BossMutationSequence());
