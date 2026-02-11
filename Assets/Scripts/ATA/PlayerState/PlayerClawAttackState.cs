@@ -9,9 +9,9 @@ public class PlayerClawAttackState : PlayerAttackState
 
     public override void Enter()
     {
-        base.Enter(); // Claw attack süreli olduğu için base.Enter ve LogicUpdate uygundur.
+        base.Enter(); 
 
-        // --- ROTASYON DÜZELTMESİ ---
+
         if (Mathf.Abs(player.CurrentMovementInput.x) > 0.1f)
         {
             float targetY = (player.CurrentMovementInput.x > 0f) ? 0f : 180f;
@@ -23,14 +23,14 @@ public class PlayerClawAttackState : PlayerAttackState
         
         player.Combat.Attack();
 
-        // Platform kontrolü aynen kalabilir
+
         comboBufferTime = 0.3f; 
         attackDuration = 0.35f; 
     }
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate(); // Süre kontrolü (attackDuration) burada çalışır, bu doğru.
+        base.LogicUpdate(); 
         
         bool hasBufferedInput = (player.LastAttackInputTime > startTime) && 
                                 (Time.time - player.LastAttackInputTime <= comboBufferTime);
@@ -44,7 +44,7 @@ public class PlayerClawAttackState : PlayerAttackState
             }
             else
             {
-                FinishAttack(); // Base classtaki güvenli bitişi kullan
+                FinishAttack(); 
             }
         }
     }

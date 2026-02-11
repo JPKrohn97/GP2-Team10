@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerGroundedState 
 {
-    private const float DeadZone = 0.1f; // Hassas kontrol için düşük tutuldu
+    private const float DeadZone = 0.1f; 
 
     private float acceleration = 90f; 
     private float deceleration = 80f; 
@@ -31,15 +31,14 @@ public class PlayerRunState : PlayerGroundedState
         base.LogicUpdate();
 
         if (stateMachine.CurrentState != this) return;
-    
-        // Girdi çok azsa Idle'a geç
+        
         if (player.CurrentMovementInput.sqrMagnitude < 0.01f)
         {
             stateMachine.ChangeState(player.IdleState);
             return; 
         }
         
-        // Gerçekten hareket ediyor muyuz kontrolü (Hız kontrolü)
+
         bool isActuallyMoving = player.RB.linearVelocity.sqrMagnitude > 0.1f;
         player.AnimationEvents?.SetMovingBool(isActuallyMoving);
         
@@ -48,7 +47,7 @@ public class PlayerRunState : PlayerGroundedState
             if(SoundManager.Instance != null)
                 SoundManager.Instance.PlaySound(SoundManager.Instance.PlayerFootSteps, player.gameObject);
 
-            // Hıza bağlı adım sesi sıklığı (Opsiyonel iyileştirme)
+       
             float velocityRatio = player.RB.linearVelocity.magnitude / player.moveSpeed;
             float dynamicStepRate = stepRate / Mathf.Clamp(velocityRatio, 0.5f, 1.5f);
             

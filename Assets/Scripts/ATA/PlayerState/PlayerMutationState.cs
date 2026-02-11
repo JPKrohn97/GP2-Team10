@@ -7,7 +7,7 @@ public class PlayerMutationState : PlayerState
     private float mutationDuration = 2.0f; 
     private Tween mutationTween;
 
-    private bool movementLocked = true; // hareket kilidi
+    private bool movementLocked = true; 
 
     public PlayerMutationState(PlayerController player, PlayerStateMachine stateMachine) 
         : base(player, stateMachine) { }
@@ -16,7 +16,7 @@ public class PlayerMutationState : PlayerState
     {
         base.Enter();
 
-        // hareketi bir kez kilitle
+
         movementLocked = true;
         player.RB.linearVelocity = Vector3.zero;
 
@@ -26,8 +26,7 @@ public class PlayerMutationState : PlayerState
         player.AnimationEvents.SetAnimationTrigger("Bite");
 
         EnemyHealth targetEnemy = player.CurrentDeadEnemy; 
-        
-        // Bite animasyonu
+
         DOVirtual.DelayedCall(biteDuration, () =>
         {
             if(stateMachine.CurrentState != this) return;

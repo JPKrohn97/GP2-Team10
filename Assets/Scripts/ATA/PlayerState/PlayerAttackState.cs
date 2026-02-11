@@ -16,8 +16,7 @@ public abstract class PlayerAttackState : PlayerState
     {
         base.LogicUpdate();
 
-        // Bu süre kontrolü sadece Claw gibi tek vuruşluk saldırılar için geçerli olmalı.
-        // Sword gibi combo sistemler bunu override etmeli veya base'i çağırmamalı.
+
         if (Time.time >= startTime + attackDuration)
         {
             FinishAttack();
@@ -26,7 +25,7 @@ public abstract class PlayerAttackState : PlayerState
 
     protected virtual void FinishAttack()
     {
-        // Vector2.zero yerine sqrMagnitude daha güvenlidir
+ 
         if (player.CurrentMovementInput.sqrMagnitude > 0.01f)
         {
             stateMachine.ChangeState(player.RunState);
