@@ -5,6 +5,8 @@ public class PlayerMutationState : PlayerState
 {
     private float biteDuration = 2f;
     private float mutationDuration = 2f;
+    
+    private int healAmount = 50;
 
     private Tween biteTween;
     private Tween mutationFinishTween;
@@ -33,6 +35,12 @@ public class PlayerMutationState : PlayerState
 
                 player.SkillController?.AbsorbSkill(type);
                 targetEnemy.ConsumeBody();
+                PlayerHealthController healthScript = player.GetComponent<PlayerHealthController>();
+                if (healthScript != null)
+                {
+                    healthScript.Heal(healAmount);
+                }
+                
 
                 player.AnimationEvents.MutationSequence(type);
             }
