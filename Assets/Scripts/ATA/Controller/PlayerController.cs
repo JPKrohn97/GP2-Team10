@@ -130,8 +130,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         StateMachine.Initialize(IdleState);
-        
-    
+        SoundManager.Instance?.PlayMusic(SoundManager.Instance.Regular);
+
+
     }
 
     private void OnEnable()
@@ -215,13 +216,13 @@ public class PlayerController : MonoBehaviour
         origin.y = col.bounds.min.y + 0.05f;
 
 
-        return Physics.Raycast(origin, Vector3.down, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
+        return Physics.Raycast(origin, Vector3.down*1.1f, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
     public void Jump()
     {
         if (!IsGrounded) return;
-
+        if (!GameManager.Instance.canPlayerMove) return;
         Vector3 v = RB.linearVelocity;
         v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
         RB.linearVelocity = v;
@@ -234,7 +235,8 @@ public class PlayerController : MonoBehaviour
     
     public void VirtualDashInput()
     {
-        
+        if (!GameManager.Instance.canPlayerMove) return;
+
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) <= 0)
             return;
         
@@ -253,6 +255,8 @@ public class PlayerController : MonoBehaviour
     
     public void VirtualJumpInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
+
         Jump();
         
     }
@@ -260,6 +264,8 @@ public class PlayerController : MonoBehaviour
 
     public void VirtualClawAttackInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
+
         if (StateMachine.CurrentState == SwordAttackState)
             return;
 
@@ -273,7 +279,8 @@ public class PlayerController : MonoBehaviour
 
     public void VirtualSkillSwordInput()
     {
-      
+        if (!GameManager.Instance.canPlayerMove) return;
+
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) <= 0)
             return;
 
@@ -303,6 +310,8 @@ public class PlayerController : MonoBehaviour
     
     public void VirtualMutationInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
+
         if (IsOnDeadEnemy && CurrentDeadEnemy != null)
         {
             StateMachine.ChangeState(MutationState);
@@ -313,7 +322,9 @@ public class PlayerController : MonoBehaviour
 
     public void VirtualSpecialJumpInput()
     {
-      if(specialButton != null)
+        if (!GameManager.Instance.canPlayerMove) return;
+
+        if (specialButton != null)
           specialButton.SetActive(false);
       
       Animator.SetTrigger("SpecialJump");
@@ -338,6 +349,8 @@ public class PlayerController : MonoBehaviour
         {
             specialButton.SetActive(false);
             GameManager.Instance.canPlayerMove = true;
+            //SoundManager.Instance?.PlayMusic(SoundManager.Instance.Regular);
+
         }
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
 
@@ -346,8 +359,12 @@ public class PlayerController : MonoBehaviour
         {
             CurrentDeadEnemy = enemy;
         }
+        if (other.CompareTag("BossMusic"))
+        {
+            SoundManager.Instance?.PlayMusic(SoundManager.Instance.BossMusic);
 
-        
+        }
+
     }
     private void OnTriggerExit(Collider other)
     {

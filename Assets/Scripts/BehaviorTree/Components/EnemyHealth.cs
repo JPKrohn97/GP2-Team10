@@ -177,8 +177,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (isBoss)
         {
            GameManager.Instance.OnBossDefeated();
+            SoundManager.Instance?.PlayMusic(SoundManager.Instance.Regular);
+
+
         }
-        
+
         // Disable behavior tree FIRST to prevent further updates
         if (behaviorTree != null)
             behaviorTree.enabled = false;

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -28,10 +30,12 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         LoadAudioSettings();
+        
 
         mainMenuPanel.SetActive(true);
         optionsPanel.SetActive(false);
         creditsPanel.SetActive(false);
+        SoundManager.Instance?.PlayMusic(SoundManager.Instance.MainMenuMusic);
     }
 
     public void PlayNewGame()
