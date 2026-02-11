@@ -79,17 +79,18 @@ public class PlayerAnimations : MonoBehaviour
         if (type == EnemyHealth.EnemyMutationType.Sword)
         {
             ShowSwordVisuals();
+            HideShieldVisuals();
 
             DOVirtual.DelayedCall(2f, () =>
             {
-                if (weaponMeshRenderer != null) 
-                    weaponMeshRenderer.material = weaponMaterial;
+                HideSwordVisuals(); 
             });
         }
         
         else if (type == EnemyHealth.EnemyMutationType.Dash)
         {
             ShowShieldVisuals();
+            HideSwordVisuals();
             
             if(SoundManager.Instance != null)
                 SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack, gameObject);
@@ -226,10 +227,8 @@ public class PlayerAnimations : MonoBehaviour
     }
     public void ClawSlashVFXEvent()
     {
-        // Ses
         SoundManager.Instance?.PlaySound(SoundManager.Instance.ClawsAttack, gameObject);
         
-        // Görsel Efekt
         if (ManagerObjectPool.Instance != null && clawSlashPoint != null)
         {
             Quaternion vfxRotation = transform.rotation * Quaternion.Euler(0, 90, 0);

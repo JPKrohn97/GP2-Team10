@@ -42,8 +42,6 @@ public class PlayerMutationState : PlayerState
                 player.AnimationEvents.MutationSequence(type); 
             }
             
-       
-
         
             DOVirtual.DelayedCall(mutationDuration, () =>
             {
@@ -52,6 +50,7 @@ public class PlayerMutationState : PlayerState
                 FinishMutation();
             });
         });
+       
     }
 
     public override void PhysicsUpdate()
