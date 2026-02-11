@@ -239,6 +239,8 @@ public class PlayerController : MonoBehaviour
     public void VirtualDashInput()
     {
         if (!GameManager.Instance.canPlayerMove) return;
+        
+        if (StateMachine.CurrentState == MutationState) return;
 
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) <= 0)
             return;
@@ -259,6 +261,8 @@ public class PlayerController : MonoBehaviour
     public void VirtualJumpInput()
     {
         if (!GameManager.Instance.canPlayerMove) return;
+        
+        if (StateMachine.CurrentState == MutationState) return;
 
         Jump();
         
@@ -268,6 +272,8 @@ public class PlayerController : MonoBehaviour
     public void VirtualClawAttackInput()
     {
         if (!GameManager.Instance.canPlayerMove) return;
+        
+        if (StateMachine.CurrentState == MutationState) return;
 
         if (StateMachine.CurrentState == SwordAttackState)
             return;
@@ -283,6 +289,7 @@ public class PlayerController : MonoBehaviour
     public void VirtualSkillSwordInput()
     {
         if (!GameManager.Instance.canPlayerMove) return;
+        if (StateMachine.CurrentState == MutationState) return;
 
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) <= 0)
             return;
