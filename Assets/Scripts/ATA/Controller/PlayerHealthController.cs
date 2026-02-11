@@ -124,7 +124,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
 
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
-        //GameManager.Instance.RestartScene();
+        GameManager.Instance.RestartLevel();
     }
 
     private void UpdateHealthUI()

@@ -104,6 +104,10 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-
+    public void RestartLevel()
+    {
+         
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
 }
