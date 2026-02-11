@@ -21,7 +21,7 @@ public class PlayerSkillController : MonoBehaviour
     
     [Header("Skill Popup")]
     public TMP_Text skillPopupText;
-    public float popupDuration = 1.5f; // popup ekranda kalma süresi
+    public float popupDuration = 1.5f; 
     public Vector3 popupMoveOffset = new Vector3(0, 100f, 0);
     public Color skillColor = Color.cyan;
     public Color levelColor = Color.yellow;
