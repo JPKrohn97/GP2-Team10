@@ -214,8 +214,7 @@ namespace BehaviorTree
 
             if (projectile != null)
             {
-                Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                if (rb != null)
+                if (projectile.TryGetComponent<Rigidbody>(out var rb))
                 {
                     rb.linearVelocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
@@ -240,8 +239,7 @@ namespace BehaviorTree
             Vector3 directionAwayFromPlayer = (transform.position - target.position).normalized;
             Vector3 dashDestination = transform.position + directionAwayFromPlayer * dashBackDistance;
             
-            NavMeshHit hit;
-            return NavMesh.SamplePosition(dashDestination, out hit, dashBackDistance, NavMesh.AllAreas);
+            return NavMesh.SamplePosition(dashDestination, out NavMeshHit hit, dashBackDistance, NavMesh.AllAreas);
         }
 
         private void DashBackwards(Transform target)

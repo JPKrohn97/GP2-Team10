@@ -3,38 +3,23 @@
 public class PlayerSwordAttackCollider : MonoBehaviour
 {
     private PlayerController player;
-    private bool hasHitThisSwing; 
-    private Collider col;
+
 
     private void Awake()
     {
-        col = GetComponent<Collider>();
         player = GetComponentInParent<PlayerController>();
     }
-
-    private void OnEnable()
-    {
     
-        hasHitThisSwing = false;
-        col.enabled = true; 
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-    
-        if (hasHitThisSwing) return;
 
         if (!other.CompareTag("Enemy")) return;
 
         EnemyHealth enemy = other.GetComponent<EnemyHealth>();
 
         if (enemy == null || enemy.IsDead) return; 
-
-
-        col.enabled = false; 
-        hasHitThisSwing = true;
-
-
+        
         enemy.TakeDamage(player.swordSkillDamage);
 
         if (SoundManager.Instance != null)

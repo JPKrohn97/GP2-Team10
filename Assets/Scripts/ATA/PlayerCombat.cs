@@ -34,6 +34,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Transform bitePos;
     [SerializeField] private Collider leftAttackCollider;
     [SerializeField] private Collider rightAttackCollider;
+    [SerializeField] private Collider rightSwordAttackCollider;
 
     private Tween stopTween;
 
@@ -102,12 +103,16 @@ public class PlayerCombat : MonoBehaviour
     {
         if (leftAttackCollider != null) leftAttackCollider.enabled = false;
         if (rightAttackCollider != null) rightAttackCollider.enabled = false;
+        
+        if (rightSwordAttackCollider != null) rightSwordAttackCollider.enabled = false;
     }
 
     public void EnableLeftAttackCollider() => leftAttackCollider.enabled = true;
     public void EnableRightAttackCollider() => rightAttackCollider.enabled = true;
     public void DisableLeftAttackCollider() => leftAttackCollider.enabled = false;
     public void DisableRightAttackCollider() => rightAttackCollider.enabled = false;
+    public void EnableRightSwordAttackCollider() => rightSwordAttackCollider.enabled = true;
+    public void DisableRightSwordAttackCollider() => rightSwordAttackCollider.enabled = false;
 
     public void SpawnBiteParticle()
     {

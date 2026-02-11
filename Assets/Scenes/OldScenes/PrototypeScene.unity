@@ -564,7 +564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroy: 0
   leftLegRenderer: {fileID: 0}
+  leftLegRockRenderer: {fileID: 0}
   rightLegRenderer: {fileID: 0}
+  rightLegRockRenderer: {fileID: 0}
   canPlayerMove: 1
   playerAnimator: {fileID: 0}
   blackFadeImage: {fileID: 0}

@@ -22,9 +22,12 @@ public class GameManager : Singleton<GameManager>
     void Awake()
     {
         bossLegLeftMaterial = leftLegRenderer.material;
-        
 
         bossLegRightMaterial = rightLegRenderer.material;
+
+        bossLegLeftRockMaterial = leftLegRockRenderer.material;
+        bossLegRirghtRockMaterial = rightLegRockRenderer.material;
+
 
         canPlayerMove = true;
         Application.targetFrameRate = 60;
@@ -86,11 +89,25 @@ public class GameManager : Singleton<GameManager>
                            x => bossLegRightMaterial.SetFloat("_DissolveAmount", x),
                            0f,
                            1.7f).SetEase(Ease.OutSine);
+
+            DOTween.To(() => bossLegLeftRockMaterial.GetFloat("_DissolveAmount"),
+                   x => bossLegLeftRockMaterial.SetFloat("_DissolveAmount", x),
+                   0f,
+                   1.7f).SetEase(Ease.OutSine);
+
+            DOTween.To(() => bossLegRirghtRockMaterial.GetFloat("_DissolveAmount"),
+                           x => bossLegRirghtRockMaterial.SetFloat("_DissolveAmount", x),
+                           0f,
+                           1.7f).SetEase(Ease.OutSine);
         });
 
 
     }
 
-
+    public void RestartLevel()
+    {
+         
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
 }

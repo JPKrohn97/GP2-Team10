@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerSkillController : MonoBehaviour
 {
@@ -18,10 +18,17 @@ public class PlayerSkillController : MonoBehaviour
     public Image fillSword;
     public Image fillDash;
     public Image fillRange;
-     
     
+    [Header("Skill Popup")]
+    public TMP_Text skillPopupText;
+    public float popupDuration = 1.5f; 
+    public Vector3 popupMoveOffset = new Vector3(0, 100f, 0);
+    public Color skillColor = Color.cyan;
+    public Color levelColor = Color.yellow;
+
     private Dictionary<EnemyHealth.EnemyMutationType, int> skillLevels = new Dictionary<EnemyHealth.EnemyMutationType, int>();
-    
+
+    private const int MAX_SWORD_LEVEL = 4;
     private const int MAX_LEVEL = 3;
     
     private Dictionary<EnemyHealth.EnemyMutationType, float> lastUseTime
@@ -70,10 +77,15 @@ public class PlayerSkillController : MonoBehaviour
     {
         if (!skillLevels.ContainsKey(type)) skillLevels[type] = 0;
 
-        if (skillLevels[type] < MAX_LEVEL)
+        int maxLevel = type == EnemyHealth.EnemyMutationType.Sword ? MAX_SWORD_LEVEL : MAX_LEVEL;
+
+        if (skillLevels[type] < maxLevel)
         {
             skillLevels[type]++;
             UpdateSkillUI(type);
+
+            // Show popup
+            ShowSkillPopup(type.ToString(), skillLevels[type]);
         }
     }
     
@@ -84,40 +96,17 @@ public class PlayerSkillController : MonoBehaviour
         switch (type)
         {
             case EnemyHealth.EnemyMutationType.Sword:
-                if (currentLevel > 0)
-                {
-                    if (lockIconSword != null)
-                    {
-                        lockIconSword.SetActive(false);
-                    }
-                    
-                }
+                if (currentLevel > 0 && lockIconSword) lockIconSword.SetActive(false);
                 UpdateText(txtSwordLevel, currentLevel);
                 break;
 
             case EnemyHealth.EnemyMutationType.Dash:
-                if (currentLevel > 0)
-                {
-                    if (lockIconDash != null)
-                    {
-                        lockIconDash.SetActive(false);
-                       
-                    }
-                   
-                }
+                if (currentLevel > 0 && lockIconDash) lockIconDash.SetActive(false);
                 UpdateText(txtDashLevel, currentLevel);
                 break;
 
             case EnemyHealth.EnemyMutationType.Range:
-                if (currentLevel > 0)
-                {
-                    if (lockIconRange != null)
-                    {
-                        lockIconRange.SetActive(false);
-                        
-                    }
-                   
-                }
+                if (currentLevel > 0 && lockIconRange) lockIconRange.SetActive(false);
                 UpdateText(txtRangeLevel, currentLevel);
                 break;
         }
@@ -127,21 +116,12 @@ public class PlayerSkillController : MonoBehaviour
     {
         if (textComponent != null)
         {
-            if (level >= MAX_LEVEL)
-            {
-                textComponent.text = "M";
-            }
-            else
-            {
-                textComponent.text = level.ToString(); 
-            }
+            int maxLevel = textComponent == txtSwordLevel ? MAX_SWORD_LEVEL : MAX_LEVEL;
+            textComponent.text = level >= maxLevel ? "M" : level.ToString();
         }
     }
     
-    private void UpdateCooldownUI(
-        EnemyHealth.EnemyMutationType type,
-        Image fillImage
-    )
+    private void UpdateCooldownUI(EnemyHealth.EnemyMutationType type, Image fillImage)
     {
         if (fillImage == null) return;
 
@@ -156,6 +136,24 @@ public class PlayerSkillController : MonoBehaviour
 
         fillImage.fillAmount = 1f - Mathf.Clamp01(elapsed / cd);
     }
+    
+    private void ShowSkillPopup(string skillName, int level)
+    {
+        if (skillPopupText == null) return;
+
+        // Compose colored text
+        skillPopupText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(skillColor)}>{skillName}</color> " +
+                              $"<color=#{ColorUtility.ToHtmlStringRGB(levelColor)}>mutated to level {level}</color>!";
+
+        skillPopupText.gameObject.SetActive(true);
+        skillPopupText.rectTransform.anchoredPosition = Vector2.zero;
+        skillPopupText.alpha = 1f;
+
+        skillPopupText.rectTransform.DOAnchorPos(popupMoveOffset, popupDuration).SetEase(Ease.OutCubic);
+        skillPopupText.DOFade(0f, popupDuration).SetEase(Ease.OutCubic)
+            .OnComplete(() => skillPopupText.gameObject.SetActive(false));
+    }
+
     public void NotifySkillUsed(EnemyHealth.EnemyMutationType type)
     {
         if (!lastUseTime.ContainsKey(type)) return;

@@ -59,7 +59,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.14779875
-        functionName: EnableRightAttackColliderEvent
+        functionName: EnableRightSwordAttackColliderEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -73,7 +73,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.32075474
-        functionName: SwordSlashVFXEvent
+        functionName: DisableRightSwordAttackColliderEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -76,7 +76,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (IsDead) return;
 
         currentHealth -= damage;
-       
+       ManagerVibration.Vibrate(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
         healthSlider.value -= (float)damage / maxHealth;
         var slider = damageSlider.value;
         DOTween.To(() => slider, x => damageSlider.value = x, (float)currentHealth / maxHealth, 0.5f).SetEase(Ease.OutSine);
@@ -177,8 +177,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (isBoss)
         {
            GameManager.Instance.OnBossDefeated();
+            SoundManager.Instance?.PlayMusic(SoundManager.Instance.Regular);
+
+
         }
-        
+
         // Disable behavior tree FIRST to prevent further updates
         if (behaviorTree != null)
             behaviorTree.enabled = false;

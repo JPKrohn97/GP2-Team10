@@ -74,12 +74,6 @@ namespace BehaviorTree
                 agent.isStopped = false;
                 agent.velocity = chargeDirection * currentChargeSpeed;
                 
-                // Debug to see acceleration
-                if (Time.frameCount % 10 == 0)
-                {
-                    Debug.Log($"<color=green>Charging - Progress: {chargeProgress:F2}, Speed: {currentChargeSpeed:F2}/{chargeSpeed}</color>");
-                }
-                
                 return state = NodeState.Running;
             }
 
@@ -116,8 +110,6 @@ namespace BehaviorTree
             SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack);
 
             SafeSetTrigger(chargeTrigger);
-            
-            Debug.Log($"<color=cyan>Charge Started! Acceleration: 0 ? {chargeSpeed} over {accelerationTime}s</color>");
         }
 
         private void EndCharge()
@@ -129,7 +121,6 @@ namespace BehaviorTree
             agent.isStopped = true;
             
             float totalDistance = Vector3.Distance(chargeStartPosition, transform.position);
-            Debug.Log($"<color=yellow>Charge Ended - Distance: {totalDistance:F2}, Final Speed: {currentChargeSpeed:F2}</color>");
         }
 
         private void StopCharge()

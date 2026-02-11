@@ -13,7 +13,7 @@ public class PlayerDashState : PlayerState
     private GameObject currentTrail;
     
     private float baseDashDuration = 0.2f;
-    private float durationPerLevel = 0.15f;
+    private float durationPerLevel = 0.05f;
 
     public PlayerDashState(PlayerController player, PlayerStateMachine stateMachine)
         : base(player, stateMachine) { }
@@ -33,11 +33,12 @@ public class PlayerDashState : PlayerState
             SoundManager.Instance.PlaySound(SoundManager.Instance.ChargedAttack, player.gameObject);
         }
 
+
         //player.lastDashTime = Time.time;
         dashStartTime = Time.time;
-        
-
         dashStartPos = player.transform.position; 
+        player.AnimationEvents.ShowShieldVisuals();
+        
         
         if (player.Combat.dashTrailPrefab != null)
         {
@@ -107,6 +108,8 @@ public class PlayerDashState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        
+        player.AnimationEvents.HideShieldVisuals();
         
         if (currentTrail != null)
         {

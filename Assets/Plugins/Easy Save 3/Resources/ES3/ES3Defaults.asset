@@ -30,22 +30,28 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
+    - MoreMountains.NiceVibrations.Demos
     - Assembly-CSharp
     - MK.Toon.Editor
     - PPv2URPConverters
+    - MoreMountains.NiceVibrations.Editor
     - PsdPlugin
     - MK.Toon
+    - MoreMountains.NiceVibrations.Haptics
     - FMODUnityResonanceEditor
     - MK.Toon.Examples
     - FMODUnityEditor
     - FMODUnity
+    - MoreMountains.NiceVibrations
     - FMODUnityHaptics
     - FMODUnityResonance
     - MK.MKTextureChannelPacker
     - MK.MeshUtility
+    - MoreMountains.NiceVibrations.Rumble
     - ScriptablePacker
     - MK.RampCreator
     - MK.Toon.URP.Editor
+    - MoreMountains.NiceVibrations.Rumble.Editor
     - MK.Toon.URP
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0

@@ -45,6 +45,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroy: 0
+  MainMenuMusic:
+    Guid:
+      Data1: 1608839941
+      Data2: 1317376262
+      Data3: 454441657
+      Data4: -114012426
+    Path: event:/Music/Exploration
+  BossMusic:
+    Guid:
+      Data1: 1700936724
+      Data2: 1331528497
+      Data3: 1175648401
+      Data4: 2139006234
+    Path: event:/Music/Boss Fight
+  Regular:
+    Guid:
+      Data1: -1181198820
+      Data2: 1242810265
+      Data3: -1464576603
+      Data4: 882080975
+    Path: event:/Music/Regular combat
   OrbExplosion:
     Guid:
       Data1: 1960613308

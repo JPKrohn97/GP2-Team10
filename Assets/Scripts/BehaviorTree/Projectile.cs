@@ -25,10 +25,10 @@ public class Projectile : MonoBehaviour
         StartCoroutine(LifeTimeDespawn());
     }
 
-    private void Start()
-    {
+    //private void Start()
+    //{
         //DOVirtual.DelayedCall(lifetime, () => {ManagerObjectPool.Instance.Despawn(ObjectPoolType.EnemyProjectile, gameObject);});
-    }
+    //}
 
     IEnumerator LifeTimeDespawn() 
     { 

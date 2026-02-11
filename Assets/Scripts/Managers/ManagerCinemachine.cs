@@ -28,6 +28,10 @@ public class ManagerCinemachine : Singleton<ManagerCinemachine>
     {
         animator.SetTrigger("SecondBiteCamera");
     }
+    public void Narrative()
+    {
+        animator.SetTrigger("NarrativeCamera");
+    }
     //public void CinemachineShake(float intensity, float time)
     //{
     //    animator.SetFloat("ShakeIntensity", intensity);

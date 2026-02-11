@@ -17,11 +17,16 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     
     [Header("References")]
     public SkinnedMeshRenderer playerMesh; 
-    public Color flashColor = Color.red; 
+    public Color flashColor1 = Color.red;
+    public Color flashColor2 = Color.red;
+
     public float flashDuration = 0.3f;
     private Material playerMat;
-    private Color originalColor;
-    private Tween flashTween;
+    private Color originalColor1;
+    private Color originalColor2;
+
+    private Tween flashTween1;
+    private Tween flashTween2;
 
     private PlayerController playerController;
     private Animator animator;
@@ -37,10 +42,9 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
 
             playerMat = playerMesh.material;
 
-            if (playerMat.HasProperty("_Color"))
-                originalColor = playerMat.color;
-            else
-                originalColor = Color.white;
+            // Store originals to revert back correctly
+            originalColor1 = playerMat.GetColor("_RimBrightColor");
+            originalColor2 = playerMat.GetColor("_RimDarkColor");
         }
         
         currentHealth = maxHealth;
@@ -49,8 +53,9 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     
     public void TakeDamage(int damage)
     {
-        if (isDead) return; 
+        if (isDead) return;
 
+        ManagerVibration.Vibrate(MoreMountains.NiceVibrations.HapticTypes.HeavyImpact);
         currentHealth -= damage;
         
         DamageFlash();
@@ -74,11 +79,20 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
     {
         if (playerMat == null) return;
 
-        flashTween?.Kill();
+        flashTween1?.Kill();
+        flashTween1?.Kill();
 
-        playerMat.color = flashColor;
+        // 1. Flash to Damage Colors
+        playerMat.SetColor("_RimBrightColor", flashColor1);
+        playerMat.SetColor("_RimDarkColor", flashColor2);
 
-        flashTween = playerMat.DOColor(originalColor, flashDuration);
+        DOVirtual.DelayedCall(0.3f, () => 
+        {
+            playerMat.SetColor("_RimBrightColor", originalColor1);
+            playerMat.SetColor("_RimDarkColor", originalColor2);
+        });
+        
+
     }
 
 
@@ -123,7 +137,7 @@ public class PlayerHealthController : MonoBehaviour, IDamageable
 
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
-        //GameManager.Instance.RestartScene();
+        GameManager.Instance.RestartLevel();
     }
 
     private void UpdateHealthUI()

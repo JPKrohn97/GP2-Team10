@@ -51,18 +51,16 @@ public class MultiAngleProjectile : MonoBehaviour
 
         if (projectile != null)
         {
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (projectile.TryGetComponent<Rigidbody>(out var rb))
             {
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 rb.linearVelocity = shootDirection * projectileSpeed;
-            }
 
-            var projectileComponent = projectile.GetComponent<Projectile>();
-            if (projectileComponent != null)
-            {
-                projectileComponent.damage = damage;
+                if (projectile.TryGetComponent<Projectile>(out var projectileComponent))
+                {
+                    projectileComponent.damage = damage;
+                }
             }
         }
     }

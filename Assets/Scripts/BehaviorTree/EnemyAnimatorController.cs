@@ -112,8 +112,10 @@ public class EnemyAnimatorController : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPos = transform.position;
-        spawnPos.y = 0.5f;
+        Vector3 spawnPos = transform.position+transform.forward/2 + Vector3.up/10;
+
+        
+        
         
         GameObject shockwaveObj = ManagerObjectPool.Instance.Spawn(
             ObjectPoolType.BossGroundShockwave,

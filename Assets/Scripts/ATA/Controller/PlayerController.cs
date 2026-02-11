@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 3.5f;
 
     [Header("Skill Settings")] 
-    public int swordSkillDamage = 100;
+    public int swordSkillDamage = 50;
     private float lastSwordSkillTime = -100f;
     private float lastRangeSkill = -100f;
     private float lastDashTime = -100f;
@@ -40,13 +40,15 @@ public class PlayerController : MonoBehaviour
     public float swordSkillCooldown = 5f; 
     public float randeSkillCooldown = 5f; 
     
-    [Header("Mutation UI")]
+    [Header("UI")]
     public GameObject mutationButton;
+
+    public GameObject specialButton;
     
     [Space]
     public float groundCheckDistance = 0.1f;
     public LayerMask groundLayer;
-    private Collider col;
+    private CapsuleCollider col;
     
     public bool IsGrounded { get; private set; }
     public float LastAttackInputTime { get; private set; } = -100f;
@@ -79,12 +81,14 @@ public class PlayerController : MonoBehaviour
     public PlayerAirState AirState { get; private set; }
     public PlayerClawAttackState ClawAttackState { get; private set; }
     public PlayerMutationState MutationState { get; private set; }
+    public PlayerNarrativeState NarrativeState { get; private set; }
     public PlayerRangeAttackState RangeAttackState { get; private set; }
     public PlayerDashState DashState { get; private set; } 
     public PlayerSwordAttackState SwordAttackState { get; private set; }
     
     #endregion
 
+    private bool isSpecialJumped = false;   
     [Header("Pause Game Canvas")]
     public UIPauseGame Script;
 
@@ -98,12 +102,13 @@ public class PlayerController : MonoBehaviour
         InputHandler = new PlayerControls();
 
         RB = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
+        col = GetComponent<CapsuleCollider>();
 
         if (Combat == null) Combat = GetComponent<PlayerCombat>();
         if (AnimationEvents == null) AnimationEvents = GetComponent<PlayerAnimations>();
         if (Animator == null) Animator = GetComponent<Animator>();
         if (SkillController == null) SkillController = GetComponent<PlayerSkillController>();
+
         // Inputs
         MoveAction = InputHandler.Player.Move;
         JumpAction = InputHandler.Player.Jump;
@@ -119,6 +124,7 @@ public class PlayerController : MonoBehaviour
         AirState = new PlayerAirState(this, StateMachine);
         ClawAttackState = new PlayerClawAttackState(this, StateMachine);
         MutationState = new PlayerMutationState(this, StateMachine);
+        NarrativeState = new PlayerNarrativeState(this, StateMachine);
         RangeAttackState = new PlayerRangeAttackState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine); 
         SwordAttackState = new PlayerSwordAttackState(this, StateMachine);
@@ -127,6 +133,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         StateMachine.Initialize(IdleState);
+        SoundManager.Instance?.PlayMusic(SoundManager.Instance.Regular);
+
+
     }
 
     private void OnEnable()
@@ -160,6 +169,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         IsGrounded = CheckIfGrounded();
+        if (IsGrounded)
+        {
+            col.center = new Vector3(col.center.x, 0.9f, col.center.z);
+            col.height = 1.8f;
+        }
+
         StateMachine.CurrentState.LogicUpdate();
 
         if (InteractPause.WasPressedThisFrame())
@@ -202,25 +217,31 @@ public class PlayerController : MonoBehaviour
         if (col == null) return false;
         Vector3 origin = col.bounds.center;
         origin.y = col.bounds.min.y + 0.05f;
-        
-        return Physics.Raycast(origin, Vector3.down, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
+
+
+        return Physics.Raycast(origin, Vector3.down*1.1f, groundCheckDistance + 0.1f, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
     public void Jump()
     {
         if (!IsGrounded) return;
-
+        if (!GameManager.Instance.canPlayerMove) return;
         Vector3 v = RB.linearVelocity;
         v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
         RB.linearVelocity = v;
 
+        col.center = new Vector3(0, 1.2f, 0);
+        col.height = 0.9f;
         StateMachine.ChangeState(AirState);
     }
     
     
     public void VirtualDashInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
         
+        if (StateMachine.CurrentState == MutationState) return;
+
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Dash) <= 0)
             return;
         
@@ -239,6 +260,10 @@ public class PlayerController : MonoBehaviour
     
     public void VirtualJumpInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
+        
+        if (StateMachine.CurrentState == MutationState) return;
+
         Jump();
         
     }
@@ -246,6 +271,10 @@ public class PlayerController : MonoBehaviour
 
     public void VirtualClawAttackInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
+        
+        if (StateMachine.CurrentState == MutationState) return;
+
         if (StateMachine.CurrentState == SwordAttackState)
             return;
 
@@ -259,7 +288,9 @@ public class PlayerController : MonoBehaviour
 
     public void VirtualSkillSwordInput()
     {
-      
+        if (!GameManager.Instance.canPlayerMove) return;
+        if (StateMachine.CurrentState == MutationState) return;
+
         if (SkillController.GetSkillLevel(EnemyHealth.EnemyMutationType.Sword) <= 0)
             return;
 
@@ -284,11 +315,23 @@ public class PlayerController : MonoBehaviour
         CurrentWeapon = ActiveWeaponType.Claw;
         AnimationEvents?.HideSwordVisuals();
     }
-    
-    
-    
+
+
+    public void TriggerNarrative()
+    {
+        Debug.Log($"stop game");
+        StateMachine.ChangeState(NarrativeState);
+    }
+    public void UntriggerNarrative()
+    {
+        Debug.Log($"start game");
+        StateMachine.ChangeState(IdleState);
+    }
+
     public void VirtualMutationInput()
     {
+        if (!GameManager.Instance.canPlayerMove) return;
+
         if (IsOnDeadEnemy && CurrentDeadEnemy != null)
         {
             StateMachine.ChangeState(MutationState);
@@ -297,17 +340,60 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void VirtualSpecialJumpInput()
+    {
+        if (!GameManager.Instance.canPlayerMove) return;
+
+        if (specialButton != null)
+          specialButton.SetActive(false);
+      
+      Animator.SetTrigger("SpecialJump");
+        specialButton.SetActive(false);
+
+        GameManager.Instance.canPlayerMove = false;
+      Vector3 v =RB.linearVelocity;
+      v.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+      RB.linearVelocity = v;
+        isSpecialJumped = true;
+    }
+
+    
     private void OnTriggerEnter(Collider other)
     {
+        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break")&&!isSpecialJumped)
+        {
+            specialButton.SetActive(true);
+        }
+
+        if (other.CompareTag("Fall"))
+        {
+            specialButton.SetActive(false);
+            GameManager.Instance.canPlayerMove = true;
+            //SoundManager.Instance?.PlayMusic(SoundManager.Instance.Regular);
+
+        }
         if ((enemyPartLayer.value & (1 << other.gameObject.layer)) == 0) return;
 
         EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
-        if (enemy != null && enemy.IsDead)
+        if (enemy != null && enemy.IsDead && !enemy.isBoss)
         {
             CurrentDeadEnemy = enemy;
         }
+        if (other.CompareTag("BossMusic"))
+        {
+            SoundManager.Instance?.PlayMusic(SoundManager.Instance.BossMusic);
+
+        }
+
     }
-    
+    private void OnTriggerExit(Collider other)
+    {
+        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break"))
+        {
+            specialButton.SetActive(false);
+        }
+    }
+
     public void VirtualRangeInput()
     {
 
@@ -341,7 +427,7 @@ public class PlayerController : MonoBehaviour
             Rigidbody prb = projectile.GetComponent<Rigidbody>();
             if (prb != null)
             {
-                prb.linearVelocity = transform.forward * 30f;
+                prb.linearVelocity = transform.forward * 15f;
             }
         }
         
@@ -352,12 +438,16 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void ApplyKnockback(Vector3 dir, float force)
+    public void ApplyKnockback(Vector3 sourcePosition, float force)
     {
+        Vector3 dir = (transform.position - sourcePosition).normalized;
         dir.y = 0f;
-        RB.AddForce(-dir.normalized * force, ForceMode.Impulse);
-        DOVirtual.DelayedCall(0.5f,() => {
-             if(RB != null) RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
+
+        RB.AddForce(dir * force, ForceMode.Impulse);
+
+        DOVirtual.DelayedCall(0.5f, () => {
+            if (RB != null) 
+                RB.linearVelocity = new Vector3(0, RB.linearVelocity.y, 0);
         });
     }
     

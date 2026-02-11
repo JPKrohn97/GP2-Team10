@@ -1,63 +1,77 @@
-﻿using UnityEngine;
-using DG.Tweening; 
+﻿using DG.Tweening;
+using UnityEngine;
 
 public class PlayerMutationState : PlayerState
 {
+    private float biteDuration = 2f;
+    private float mutationDuration = 2f;
     
-    private float biteDuration = 2f;     
-    private float mutationDuration = 2.0f; 
+    private int healAmount = 50;
 
-    public PlayerMutationState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
+    private Tween biteTween;
+    private Tween mutationFinishTween;
+
+    public PlayerMutationState(PlayerController player, PlayerStateMachine stateMachine)
+        : base(player, stateMachine) { }
 
     public override void Enter()
     {
         base.Enter();
+
         player.RB.linearVelocity = Vector3.zero;
 
-         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Eating, player.gameObject);
-    
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.Eating, player.gameObject);
         player.AnimationEvents.SetAnimationTrigger("Bite");
 
-        EnemyHealth targetEnemy = player.CurrentDeadEnemy; 
-        
-        DOVirtual.DelayedCall(biteDuration, () =>
-        {
-            if(stateMachine.CurrentState == this)
-            {
-                if (targetEnemy != null)
-                {
-  
-                    var type = targetEnemy.mutationType;
-                    
-                    if(player.SkillController != null)
-                    {
-                        player.SkillController.AbsorbSkill(type);
-                    }
-                
-                    targetEnemy.ConsumeBody();
+        EnemyHealth targetEnemy = player.CurrentDeadEnemy;
 
-                    player.AnimationEvents.MutationSequence(type); 
-                    // -------------------------
+        biteTween = DOVirtual.DelayedCall(biteDuration, () =>
+        {
+            if (stateMachine.CurrentState != this) return;
+
+            if (targetEnemy != null)
+            {
+                var type = targetEnemy.mutationType;
+
+                player.SkillController?.AbsorbSkill(type);
+                targetEnemy.ConsumeBody();
+                PlayerHealthController healthScript = player.GetComponent<PlayerHealthController>();
+                if (healthScript != null)
+                {
+                    healthScript.Heal(healAmount);
                 }
                 
 
-                DOVirtual.DelayedCall(mutationDuration, () => 
-                {
-                    if(stateMachine.CurrentState == this)
-                    {
-                        FinishMutation();
-                    }
-                });
+                player.AnimationEvents.MutationSequence(type);
             }
+
+            mutationFinishTween = DOVirtual.DelayedCall(mutationDuration, () =>
+            {
+                if (stateMachine.CurrentState != this) return;
+                FinishMutation();
+            });
         });
+    }
+    
+    public override void LogicUpdate()
+    {
+
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
-        player.RB.linearVelocity = new Vector3(0, player.RB.linearVelocity.y, 0);
+        player.RB.linearVelocity = Vector3.zero;
+    }
+    
+    private void FinishMutation()
+    {
+        stateMachine.ChangeState(player.IdleState);
     }
 
-    private void FinishMutation() => stateMachine.ChangeState(player.IdleState);
+    public override void Exit()
+    {
+        base.Exit();
+        biteTween?.Kill();
+        mutationFinishTween?.Kill();
+    }
 }
