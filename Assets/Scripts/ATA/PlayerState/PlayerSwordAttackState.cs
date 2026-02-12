@@ -39,8 +39,14 @@ public class PlayerSwordAttackState : PlayerAttackState
 
     public override void LogicUpdate()
     {
+        
+        if (GameManager.Instance.canPlayerMove == false)
+        {
+            stateMachine.ChangeState(player.IdleState);
+            return;
+        }
 
-        if (Time.time < lastAttackStartTime + 0.10f)
+        if (Time.time < lastAttackStartTime + 0.10f)    
             return;
 
         if (!waitingForNextStep)

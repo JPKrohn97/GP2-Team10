@@ -32,6 +32,12 @@ public class PlayerClawAttackState : PlayerAttackState
     {
         base.LogicUpdate(); 
         
+        if (GameManager.Instance.canPlayerMove == false)
+        {
+            stateMachine.ChangeState(player.IdleState);
+            return;
+        }
+        
         bool hasBufferedInput = (player.LastAttackInputTime > startTime) && 
                                 (Time.time - player.LastAttackInputTime <= comboBufferTime);
         

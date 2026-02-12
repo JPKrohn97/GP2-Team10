@@ -31,6 +31,11 @@ public class PlayerRangeAttackState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (GameManager.Instance.canPlayerMove == false)
+        {
+            stateMachine.ChangeState(player.IdleState);
+            return;
+        }
 
         attackTimer -= Time.deltaTime;
 
