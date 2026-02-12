@@ -18,10 +18,7 @@ public class BreakableGround : MonoBehaviour
         {
             Rigidbodies[i].isKinematic = true;
         }
-        if (ManagerSave.Instance.SaveState.isFirstBossDefeated)
-        {
-            gameObject.SetActive(false);
-        }
+        
         
     }
     private void OnTriggerEnter(Collider other)

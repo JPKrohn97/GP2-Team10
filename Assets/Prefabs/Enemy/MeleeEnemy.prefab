@@ -228,6 +228,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1292823693908950435, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: leftHitCollider
+      value: 
+      objectReference: {fileID: 4042583565482755506}
+    - target: {fileID: 1292823693908950435, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
+      propertyPath: rightHitCollider
+      value: 
+      objectReference: {fileID: 4042583565482755506}
     - target: {fileID: 2557340960593766060, guid: 058e7ae11ac1e6847ac8a867ee31a025, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -521,9 +529,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.01822951, y: 0.014567312, z: 0.0078046643}
   m_Center: {x: -0.007437778, y: -0.0034966609, z: -0.002871187}

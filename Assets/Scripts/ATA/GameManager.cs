@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
 
     public Animator playerAnimator;
     public Image blackFadeImage;
+    public bool isBossDefeated = false; 
     void Awake()
     {
         bossLegLeftMaterial = leftLegRenderer.material;
@@ -30,7 +31,7 @@ public class GameManager : Singleton<GameManager>
 
 
         canPlayerMove = true;
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 144;
 
         QualitySettings.vSyncCount = 0;
     }
@@ -53,6 +54,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void OnBossDefeated()
     {
+        isBossDefeated = true;
         canPlayerMove = false;
 
         DOVirtual.DelayedCall(0.1f, () =>

@@ -361,7 +361,7 @@ public class PlayerController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break")&&!isSpecialJumped)
+        if (GameManager.Instance.isBossDefeated && other.gameObject.CompareTag("Break")&&!isSpecialJumped)
         {
             specialButton.SetActive(true);
         }
@@ -389,7 +389,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (ManagerSave.Instance.SaveState.isFirstBossDefeated && other.gameObject.CompareTag("Break"))
+        if (GameManager.Instance.isBossDefeated && other.gameObject.CompareTag("Break"))
         {
             specialButton.SetActive(false);
         }

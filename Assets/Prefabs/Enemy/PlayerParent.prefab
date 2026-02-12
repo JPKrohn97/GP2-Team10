@@ -528,7 +528,7 @@ MonoBehaviour:
   Animator: {fileID: 5044359644171570836}
   Combat: {fileID: 3218893614409839678}
   AnimationEvents: {fileID: 7379944694546659991}
-  SkillController: {fileID: 0}
+  SkillController: {fileID: 3727422307515819468}
   moveSpeed: 6
   jumpHeight: 3
   fallMultiplier: 4
@@ -577,7 +577,7 @@ MonoBehaviour:
   bitePos: {fileID: 5615560404989133585}
   leftAttackCollider: {fileID: 3018205048921880893}
   rightAttackCollider: {fileID: 5663168952328779993}
-  rightSwordAttackCollider: {fileID: 0}
+  rightSwordAttackCollider: {fileID: 2079595884099700510}
 --- !u!114 &1786693667100431956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,6 +1307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordHandLow
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bbadccc6b8f0d164ab60957b3ff48206, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1318,6 +1322,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2079595884099700510}
   m_SourcePrefab: {fileID: 100100000, guid: bbadccc6b8f0d164ab60957b3ff48206, type: 3}
+--- !u!23 &1121380819410415785 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: bbadccc6b8f0d164ab60957b3ff48206, type: 3}
+  m_PrefabInstance: {fileID: 1751447566102719533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1481417756435501436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bbadccc6b8f0d164ab60957b3ff48206, type: 3}
@@ -1350,9 +1359,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.04335857, y: 0.014567309, z: 0.007804661}
   m_Center: {x: -0.0200025, y: -0.0034967165, z: -0.0028711916}
@@ -2234,7 +2243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9d657031264a639188c9c7ba8998f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponMeshRenderer: {fileID: 0}
+  weaponMeshRenderer: {fileID: 1121380819410415785}
   weaponMaterial: {fileID: 2100000, guid: dfdbea5274e79a54ca13385e15ca0f9b, type: 2}
   bossLegsMeshRenderer: {fileID: 0}
   bossLegsMaterial: {fileID: 0}
